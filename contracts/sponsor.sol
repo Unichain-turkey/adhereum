@@ -1,4 +1,4 @@
-pragma solidity ^0.4.23;
+pragma solidity ^0.4.17;
 
 import "./Ownable.sol";
 
@@ -11,7 +11,7 @@ contract Sponsor is Ownable{
     uint64 startTime;
     uint numberofMonth;
 
-    function Sponsor(string _name,string _url,bytes32 _imageHash,uint _numberofMonth){
+    function Sponsor(string _name,string _url,bytes32 _imageHash,uint _numberofMonth) public {
      name=_name;
      url=_url;
      imageHash=_imageHash;

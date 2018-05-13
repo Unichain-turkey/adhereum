@@ -1,4 +1,4 @@
-pragma solidity ^0.4.4;
+pragma solidity ^0.4.17;
 
 import "./Sponsor.sol";
 import "./Ownable.sol";

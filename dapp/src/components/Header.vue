@@ -13,19 +13,8 @@
 
 <script>
 export default {
-  name: 'Header',
-  data: function () {
-    return {
-      totalActivity: null
-    }
-  },
-  created () {
-    const temp = this.$store.getters.contractInstance().methods.getTotalActivity().call()
-    let that = this
-    temp.then(function (val) {
-      that.totalActivity = val
-    })
-  }
+  name: 'Header'
+
 }
 </script>
 

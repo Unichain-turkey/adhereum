@@ -1,8 +1,8 @@
 import Web3 from 'web3'
 
-import activityContract from '../../build/contracts/Activitycontract.json'
+import factorySposnsor from '../../build/contracts/FactorySponsor.json'
 
-var addrActivityContract = '0x88c015d75be972177f171efcf6fd708d095c83b5'
+var addrFactory= '0x88c015d75be972177f171efcf6fd708d095c83b5'
 
 var contractInstance = null
 
@@ -11,12 +11,11 @@ var isInjected = false
 console.log(window.web3)
 if (typeof web3 !== 'undefined') {
   web3 = new Web3(web3.currentProvider)
-  contractInstance = new web3.eth.Contract(activityContract.abi, addrActivityContract)
-  console.log('herer injected')
+  contractInstance = new web3.eth.Contract(factorySposnsor.abi, addrFactory)
   isInjected = true
 } else {
   web3 = new Web3(new Web3.providers.HttpProvider('http://localhost:8545'))
-  contractInstance = new web3.eth.Contract(activityContract.abi, addrActivityContract)
+  contractInstance = new web3.eth.Contract(factorySposnsor.abi, addrFactory)
 
   isInjected = false
 }
