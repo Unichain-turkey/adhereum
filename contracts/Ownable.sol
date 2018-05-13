@@ -39,7 +39,10 @@ contract Ownable {
     OwnershipTransferred(owner, newOwner);
     owner = newOwner;
   }
-
+    
+   function getOwner() public view returns(address){
+       return owner;
+   }
   /**
    * @dev Allows the current owner to relinquish control of the contract.
    */

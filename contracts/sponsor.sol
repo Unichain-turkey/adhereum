@@ -10,7 +10,7 @@ contract Sponsor is Ownable{
     bytes32 imageHash;
     uint64 startTime;
     uint numberofMonth;
-    
+
     function Sponsor(string _name,string _url,bytes32 _imageHash,uint _numberofMonth){
      name=_name;
      url=_url;
@@ -19,6 +19,23 @@ contract Sponsor is Ownable{
      numberofMonth=_numberofMonth;
     }
     
+    function setUrl(string _url)public onlyOwner{
+        url=_url;
+    }
+    function setHash(bytes32 _imageHash)public onlyOwner{
+        imageHash=_imageHash;
+    }
+    function setName(string _name)public onlyOwner{
+        name=_name;
+    }
+    function kill(bool flag) public onlyOwner{
+        require(flag);
+        selfdestruct(owner);
+    }
+    function getSponsor() public view returns(string ,string ,bytes32 ){
+        return (name, url,imageHash);
+    }
+
     function getName()public view returns (string){
         return name;
     }
@@ -30,7 +47,6 @@ contract Sponsor is Ownable{
      function getHash()public view returns (bytes32){
         return imageHash;
     }
-    
     
     
     
