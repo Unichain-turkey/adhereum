@@ -1,7 +1,7 @@
 {
-  "name": "adhereum",
+  "name": "dapp",
   "version": "1.0.0",
-  "description": "Smart kontratlarla sponsorluk sistemi",
+  "description": "Adhereum web interface",
   "author": "unichain-turkey",
   "private": true,
   "scripts": {
