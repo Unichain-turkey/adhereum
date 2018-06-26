@@ -13,7 +13,7 @@ export default {
 </script>
 
 <style>
-  .spec-footer:{
-    font-family: 'Ubuntu Mono', monospace;
+  .spec-footer {
+    margin-bottom: 0;
   }
 </style>

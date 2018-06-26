@@ -19,4 +19,7 @@ export default {
 </script>
 
 <style>
+  #app {
+    font-family: 'Ubuntu', sans-serif;
+  }
 </style>

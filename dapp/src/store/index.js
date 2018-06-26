@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 
-import { web3Instance, contractInstance } from '../web3main.js'
+import { web3Instance, contractInstance } from '../common/web3main.js'
 
 Vue.use(Vuex)
 

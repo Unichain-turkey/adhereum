@@ -1,5 +1,5 @@
 import Web3 from 'web3'
-import sponsorContract from '../../build/contracts/FactorySponsor.json'
+import sponsorContract from '../../../build/contracts/FactorySponsor.json'
 var sponsorContractAddress = '0xe1995ed193da7c21766109bb96690f0c2d42ee44'
 
 const contractInstance = new Promise(function (resolve, reject) {
