@@ -1,30 +1,41 @@
 <template>
   <div>
     <div class="jumbotron elma">
-      <h1 class="display-4">Let's be a Sponsor of Us!</h1>
-      <p class="lead">This is a blockchain based sponsor application ...</p>
+      <h1 class="display-4">this field intentionally left blank</h1>
+      <p class="lead">...</p>
       <hr class="my-4">
-      <p>You can be a sponsor of us here, which is a blockchain based application</p>
+      <p>...</p>
       <p class="lead">
-        <a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a>
+        <a class="btn btn-outline-info btn-block"
+           href="https://github.com/Unichain-turkey"
+           role="button"
+           target="_blank">Learn more</a>
       </p>
     </div>
     <div class="container">
-      <div style="color:red">
-          <h1>{{$route.name}}</h1>
-
-          <div v-if="msg">
-          </div>
+      <div class="statistics">
+        <div class="row">
+          <div class="col">Total sponsor</div>
+          <div class="col">Total amount</div>
+          <div class="col">Active sponsor</div>
+        </div>
       </div>
     </div>
   </div>
 </template>
 <script>
 /*
-sponsorluk formu
-bütün sponsorların countu
+
+header
+giriş
+istatistikler
+
 loop ile sponsor[index] şeklinde bütün sponsorları çek
 aktif olanları listele
+pasif olanları da listeleme olabilir. geçmiş alanında
+
+eklemeyi modal ile yap
+sponsorluk formu
 
  */
 export default {
@@ -55,6 +66,6 @@ export default {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-align: center;
-    color: #2c3e50;
+    color: rgba(235, 0, 66, 0.78);
   }
 </style>
