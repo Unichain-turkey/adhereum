@@ -1,6 +1,8 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 
+import { web3Instance, contractInstance } from '../common/web3main.js'
+
 Vue.use(Vuex)
 
 export default new Vuex.Store({
@@ -38,11 +40,19 @@ export default new Vuex.Store({
     }
   },
   actions: {
-    createWeb3 ({ commit }, result) {
-      commit('CREATEWEB3', result)
+    createWeb3 ({ commit }) {
+      web3Instance.then(value => {
+        commit('CREATEWEB3', value)
+      }, reason => {
+        console.log(reason)
+      })
     },
-    setContract ({ commit }, result) {
-      commit('SETCONTRACTINSTANCE', result)
+    setContract ({ commit }) {
+      contractInstance.then(value => {
+        commit('SETCONTRACTINSTANCE', value)
+      }, reason => {
+        console.log(reason)
+      })
     }
   },
   getters: {
@@ -56,7 +66,11 @@ export default new Vuex.Store({
       return (state.web3.balance / 1000000000000000000).toFixed(4)
     },
     currentAddress: state => {
-      return state.web3.coinbase
+      if ((state.web3.coinbase) !== null) {
+        return state.web3.coinbase[0]
+      } else {
+        return 'Null'
+      }
     },
     network: state => {
       return state.NETWORKS[state.web3.networkId]

@@ -35,18 +35,18 @@ contract Ownable {
    */
   function transferOwnership(address newOwner) public onlyOwner {
     require(newOwner != address(0));
-    OwnershipTransferred(owner, newOwner);
+    emit OwnershipTransferred(owner, newOwner);
     owner = newOwner;
   }
-    
-   function getOwner() public view returns(address){
-       return owner;
-   }
+
+  function getOwner() public view returns(address){
+    return owner;
+  }
   /**
    * @dev Allows the current owner to relinquish control of the contract.
    */
   function renounceOwnership() public onlyOwner {
-    OwnershipRenounced(owner);
+    emit OwnershipRenounced(owner);
     owner = address(0);
   }
 }
