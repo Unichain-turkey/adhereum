@@ -3,22 +3,21 @@ pragma solidity ^0.4.17;
 import "./Ownable.sol";
 
 contract Sponsor is Ownable{
-    
-    
+
     string name;
     string url;
     bytes32 imageHash;
     uint64 startTime;
-    uint numberofMonth;
+    uint duration;
 
-    function Sponsor(string _name,string _url,bytes32 _imageHash,uint _numberofMonth) public {
-     name=_name;
-     url=_url;
-     imageHash=_imageHash;
-     startTime=uint64(now);
-     numberofMonth=_numberofMonth;
+    constructor(string _name,string _url,bytes32 _imageHash,uint _duration) public {
+        name=_name;
+        url=_url;
+        imageHash=_imageHash;
+        startTime=uint64(now);
+        duration=_duration;
     }
-    
+
     function setUrl(string _url)public onlyOwner{
         url=_url;
     }
@@ -39,15 +38,15 @@ contract Sponsor is Ownable{
     function getName()public view returns (string){
         return name;
     }
-    
-     function getUrl()public view returns (string){
+
+    function getUrl()public view returns (string){
         return url;
     }
 
-     function getHash()public view returns (bytes32){
+    function getHash()public view returns (bytes32){
         return imageHash;
     }
-    
+
     
     
     
