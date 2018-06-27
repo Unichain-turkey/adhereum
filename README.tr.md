@@ -22,6 +22,8 @@ cd adhereum
 dapp klasörüne gidiyoruz ve aşağıdaki komutlardan gerekli olanları çalıştırıyoruz.
 
 
+>(Truffle js coming soon...) 
+
 ##### Gereksinimleri kuruyoruz
 ```
 npm install
