@@ -2,7 +2,7 @@
 
 Smart kontratlar ile sponsorluk işlemleri için geliştirilmiş web uygulaması.
 
-*Read this in other languages (Diğer diller): [Türkçe](README.tr.md), [English](README.en.md)*
+*Read this in other languages (Diğer diller): [Türkçe](README.tr.md), [English](README.md)*
 ## Başlarken
 
 Aşağıdaki adımlar ile, uygulamayı kendi bilgisayarınıza nasıl kopyalayabileceğiniz, bilgisayarınızda nasıl çalıştırabileceğiniz, ve üzerinde değişiklikler yapmak üzere nasıl hazır hale getirebileceğiniz anlaşatılmıştır.
