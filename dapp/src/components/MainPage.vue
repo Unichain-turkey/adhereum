@@ -13,13 +13,8 @@
       </p>
     </div>
     <div class="container">
-      <div class="statistics">
-        <div class="row">
-          <div class="col">Total sponsor</div>
-          <div class="col">Total amount</div>
-          <div class="col">Active sponsor</div>
-        </div>
-      </div>
+      <statistics></statistics>
+      <create-sponsorship></create-sponsorship>
     </div>
   </div>
 </template>
@@ -38,9 +33,14 @@ eklemeyi modal ile yap
 sponsorluk formu
 
  */
+import CreateSponsorship from '@/components/CreateSponsorship.vue'
+import Statistics from '@/components/Statistics.vue'
 export default {
   name: 'MainPage',
-  components: {},
+  components: {
+    'create-sponsorship': CreateSponsorship,
+    'statistics': Statistics
+  },
   data () {
     return {
       posts: [],
