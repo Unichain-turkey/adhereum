@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 
-import { web3Instance, contractInstance } from '../common/web3main.js'
+import { ipfs ,web3Instance, contractInstance } from '../common/web3main.js'
 
 Vue.use(Vuex)
 
@@ -16,6 +16,7 @@ export default new Vuex.Store({
       error: null
     },
     contractInstance: null,
+    ipfsApi: null,
     NETWORKS: {
       '1': 'Main Net',
       '2': 'Deprecated Morden test network',
@@ -44,6 +45,9 @@ export default new Vuex.Store({
     SETSPONSORCOUNT (state, result) {
       state.sponsorCount = result
     },
+    SETIPFS (state, result) {
+      state.ipfsApi = result
+    },
     SETACTIVESPONSORCOUNT (state, result) {
       state.activeSponsorCount = result
     },
@@ -66,9 +70,13 @@ export default new Vuex.Store({
         console.log(reason)
       })
     },
+    ipfsSet ({ commit }) {
+      commit('SETIPFS',ipfs)
+    },
     setSponsorCount ({ commit }, result) {
       commit('SETSPONSORCOUNT', result)
     },
+
     setActiveSponsorCount ({ commit }, result) {
       commit('SETACTIVESPONSORCOUNT', result)
     },
@@ -107,6 +115,10 @@ export default new Vuex.Store({
     },
     totalValue: state => {
       return state.totalValue
+    },
+    getIpfs: state => {
+      return state.ipfsApi
     }
+
   }
 })

@@ -20,6 +20,7 @@ Vue.filter('toWei', function (value) {
   try {
     await store.dispatch('setContract')
     await store.dispatch('createWeb3')
+    await store.dispatch('ipfsSet')
   } catch (e) {
     console.log('uff', e)
   } finally {
