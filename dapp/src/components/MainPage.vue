@@ -15,10 +15,7 @@
     <div class="container">
       <statistics></statistics>
       <create-sponsorship></create-sponsorship>
-      <div>
-        details
-        {{sponsors}}
-      </div>
+      <sponsor></sponsor>
     </div>
   </div>
 </template>
@@ -39,11 +36,13 @@ sponsorluk formu
  */
 import CreateSponsorship from '@/components/CreateSponsorship.vue'
 import Statistics from '@/components/Statistics.vue'
+import Sponsor from '@/components/Sponsor.vue'
 export default {
   name: 'MainPage',
   components: {
     'create-sponsorship': CreateSponsorship,
-    'statistics': Statistics
+    'statistics': Statistics,
+    'sponsor': Sponsor
   },
   data () {
     return {
