@@ -49,8 +49,7 @@ export default {
     },
     uploadImage () {
       console.log('Hash of image', this.imageHash)
-      console.log('name of product', this.productName)
-      if (this.imageHash != null && this.productName !== '') {
+      if (this.imageHash != null) {
         console.log("Okey")
 
       } else {
