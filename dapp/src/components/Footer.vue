@@ -1,6 +1,6 @@
 <template>
   <div>
-    <footer class="card-footer fixed-bottom">
+    <footer class="card-footer">
       <p class="text-center spec-footer">@2018 Unichain Turkey</p>
     </footer>
   </div>
