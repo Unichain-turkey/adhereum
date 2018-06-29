@@ -13,7 +13,7 @@ import 'bootstrap/dist/css/bootstrap.css'
 Vue.config.productionTip = false
 
 Vue.filter('toWei', function (value) {
-  return web3.utils.toWei(value, 'ether')
+  return web3.utils.toWei(value, 'finney')
 })
 
 ;(async () => {

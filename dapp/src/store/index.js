@@ -7,14 +7,12 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    web3: {
-      isInjected: false,
-      web3Instance: null,
-      networkId: null,
-      coinbase: null,
-      balance: null,
-      error: null
-    },
+    isInjected: false,
+    web3Instance: null,
+    networkId: null,
+    coinbase: null,
+    balance: null,
+    error: null,
     contractInstance: null,
     NETWORKS: {
       '1': 'Main Net',
@@ -32,11 +30,11 @@ export default new Vuex.Store({
   strict: true, // don't leave it true on production
   mutations: {
     CREATEWEB3 (state, result) {
-      state.web3.balance = result.balance
-      state.web3.coinbase = result.coinbase
-      state.web3.networkId = result.networkId
-      state.web3.isInjected = result.isInjected
-      state.web3.web3Instance = result.web3
+      state.balance = result.balance
+      state.coinbase = result.coinbase
+      state.networkId = result.networkId
+      state.isInjected = result.isInjected
+      state.web3Instance = result.web3
     },
     SETCONTRACTINSTANCE (state, result) {
       state.contractInstance = () => result
@@ -77,24 +75,21 @@ export default new Vuex.Store({
     }
   },
   getters: {
-    web3state: state => {
-      return state.web3
-    },
     web3InstanceGetter: state => {
-      return state.web3.web3Instance
+      return state.web3Instance
     },
     balance: state => {
-      return (state.web3.balance / 1000000000000000000).toFixed(4)
+      return (state.balance / 1000000000000000000).toFixed(4)
     },
     currentAddress: state => {
-      if ((state.web3.coinbase) !== null) {
-        return state.web3.coinbase[0]
+      if ((state.coinbase) !== null) {
+        return state.coinbase[0]
       } else {
         return 'Null'
       }
     },
     network: state => {
-      return state.NETWORKS[state.web3.networkId]
+      return state.NETWORKS[state.networkId]
     },
     contractInstance: state => {
       return state.contractInstance
