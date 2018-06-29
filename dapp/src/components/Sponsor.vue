@@ -1,4 +1,4 @@
-git<template>
+g<template>
   <div>
     <div class="row" v-for="sponsor in sponsors">
       <div class="col">
