@@ -24,7 +24,10 @@ export default new Vuex.Store({
       '42': 'Kovan test network',
       '4447': 'Truffle Develop Network',
       '5777': 'Ganache Blockchain'
-    }
+    },
+    sponsorCount: 0,
+    activeSponsorCount: 0,
+    totalValue: 0
   },
   strict: true, // don't leave it true on production
   mutations: {
@@ -37,6 +40,15 @@ export default new Vuex.Store({
     },
     SETCONTRACTINSTANCE (state, result) {
       state.contractInstance = () => result
+    },
+    SETSPONSORCOUNT (state, result) {
+      state.sponsorCount = result
+    },
+    SETACTIVESPONSORCOUNT (state, result) {
+      state.activeSponsorCount = result
+    },
+    SETTOTALVALUE (state, result) {
+      state.totalValue = result
     }
   },
   actions: {
@@ -53,6 +65,15 @@ export default new Vuex.Store({
       }, reason => {
         console.log(reason)
       })
+    },
+    setSponsorCount ({ commit }, result) {
+      commit('SETSPONSORCOUNT', result)
+    },
+    setActiveSponsorCount ({ commit }, result) {
+      commit('SETACTIVESPONSORCOUNT', result)
+    },
+    setTotalValue ({ commit }, result) {
+      commit('SETTOTALVALUE', result)
     }
   },
   getters: {
@@ -77,6 +98,15 @@ export default new Vuex.Store({
     },
     contractInstance: state => {
       return state.contractInstance
+    },
+    sponsorCount: state => {
+      return state.sponsorCount
+    },
+    activeSponsorCount: state => {
+      return state.activeSponsorCount
+    },
+    totalValue: state => {
+      return state.totalValue
     }
   }
 })
