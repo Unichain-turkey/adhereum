@@ -14,7 +14,9 @@
     </div>
     <div class="container">
       <statistics></statistics>
+      <br/>
       <create-sponsorship></create-sponsorship>
+      <br/>
       <sponsor></sponsor>
     </div>
   </div>
