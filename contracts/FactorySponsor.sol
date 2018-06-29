@@ -16,9 +16,9 @@ contract FactorySponsor is Ownable{
     address[] public Sponsors;//
     mapping (address => address) public addressToSponsor;
 
-    event beenSponsor(address indexed sponsor, string name,uint month);
-    event removedSponsor(address indexed sponsor, string name,uint month);
-    event expiredSponsor(address indexed sponsor, string name,uint month);
+    event beenSponsor(address indexed sponsor, string name, uint month, uint timestamp);
+    event removedSponsor(address indexed sponsor, string name,uint month, uint timestamp);
+    event expiredSponsor(address indexed sponsor, string name,uint month, uint timestamp);
 
     modifier Active(){
         require(isActive);
@@ -35,16 +35,15 @@ contract FactorySponsor is Ownable{
     payable
     Active
     public{
-
-        require(msg.value >= price* 10**15);
-        require(sponsorCount< sponsorLimit);
-        require(addressToSponsor[msg.sender]==address(0));
+        require(msg.value >= price * (1 finney) );
+        require(sponsorCount < sponsorLimit);
+        // require(addressToSponsor[msg.sender]==address(0));
 
         Sponsor _sponsor=new Sponsor(_name,_url,_imageHash,_duration);
         Sponsors.push(address(_sponsor));
         addressToSponsor[msg.sender]=address(_sponsor);
         sponsorCount+=1;
-        emit beenSponsor(address(_sponsor),_name,_duration);
+        emit beenSponsor(address(_sponsor),_name,_duration, now);
 
     }
 
@@ -55,24 +54,32 @@ contract FactorySponsor is Ownable{
         delete addressToSponsor[_temp.getOwner()];
         delete Sponsors[_index];
         sponsorCount-=1;
-
+        emit removedSponsor(address(_temp), _temp.getName(), _temp.getDuration(), now);
     }
 
     function setLimit(uint _limit) public onlyOwner{
         require(_limit>=sponsorCount);
         sponsorLimit=_limit;
     }
+    function getLimit() public view returns(uint){
+        return sponsorLimit;
+    }
     function setActive(bool _isActive) public onlyOwner(){
         isActive=_isActive;
+    }
+    function getActive() public view returns(bool){
+        return isActive;
     }
     function setPrice(uint _price) public onlyOwner(){
         price=_price;
     }
+    function getPrice() public view returns(uint){
+        return price;
+    }
     function getSponsor(uint _index) public view returns(address){
-       return Sponsors[_index];
+        return Sponsors[_index];
     }
     function getSponsorCount() public view returns(uint){
-       return sponsorCount;
+        return sponsorCount;
     }
-
 }
