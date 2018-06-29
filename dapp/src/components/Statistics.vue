@@ -1,9 +1,9 @@
 <template>
   <div class="statistics">
     <div class="row">
-      <div class="col">Total sponsor</div>
-      <div class="col">Total amount</div>
-      <div class="col">Active sponsor</div>
+      <div class="col">Total sponsor: {{ $store.getters.sponsorCount }}</div>
+      <div class="col">Total amount {{ $store.getters.totalValue }} $</div>
+      <div class="col">Active sponsor {{ $store.getters.activeSponsorCount }}</div>
     </div>
   </div>
 </template>

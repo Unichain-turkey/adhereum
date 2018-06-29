@@ -3,18 +3,14 @@
 
 import Vue from 'vue'
 import web3 from 'web3'
-
 import App from './App'
 import router from './router'
 import store from './store'
 
-import BootstrapVue from 'bootstrap-vue'
+import 'bootstrap/dist/js/bootstrap.js'
 import 'bootstrap/dist/css/bootstrap.css'
-import 'bootstrap-vue/dist/bootstrap-vue.css'
 
 Vue.config.productionTip = false
-Vue.use(BootstrapVue)
-
 
 Vue.filter('toWei', function (value) {
   return web3.utils.toWei(value, 'ether')
