@@ -9,13 +9,17 @@ contract Sponsor is Ownable{
     string imageHash;
     uint64 startTime;
     uint duration;
+    uint deadTime;
 
-    constructor(string _name,string _url,string _imageHash,uint _duration) public {
+    constructor(string _name,string _url,string _imageHash,uint _duration) public
+    {
         name=_name;
         url=_url;
         imageHash=_imageHash;
         startTime=uint64(now);
         duration=_duration;
+        deadTime=calculateDeadTime(_duration,startTime);
+
     }
 
     function setUrl(string _url)public onlyOwner{
@@ -45,5 +49,13 @@ contract Sponsor is Ownable{
     }
     function getDuration()public view returns (uint){
         return duration;
+    }
+    function getDeadTime()public view returns (uint){
+        return deadTime;
+    }
+    function calculateDeadTime(uint _duration, uint64 _startTime)public returns (uint)
+    {
+        deadTime = _duration + _startTime;
+        return deadTime;
     }
 }

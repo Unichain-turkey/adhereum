@@ -136,6 +136,17 @@ contract FactorySponsor is Ownable{
     function getNumberPending() public view returns(uint){
         return pendingList.length;
     }
+    function expireDetect() public
+    {
+        uint i = 0;
+        for(i;i<sponsorCount;i++){
+        Sponsor _temp=Sponsor(Sponsors[i]);
+        require(uint64(now) >= _temp.getDeadTime());
+        delete addressToSponsor[_temp.getOwner()];
+        delete Sponsors[i];
+        sponsorCount-=1;
+        }
+    }
 
 
 }
