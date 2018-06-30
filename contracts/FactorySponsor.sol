@@ -31,7 +31,7 @@ contract FactorySponsor is Ownable{
 
     }
     //expire need
-    function beSponsor(string _name,string _url,bytes32 _imageHash,uint _duration)
+    function beSponsor(string _name,string _url,string _imageHash,uint _duration)
     payable
     Active
     public{

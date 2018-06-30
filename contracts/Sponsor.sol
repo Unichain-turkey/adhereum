@@ -6,11 +6,11 @@ contract Sponsor is Ownable{
 
     string name;
     string url;
-    bytes32 imageHash;
+    string imageHash;
     uint64 startTime;
     uint duration;
 
-    constructor(string _name,string _url,bytes32 _imageHash,uint _duration) public {
+    constructor(string _name,string _url,string _imageHash,uint _duration) public {
         name=_name;
         url=_url;
         imageHash=_imageHash;
@@ -24,10 +24,10 @@ contract Sponsor is Ownable{
     function getUrl()public view returns (string){
         return url;
     }
-    function setHash(bytes32 _imageHash)public onlyOwner{
+    function setHash(string _imageHash)public onlyOwner{
         imageHash=_imageHash;
     }
-    function getHash()public view returns (bytes32){
+    function getHash()public view returns (string){
         return imageHash;
     }
     function setName(string _name)public onlyOwner{
@@ -40,7 +40,7 @@ contract Sponsor is Ownable{
         require(flag);
         selfdestruct(owner);
     }
-    function getSponsor() public view returns(string ,string ,bytes32 ){
+    function getSponsor() public view returns(string ,string ,string ){
         return (name, url,imageHash);
     }
     function getDuration()public view returns (uint){

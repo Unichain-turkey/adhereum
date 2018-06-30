@@ -31,6 +31,16 @@
                 <input type="url" class="form-control" v-model="sponsorUrl" id="inputUrl" aria-describedby="urlHelp" placeholder="url.com">
                 <small id="urlHelp" class="form-text text-muted">Any url will be accepted</small>
               </div>
+              <form @submit.prevent="uploadImage()">
+                <div class="form-group">
+                  <div class="form-group">
+                    <label for="inputFile">İmage</label>
+                    <input type="file" class="form-control" @change="onFileChanged" id="inputFile" aria-describedby="fileHelp" placeholder="Place File">
+                    <small id="fileHelp" class="form-text text-muted">Load your image</small>
+                  </div>
+                </div>
+                <button type="button" v-on:click="onUpload"  class="btn btn-outline-info btn-block" >Load image to Ipfs </button>
+              </form>
               <div class="form-group">
                 <label for="inputHash">İmage Hash</label>
                 <input type="text" class="form-control" v-model="imageHash" id="inputHash" aria-describedby="hashHelp" placeholder="0x00000000000000000000000000000000">
@@ -71,7 +81,8 @@ export default {
       imageHash: '',
       duration: null,
       deployedContract: this.$store.getters.contractInstance(),
-      pending: false
+      pending: false,
+      image: null
     }
   },
   methods: {
@@ -92,6 +103,34 @@ export default {
         }
         this.pending = false
       })
+    },
+    onFileChanged (event) {
+      this.image = event.target.files[0]
+    },
+    onUpload () {
+      let ipfs = this.$store.getters.getIpfs
+      console.log(ipfs)
+      let reader = new window.FileReader()
+      reader.onload = function (e) {
+        let buffer = Buffer.from(reader.result)
+        ipfs.add(buffer, {progress: (prog) => console.log(`received: ${prog}`)})
+          .then((response) => {
+            this.imageHash = response[0].hash
+            console.log(response[0].hash)
+          }).catch((err) => {
+          console.error(err)
+        })
+      }.bind(this)
+      reader.readAsArrayBuffer(this.image)
+    },
+    uploadImage () {
+      console.log('Hash of image', this.imageHash)
+      if (this.imageHash != null) {
+        console.log("Okey")
+
+      } else {
+        alert('Please fill the all fields')
+      }
     }
   }
 }
