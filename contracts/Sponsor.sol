@@ -44,8 +44,8 @@ contract Sponsor is Ownable{
         require(flag);
         selfdestruct(owner);
     }
-    function getSponsor() public view returns(string ,string ,string ){
-        return (name, url,imageHash);
+    function getSponsor() public view returns(string ,string ,string,uint){
+        return (name, url,imageHash,duration);
     }
     function getDuration()public view returns (uint){
         return duration;
