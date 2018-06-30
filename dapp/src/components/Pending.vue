@@ -15,7 +15,8 @@
         <tr v-for="(pending, key) in pendings">
           <td> {{pending['name']}} </td>
           <td> {{pending['url']}} </td>
-          <td> {{pending['imageHash']}} </td>
+          <td>  <img class="img-thumbnail" :src="getImageUrl(pending['imageHash'])" /> </td>
+
           <td> <button type="button" class="btn btn-success" v-on:click="acceptButton(key)">Accept</button></td>
           <td> <button type="button" class="btn btn-danger" v-on:click="declineButton(key)">Ignore</button></td>
         </tr>
@@ -62,11 +63,9 @@
       let _contract = this.$store.getters.contractInstance();
       var count=_contract.methods.getNumberPending().call();
       count.then(function(value){
-
         var i;
         for (i = 0; i < value; i++) {
           _contract.methods.getPendingList(i).call().then(function(val){
-
             console.log(val)
             if (val[4]==="0"){
               self.pendings.push({
@@ -77,12 +76,15 @@
                 'status': val[4],
               })
             }
-
           })
-
         }
       })
-
+    },
+    methods :{
+      getImageUrl: function (hash) {
+        console.log(hash)
+        return 'https://gateway.ipfs.io/ipfs/' + hash + '/'
+      }
     }
   }
 </script>
