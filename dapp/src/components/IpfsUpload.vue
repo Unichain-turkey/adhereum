@@ -1,14 +1,23 @@
 <template>
   <div>
-    <div class="container">
+    <div class="alert alert-success row">
+      <div class="col">Image Hash: {{ imageHash }} (copy this for further use)</div>
+    </div>
+    <div class="ipfs container">
       <form @submit.prevent="uploadImage()">
-        <div class="form-group col-md-8">
+        <div class="form-group">
+          <div class="form-group">
+            <label for="inputFile">İmage</label>
+            <input type="file" class="form-control" @change="onFileChanged" id="inputFile" aria-describedby="fileHelp" placeholder="Place File">
+            <small id="fileHelp" class="form-text text-muted">Load your image</small>
+          </div>
+          <!--
           <input type="file" class="form-control" @change="onFileChanged" />
           <br>
-          <button type="button" v-on:click="onUpload"  class="btn btn-success" >Load image to Ipfs </button>
-
+          -->
         </div>
-        <button type="submit" class="btn btn-primary ">Submit</button>
+        <button type="button" v-on:click="onUpload"  class="btn btn-outline-info btn-block" >Load image to Ipfs </button>
+        <button type="submit" class="btn btn-outline-info btn-block">Submit</button>
       </form>
     </div>
 
