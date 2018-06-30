@@ -16,9 +16,25 @@ contract FactorySponsor is Ownable{
     address[] public Sponsors;//
     mapping (address => address) public addressToSponsor;
 
-    event beenSponsor(address indexed sponsor, string name, uint month, uint timestamp);
-    event removedSponsor(address indexed sponsor, string name,uint month, uint timestamp);
-    event expiredSponsor(address indexed sponsor, string name,uint month, uint timestamp);
+
+
+    struct Pending{
+        address _owner;
+        address _contract;
+        int    _status;
+    }
+
+    Pending[] public pendingList;//
+
+
+
+
+    event beenSponsor(address indexed sponsor, string name, uint month);
+    event pendinglist(address indexed sponsor, string name, uint month);
+    event confirmSponsor(address , address);
+    event denySponsor(address,address);
+    event removedSponsor(address indexed sponsor, string name,uint month);
+    event expiredSponsor(address indexed sponsor, string name,uint month);
 
     modifier Active(){
         require(isActive);
@@ -28,6 +44,7 @@ contract FactorySponsor is Ownable{
     constructor(uint _sponsorLimit,uint _price)public{
         sponsorLimit=_sponsorLimit;
         price=_price;
+        isActive=true;
 
     }
     //expire need
@@ -37,15 +54,18 @@ contract FactorySponsor is Ownable{
     public{
         require(msg.value >= price * (1 finney) );
         require(sponsorCount < sponsorLimit);
-        // require(addressToSponsor[msg.sender]==address(0));
+        //require(addressToSponsor[msg.sender]==address(0));
 
         Sponsor _sponsor=new Sponsor(_name,_url,_imageHash,_duration);
-        Sponsors.push(address(_sponsor));
-        addressToSponsor[msg.sender]=address(_sponsor);
-        sponsorCount+=1;
-        emit beenSponsor(address(_sponsor),_name,_duration, now);
+
+
+        pendingList.push(Pending({_owner:msg.sender, _contract:_sponsor,_status:0}));
+
+        emit pendinglist(address(_sponsor),_name,_duration);
 
     }
+
+
 
     //admin methods
     function removeSponsor(uint _index) public onlyOwner
@@ -54,8 +74,36 @@ contract FactorySponsor is Ownable{
         delete addressToSponsor[_temp.getOwner()];
         delete Sponsors[_index];
         sponsorCount-=1;
-        emit removedSponsor(address(_temp), _temp.getName(), _temp.getDuration(), now);
+        emit removedSponsor(address(_temp), _temp.getName(), _temp.getDuration());
     }
+
+    function confirm(uint _index)
+    onlyOwner
+    public{
+
+        Pending storage  _tmp=pendingList[_index];
+        require(_tmp._status==0);  //if
+        Sponsors.push(address(_tmp._contract));
+        addressToSponsor[_tmp._owner]=address(_tmp._contract);
+        sponsorCount+=1;
+        _tmp._status=1;
+        emit confirmSponsor(_tmp._owner,_tmp._contract);
+
+    }
+
+    function deny(uint _index)
+    onlyOwner
+    public{
+        Pending storage  _tmp=pendingList[_index];
+        require(_tmp._status==0);  //if
+
+        //transfer money to back
+        _tmp._status=2;
+        emit denySponsor(_tmp._owner,_tmp._contract);
+
+    }
+
+
 
     function setLimit(uint _limit) public onlyOwner{
         require(_limit>=sponsorCount);
@@ -82,4 +130,12 @@ contract FactorySponsor is Ownable{
     function getSponsorCount() public view returns(uint){
         return sponsorCount;
     }
+    function getPendingList(uint _index) public view returns(address,address){
+        return (pendingList[_index]._owner, pendingList[_index]._contract);
+    }
+    function getNumberPending() public view returns(uint){
+        return pendingList.length;
+    }
+
+
 }
