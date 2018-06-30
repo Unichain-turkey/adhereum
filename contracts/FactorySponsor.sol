@@ -19,9 +19,12 @@ contract FactorySponsor is Ownable{
 
 
     struct Pending{
-        address _owner;
-        address _contract;
-        int    _status;
+        string name;
+        string url;
+        string imageHash;
+        uint duration;
+        uint    status;
+        address owner;
     }
 
     Pending[] public pendingList;//
@@ -29,10 +32,12 @@ contract FactorySponsor is Ownable{
 
 
 
-    event beenSponsor(address indexed sponsor, string name, uint month);
-    event pendinglist(address indexed sponsor, string name, uint month);
+    event beenSponsor(address , string );
+    event pendedList(string , string,string ,uint );
+
     event confirmSponsor(address , address);
-    event denySponsor(address,address);
+    event denySponsor(address,string);
+
     event removedSponsor(address indexed sponsor, string name,uint month);
     event expiredSponsor(address indexed sponsor, string name,uint month);
 
@@ -54,17 +59,14 @@ contract FactorySponsor is Ownable{
     public{
         require(msg.value >= price * (1 finney) );
         require(sponsorCount < sponsorLimit);
-        //require(addressToSponsor[msg.sender]==address(0));
 
-        Sponsor _sponsor=new Sponsor(_name,_url,_imageHash,_duration);
+        require(addressToSponsor[msg.sender]==address(0));//ayni hesapdan kayit yasak
 
+        pendingList.push(Pending({name:_name,url:_url,imageHash:_imageHash,duration:_duration,status:0,owner:msg.sender}));
 
-        pendingList.push(Pending({_owner:msg.sender, _contract:_sponsor,_status:0}));
-
-        emit pendinglist(address(_sponsor),_name,_duration);
+        emit pendedList(_name,_url,_imageHash,_duration);
 
     }
-
 
 
     //admin methods
@@ -81,25 +83,26 @@ contract FactorySponsor is Ownable{
     onlyOwner
     public{
 
-        Pending storage  _tmp=pendingList[_index];
-        require(_tmp._status==0);  //if
-        Sponsors.push(address(_tmp._contract));
-        addressToSponsor[_tmp._owner]=address(_tmp._contract);
+        Pending storage  tmp=pendingList[_index];
+        require(tmp.status==0);  //if
+        Sponsor _sponsor=new Sponsor(tmp.name,tmp.url,tmp.imageHash,tmp.duration);
+        Sponsors.push(address(_sponsor));
+        addressToSponsor[tmp.owner]=address(_sponsor);
         sponsorCount+=1;
-        _tmp._status=1;
-        emit confirmSponsor(_tmp._owner,_tmp._contract);
+        tmp.status=1;
+        emit beenSponsor(address(_sponsor),tmp.name);
 
     }
 
     function deny(uint _index)
     onlyOwner
     public{
-        Pending storage  _tmp=pendingList[_index];
-        require(_tmp._status==0);  //if
+        Pending storage  tmp=pendingList[_index];
+        require(tmp.status==0);  //if
 
         //transfer money to back
-        _tmp._status=2;
-        emit denySponsor(_tmp._owner,_tmp._contract);
+        tmp.status=2;
+        emit denySponsor(tmp.owner,tmp.name);
 
     }
 
@@ -130,8 +133,8 @@ contract FactorySponsor is Ownable{
     function getSponsorCount() public view returns(uint){
         return sponsorCount;
     }
-    function getPendingList(uint _index) public view returns(address,address){
-        return (pendingList[_index]._owner, pendingList[_index]._contract);
+    function getPendingList(uint _ind) public view returns(string,string,string,uint,uint){
+        return (pendingList[_ind].name, pendingList[_ind].url,pendingList[_ind].imageHash,pendingList[_ind].duration,pendingList[_ind].status);
     }
     function getNumberPending() public view returns(uint){
         return pendingList.length;

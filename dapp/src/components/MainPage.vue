@@ -68,6 +68,8 @@ export default {
     var self = this
     let _contract = this.$store.getters.contractInstance()
     _contract.getPastEvents('beenSponsor', { fromBlock: 0, toBlock: 'latest' }, function(error, events) {
+      console.log(events)
+      console.log(events)
       if (error) {
         alert(error)
       }
