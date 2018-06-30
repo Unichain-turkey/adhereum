@@ -94,15 +94,16 @@ export default {
         this.imageHash,
         this.duration
       ).send(
-        {value: this.$options.filters.toWei('1'), from: _base, gas: 4700000})
+        {value: this.$options.filters.toWei('1'), from: _base, gas: 4053035})
       this.pending = true
       temp.then(function (error, value) {
+        console.log(value)
         if(error){
           alert(error)
         }else{
         }
         this.pending = false
-      })
+      }.bind(this))
     },
     onFileChanged (event) {
       this.image = event.target.files[0]
