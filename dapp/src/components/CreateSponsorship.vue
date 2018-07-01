@@ -94,7 +94,7 @@ export default {
         this.imageHash,
         this.duration
       ).send(
-        {value: this.$options.filters.toWei('1'), from: _base, gas: 4553035})
+        {value: this.$options.filters.toWei('1'), from: _base})
       this.pending = true
       temp.then(function (error, value) {
 
