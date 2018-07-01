@@ -78,9 +78,8 @@ contract FactorySponsor is Ownable{
         sponsorCount-=1;
         emit removedSponsor(address(_temp), _temp.getName(), _temp.getDuration());
     }
-
+    // todo later add onlyowner
     function confirm(uint _index)
-    onlyOwner
     public{
 
         Pending storage  tmp=pendingList[_index];
@@ -93,9 +92,8 @@ contract FactorySponsor is Ownable{
         emit beenSponsor(address(_sponsor),tmp.name);
 
     }
-
+    // todo later add onlyowner
     function deny(uint _index)
-    onlyOwner
     public{
         Pending storage  tmp=pendingList[_index];
         require(tmp.status==0);  //if
