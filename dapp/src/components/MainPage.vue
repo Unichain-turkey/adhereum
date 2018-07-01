@@ -1,25 +1,12 @@
 <template>
-  <div>
-    <div class="jumbotron elma">
-      <h1 class="display-4">this field intentionally left blank</h1>
-      <p class="lead">...</p>
-      <hr class="my-4">
-      <p>...</p>
-      <p class="lead">
-        <a class="btn btn-outline-info btn-block"
-           href="https://github.com/Unichain-turkey"
-           role="button"
-           target="_blank">Learn more</a>
-      </p>
-    </div>
     <div class="container">
       <statistics></statistics>
       <br/>
+      <sponsor></sponsor>
+      <br/>
       <create-sponsorship></create-sponsorship>
       <br/>
-      <sponsor></sponsor>
     </div>
-  </div>
 </template>
 <script>
   /*

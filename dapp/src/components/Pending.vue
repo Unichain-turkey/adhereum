@@ -54,7 +54,7 @@
         let _contract = this.$store.getters.contractInstance();
         console.log(_contract);
 
-        _contract.methods.deny(e).send({from: this.$store.getters.currentAddress})
+        _contract.methods.deny(e).send({from: this.$store.getters.currentAddress,gas: 4553035})
           .then(function(receipt){
             console.log(receipt)
           });
