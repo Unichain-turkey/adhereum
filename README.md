@@ -7,6 +7,11 @@ Sponsorship app template with ethereum/smart contracts.
 
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
 
+#### Installing Ipfs and Truffle
+This project requires Ipfs installed to work properly.
+
+Details Coming soon...
+
 ##### cloning repo
 ```
 git clone https://github.com/Unichain-turkey/adhereum.git

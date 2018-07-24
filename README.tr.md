@@ -7,6 +7,11 @@ Smart kontratlar ile sponsorluk işlemleri için geliştirilmiş web uygulaması
 
 Aşağıdaki adımlar ile, uygulamayı kendi bilgisayarınıza nasıl kopyalayabileceğiniz, bilgisayarınızda nasıl çalıştırabileceğiniz, ve üzerinde değişiklikler yapmak üzere nasıl hazır hale getirebileceğiniz anlaşatılmıştır.
 
+#### Ipfs ve Truffle kurulumu
+Bu projenin düzgün çalışması için Ipfs kurulu olmalıdır.
+
+Detaylar çok yakında...
+
 ##### Depoyu klonlama
 ```
 git clone https://github.com/Unichain-turkey/adhereum.git
@@ -21,8 +26,6 @@ cd adhereum
 
 dapp klasörüne gidiyoruz ve aşağıdaki komutlardan gerekli olanları çalıştırıyoruz.
 
-
->(Truffle js coming soon...) 
 
 ##### Gereksinimleri kuruyoruz
 ```
