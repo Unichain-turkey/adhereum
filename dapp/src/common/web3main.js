@@ -52,6 +52,6 @@ let web3Instance = new Promise(function (resolve, reject) {
       })
     })
   })
-const ipfs = ipfsAPI('localhost', '5001', {protocol: 'http'})
+const ipfs = ipfsAPI('35.198.159.43', '5001', {protocol: 'http'})
 
 export {web3Instance, contractInstance,ipfs}
