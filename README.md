@@ -10,6 +10,7 @@ These instructions will get you a copy of the project up and running on your loc
 #### Installing Ipfs and Truffle
 This project requires Ipfs installed to work properly.
 * Default ipfs node is 35.198.159.43:5001 and it is running now
+* Ipfs configurtion is in dapp/src/common/web3main.js
 
 
 ##### cloning repo
