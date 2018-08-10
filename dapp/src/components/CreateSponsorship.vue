@@ -116,6 +116,7 @@ export default {
         let buffer = Buffer.from(reader.result)
         ipfs.add(buffer, {progress: (prog) => console.log(`received: ${prog}`)})
           .then((response) => {
+            this.ipfsPin()
             this.imageHash = response[0].hash
             console.log(response[0].hash)
           }).catch((err) => {
@@ -132,6 +133,14 @@ export default {
       } else {
         alert('Please fill the all fields')
       }
+    },
+    ipfsPin(){
+
+      let ipfs = this.$store.getters.getIpfs
+      ipfs.pin.add(this.imageHash, function (err)  {
+        err==null ? console.log("Succesfully pinned the geimage"):console.log("Failed pinnig image to repo")
+
+      })
     }
   }
 }
