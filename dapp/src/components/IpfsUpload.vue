@@ -49,7 +49,7 @@ export default {
         ipfs.add(buffer, {progress: (prog) => console.log(`received: ${prog}`)})
           .then((response) => {
             this.imageHash = response[0].hash
-            console.log(response[0].hash)
+            this.ipfsPin()
           }).catch((err) => {
           console.error(err)
         })
@@ -64,6 +64,16 @@ export default {
       } else {
         alert('Please fill the all fields')
       }
+    },
+    ipfsPin(){
+      console.log("I AM HERE BEBEK")
+      console.log(this.imageHash)
+      let ipfs = this.$store.getters.getIpfs
+      ipfs.pin.add(this.imageHash, function (err, res)  {
+        console.log("Error is", err)
+        console.log("Response is", res)
+
+      })
     }
   }
 }
