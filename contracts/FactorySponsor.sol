@@ -30,7 +30,7 @@ contract FactorySponsor is Ownable{
 
 
 
-    event beenSponsor(address , string );
+    event beenSponsor(address _sponsor , string _name);
     event pendedList(string _name, string _url,string _hash,uint _duration);
 
     event confirmSponsor(address , address);
