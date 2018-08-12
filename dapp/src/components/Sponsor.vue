@@ -14,7 +14,6 @@
 
 
 <script>
-
   import store from '@/store/'
   import sponsorJson from '../../../build/contracts/Sponsor.json'
   function getSposnsor (address) {

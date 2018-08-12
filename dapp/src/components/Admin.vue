@@ -7,16 +7,13 @@
 </template>
 
 <script>
-
-  import Pending from '@/components/Pending.vue'
-
-  export default {
-    name: 'Admin',
-    components: {
-      'pending': Pending
-    }
+import Pending from '@/components/Pending.vue'
+export default {
+  name: 'Admin',
+  components: {
+  'pending': Pending
   }
-//aaa
+}
 </script>
 
 <style scoped>

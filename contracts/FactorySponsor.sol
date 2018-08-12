@@ -16,8 +16,6 @@ contract FactorySponsor is Ownable{
     address[] public Sponsors;//
     mapping (address => address) public addressToSponsor;
 
-
-
     struct Pending{
         string name;
         string url;
@@ -103,9 +101,9 @@ contract FactorySponsor is Ownable{
         emit denySponsor(tmp.owner,tmp.name);
 
     }
-
-
-
+    function isAdmin() public view returns(bool){
+        return (msg.sender==owner);
+    }
     function setLimit(uint _limit) public onlyOwner{
         require(_limit>=sponsorCount);
         sponsorLimit=_limit;
