@@ -16,8 +16,6 @@ contract FactorySponsor is Ownable{
     address[] public Sponsors;//
     mapping (address => address) public addressToSponsor;
 
-
-
     struct Pending{
         string name;
         string url;
@@ -33,7 +31,7 @@ contract FactorySponsor is Ownable{
 
 
     event beenSponsor(address , string );
-    event pendedList(string , string,string ,uint );
+    event pendedList(string _name, string _url,string _hash,uint _duration);
 
     event confirmSponsor(address , address);
     event denySponsor(address,string);
@@ -46,7 +44,7 @@ contract FactorySponsor is Ownable{
         _;
     }
 
-    constructor(uint _sponsorLimit,uint _price)public{
+    constructor(uint _sponsorLimit,uint _price) public{
         sponsorLimit=_sponsorLimit;
         price=_price;
         isActive=true;
@@ -57,7 +55,7 @@ contract FactorySponsor is Ownable{
     payable
     Active
     public{
-        require(msg.value >= price * (1 finney) );
+        require(msg.value >= price * (1 finney) * _duration );
         require(sponsorCount < sponsorLimit);
 
         require(addressToSponsor[msg.sender]==address(0));//ayni hesapdan kayit yasak
@@ -103,9 +101,9 @@ contract FactorySponsor is Ownable{
         emit denySponsor(tmp.owner,tmp.name);
 
     }
-
-
-
+    function isAdmin() public view returns(bool){
+        return (msg.sender==owner);
+    }
     function setLimit(uint _limit) public onlyOwner{
         require(_limit>=sponsorCount);
         sponsorLimit=_limit;
