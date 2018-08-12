@@ -1,10 +1,9 @@
 var sponsorFactory=artifacts.require("./FactorySponsor.sol");
 var sponsor=artifacts.require("./Sponsor.sol");
 
-var hash='QmNvSDNj7Rv56m6Xo7aLkTAstCx3awXEmspSiH4rN6AiLk'
 
 var sponsor=[
-    ["Finartz","www.finartz.com","QmV8aySCTTvkpHPS4RjBpMnPhuTbt6EdmMhrBVPFPRAZSb",1],  //8 ether
+    ["Finartz","www.finartz.com","QmV8aySCTTvkpHPS4RjBpMnPhuTbt6EdmMhrBVPFPRAZSb",1],
     ["Apple","www.apple.com","QmdLPh8Wk9aCHQTgPotkPG9Gbbc6Z7hUdrcdKUcfZ7nFTu*",2],
     ["Inoix","www.inoix.com","QmZQAZd9M7W7vj7HdzAifLBNZTnapZbD32LmcqM1Fj1h2h",3],
     ["Instagram","www.google.com","QmdLS83tKTBsAQQ3wGSqRUfrY3eKZcr5WWinDAJMv1GfNv",3],
@@ -12,7 +11,6 @@ var sponsor=[
     ["BKM","https://bkm.com.tr/","QmcoMVbowwHkwyQtySyVbL5vknU7UZ6ojP1vszZdfoNgmh",2],
 
 ];
-var sponsorAddress=[];
 
 
 const isRevertError = (error) => {
