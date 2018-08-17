@@ -2,7 +2,7 @@ import Web3 from 'web3'
 import ipfsAPI from 'ipfs-api'
 
 import sponsorContract from '../../../build/contracts/FactorySponsor.json'
-var sponsorContractAddress = '0x3620c493be3e08864d1eb2e4973ba72449d7bee7'
+var sponsorContractAddress = '0x0ee4555386ee6737c1f5960d66865e7108c59401'
 
 
 const contractInstance = new Promise(function (resolve, reject) {

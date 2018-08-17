@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="pend">
 
     <table class="table table-striped">
       <thead>
@@ -32,49 +32,35 @@
     data () {
       return {
         pendings: [],
-        deployedContract: this.$store.getters.contractInstance()
+        contract: this.$store.getters.contractInstance()
       }
     },
     methods: {
       acceptButton(e) {
-        console.log("adadasd")
-        console.log(e);
-
-        let _contract = this.$store.getters.contractInstance();
-        console.log(_contract);
-
-        _contract.methods.confirm(e).send({from: this.$store.getters.currentAddress})
+        this.contract.methods.confirm(e).send({from: this.$store.getters.currentAddress})
           .then(function(receipt){
             console.log(receipt)
           });
       },
       declineButton(e) {
         console.log(e);
-
-        let _contract = this.$store.getters.contractInstance();
-        console.log(_contract);
-
-        _contract.methods.deny(e).send({from: this.$store.getters.currentAddress})
+        this.contract.methods.deny(e).send({from: this.$store.getters.currentAddress})
           .then(function(receipt){
             console.log(receipt)
           });
       },
       getImageUrl: function (hash) {
-        console.log(hash)
-        return 'https://gateway.ipfs.io/ipfs/' + hash + '/'
+        return 'http://46.101.182.159:8080/ipfs/' + hash + '/'
       }
     },
     mounted: function () {
-      let self = this;
-      let _contract = this.$store.getters.contractInstance();
-      var count=_contract.methods.getNumberPending().call();
+      var count=this.contract.methods.getNumberPending().call();
       count.then(function(value){
         var i;
         for (i = 0; i < value; i++) {
-          _contract.methods.getPendingList(i).call().then(function(val){
-            console.log(val)
+          this.contract.methods.getPendingList(i).call().then(function(val){
             if (val[4]==="0"){
-              self.pendings.push({
+              this.pendings.push({
                 'name': val[0],
                 'url': val[1],
                 'imageHash': val[2],
@@ -82,9 +68,9 @@
                 'status': val[4],
               })
             }
-          })
+          }.bind(this))
         }
-      })
+      }.bind(this))
     }
   }
 </script>
@@ -93,5 +79,11 @@
 .imgContainer {
   height: 200px;
   weight: 150px;
+}
+
+.pend {
+  background-color: #ffffff;
+  width: 100%;
+  position: absolute;
 }
 </style>
