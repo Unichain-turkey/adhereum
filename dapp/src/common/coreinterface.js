@@ -2,7 +2,8 @@ import Web3 from 'web3'
 import ipfsAPI from 'ipfs-api'
 
 import sponsorContract from '../../../build/contracts/FactorySponsor.json'
-var sponsorContractAddress = '0x0ee4555386ee6737c1f5960d66865e7108c59401'
+var sponsorContractAddress = '0x948bc0e345b674c7c962d6037ae1f294cbfdccca'
+//rinkeby network
 
 
 const contractInstance = new Promise(function (resolve, reject) {
@@ -18,8 +19,7 @@ const contractInstance = new Promise(function (resolve, reject) {
   resolve(contract)
 })
 
-let web3Instance = new Promise(function (resolve, reject) {
-  // Check for injected web3 (mist/metamask)
+const web3Instance = new Promise(function (resolve, reject) {
   var web3js = window.web3
   if (typeof web3js !== 'undefined') {
     var web3 = new Web3(web3js.currentProvider)
@@ -41,7 +41,6 @@ let web3Instance = new Promise(function (resolve, reject) {
 })
   .then(result => {
     return new Promise(function (resolve, reject) {
-      // Retrieve coinbase
       result.web3().eth.getAccounts((err, coinbase) => {
         if (err) {
           reject(new Error('Unable to retrieve coinbase'))
@@ -51,7 +50,31 @@ let web3Instance = new Promise(function (resolve, reject) {
         }
       })
     })
+  }).then(result => {
+    return new Promise(function (resolve, reject) {
+      result.web3().eth.getBalance(result.coinbase[0],(err, balance) => {
+        if (err) {
+          reject(new Error('Unable to retrieve balleng'))
+        } else {
+          result = Object.assign({}, result, { balance })
+          resolve(result)
+        }
+      })
+    });
+  }).
+  then(result => {
+    return new Promise(function (resolve, reject) {
+      result.web3().eth.net.getId((err, networkId) => {
+        if (err) {
+          reject(new Error('Unable to retrieve balleng'))
+        } else {
+          result = Object.assign({}, result, { networkId })
+          resolve(result)
+        }
+      })
+    });
   })
-const ipfs = ipfsAPI('35.234.100.18', '5001', {protocol: 'http'})
+
+const ipfs = ipfsAPI('46.101.182.159', '5001', {protocol: 'http'})
 
 export {web3Instance, contractInstance,ipfs}

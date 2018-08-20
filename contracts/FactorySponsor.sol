@@ -160,6 +160,10 @@ contract FactorySponsor is Ownable{
         return pendingList.length;
     }
 
+    function getInfo() public view returns(uint,uint,uint,uint){
+        return (sponsorCount,pendingList.length,sponsorLimit,address(this).balance);
+    }
+
     function expireDetect()
     internal
     {

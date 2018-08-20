@@ -15,10 +15,12 @@
   "dependencies": {
     "bootstrap": "4.1.1",
     "ipfs-api": "^22.2.1",
+    "bootstrap-vue": "^2.0.0-rc.11",
     "jquery": "3.3.1",
     "popper.js": "1.14.3",
     "vue": "^2.5.2",
     "vue-router": "^3.0.1",
+    "vue-carousel": "^0.10.0",
     "vuex": "3.0.1",
     "web3": "1.0.0-beta.34"
   },

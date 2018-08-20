@@ -6,9 +6,14 @@ import web3 from 'web3'
 import App from './App'
 import router from './router'
 import store from './store'
+import VueCarousel from 'vue-carousel';
+import BootstrapVue from "bootstrap-vue"
+import "bootstrap/dist/css/bootstrap.min.css"
+import "bootstrap-vue/dist/bootstrap-vue.css"
 
-import 'bootstrap/dist/js/bootstrap.js'
-import 'bootstrap/dist/css/bootstrap.css'
+
+Vue.use(BootstrapVue)
+Vue.use(VueCarousel);
 
 Vue.config.productionTip = false
 

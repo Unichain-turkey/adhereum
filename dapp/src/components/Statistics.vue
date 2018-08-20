@@ -1,9 +1,10 @@
 <template>
   <div class="statistics">
     <div class="row">
-      <div class="col">Total sponsor: {{ $store.getters.sponsorCount }}</div>
-      <div class="col">Total amount {{ $store.getters.totalValue }} $</div>
-      <div class="col">Active sponsor {{ $store.getters.activeSponsorCount }}</div>
+      <div class="col">Total sponsor : {{ $store.getters.sponsorCount }}</div>
+      <div class="col">Total pending : {{ $store.getters.pendingCount }} </div>
+      <div class="col">Limit :{{ $store.getters.limit }} </div>
+      <div class="col">Total amount : {{ $store.getters.balanceSponsor }} $</div>
     </div>
   </div>
 </template>

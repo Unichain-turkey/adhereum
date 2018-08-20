@@ -30,8 +30,7 @@
 
 
 <script>
-
-import sponsorJson from '@/assets/contracts/Sponsor.json'
+import sponsorContract from '@/assets/contracts/FactorySponsor.json'
 import { Carousel, Slide } from 'vue-carousel';
 
 export default {
@@ -72,6 +71,7 @@ export default {
       var self = this
       let _contract = this.$store.getters.contractInstance()
       _contract.getPastEvents('beenSponsor', { fromBlock: 0, toBlock: 'latest' }, function(error, events) {
+
         events.forEach((element) => {
           var address=element.returnValues[0]
           var _sponsor = this.getSposnsor(address)
@@ -86,6 +86,11 @@ export default {
 
         });
       }.bind(this))
+      var result=_contract.methods.getInfo().call();
+      result.then(function(value) {
+        console.log(value)
+        this.$store.dispatch('setInfo', value)
+      }.bind(this));
     }
   }
 }

@@ -11,10 +11,6 @@
             <input type="file" class="form-control" @change="onFileChanged" id="inputFile" aria-describedby="fileHelp" placeholder="Place File">
             <small id="fileHelp" class="form-text text-muted">Load your image</small>
           </div>
-          <!--
-          <input type="file" class="form-control" @change="onFileChanged" />
-          <br>
-          -->
         </div>
         <button type="button" v-on:click="onUpload"  class="btn btn-outline-info btn-block" >Load image to Ipfs </button>
         <button type="submit" class="btn btn-outline-info btn-block">Submit</button>
@@ -26,7 +22,6 @@
 </template>
 
 <script>
-
 export default {
   name: 'IpfsUpload',
   data: function () {
@@ -42,14 +37,13 @@ export default {
     },
     onUpload () {
       let ipfs = this.$store.getters.getIpfs
-      console.log(ipfs)
       let reader = new window.FileReader()
       reader.onload = function (e) {
         let buffer = Buffer.from(reader.result)
         ipfs.add(buffer, {progress: (prog) => console.log(`received: ${prog}`)})
           .then((response) => {
-            this.imageHash = response[0].hash
             this.ipfsPin()
+            this.imageHash = response[0].hash
           }).catch((err) => {
           console.error(err)
         })
@@ -57,21 +51,17 @@ export default {
       reader.readAsArrayBuffer(this.image)
     },
     uploadImage () {
-      console.log('Hash of image', this.imageHash)
       if (this.imageHash != null) {
-        console.log("Okey")
-
+        console.log('Hash of image', this.imageHash)
       } else {
         alert('Please fill the all fields')
       }
     },
     ipfsPin(){
-      console.log("I AM HERE BEBEK")
-      console.log(this.imageHash)
+      console.log(this.image)
       let ipfs = this.$store.getters.getIpfs
-      ipfs.pin.add(this.imageHash, function (err, res)  {
-        console.log("Error is", err)
-        console.log("Response is", res)
+      ipfs.pin.add(this.imageHash, function (err)  {
+        err==null ? console.log("Succesfully pinned the image on ipfs"):console.log("Failed pinnig image to repo")
 
       })
     }

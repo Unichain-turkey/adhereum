@@ -2,7 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import MainPage from '@/components/MainPage'
 import ipfs from '@/components/IpfsUpload'
-import Admin from '@/components/Admin'
+import Admin from '@/components/sponsor/Admin'
 
 Vue.use(Router)
 

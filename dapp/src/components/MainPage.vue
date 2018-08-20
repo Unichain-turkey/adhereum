@@ -1,11 +1,12 @@
 <template>
     <div class="container">
-      <statistics></statistics>
-      <br/>
-      <sponsor></sponsor>
-      <br/>
-      <create-sponsorship></create-sponsorship>
-      <br/>
+
+        <statistics class="p-3 m-2"></statistics>
+
+        <sponsors class="p-3 m-2"></sponsors>
+
+        <beingsponsor class="p-3 m-2"></beingsponsor>
+
     </div>
 </template>
 <script>
@@ -23,55 +24,19 @@
   sponsorluk formu
 
    */
-  import CreateSponsorship from '@/components/CreateSponsorship.vue'
-  import Statistics from '@/components/Statistics.vue'
-  import Sponsor from '@/components/Sponsor.vue'
-  export default {
-    name: 'MainPage',
-    components: {
-      'create-sponsorship': CreateSponsorship,
-      'statistics': Statistics,
-      'sponsor': Sponsor
-    },
-    data () {
-      return {
-        posts: [],
-        sponsors: [],
-        msg: false,
-        length: null,
-        count: 0
-      }
-    },
-    methods: {
-      getHello () {
-        // console.log('function')
-        return 5
-      }
-    },
-    created: function () {
-      this.getHello()
-    },
-    mounted: function () {
-      var self = this
-      let _contract = this.$store.getters.contractInstance()
-      _contract.getPastEvents('beenSponsor', { fromBlock: 0, toBlock: 'latest' }, function(error, events) {
-        if (error) {
-          alert(error)
-        }
-      })
-        .then(function(events){
-          if (events){
-            var count = events.length
-            self.$store.dispatch('setSponsorCount', count)
-            self.$store.dispatch('setActiveSponsorCount', count)
-            self.$store.dispatch('setTotalValue', count * 415)
-            events.forEach(function (event) {
-              self.sponsors.push(event.returnValues)
-            })
-          }
-        });
-    }
-  }
+import Sponsors from '@/components/sponsor/Sponsors'
+import BeingSponsor from '@/components/sponsor/BeingSponsor.vue'
+import Statistics from '@/components/Statistics.vue'
+
+export default {
+  name: 'MainPage',
+  components: {
+    sponsors: Sponsors,
+    beingsponsor:BeingSponsor,
+    statistics: Statistics
+  },
+
+}
 </script>
 <style>
   .elma {

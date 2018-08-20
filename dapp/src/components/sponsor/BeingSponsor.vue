@@ -4,21 +4,12 @@
       <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" style="width: 100%"></div>
     </div>
     <hr/>
-    <!-- Button trigger modal -->
-    <button type="button" class="btn btn-outline-info btn-block " data-toggle="modal" data-target="#createSponsorshipForm">
-      SPONSOR OL
-    </button>
 
-    <!-- Modal -->
-    <div class="modal fade  pt-4 m-5" id="createSponsorshipForm" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-      <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Sponsorluk  Başvuru Formu</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
+    <b-btn  class="btn btn-outline-info btn-block " v-b-modal.modal1 >BE SPONSOR</b-btn>
+
+    <!-- Modal Component -->
+    <b-modal id="modal1" class="p-5 m-5"  role="document"  title="Sponsorluk Başvuru Formu">
+
           <div class="modal-body">
             <form @submit.prevent="createSponsorship()">
               <div class="form-group">
@@ -54,12 +45,10 @@
               <button type="submit" class="btn btn-primary">Gönder</button>
             </form>
           </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Kapat</button>
-          </div>
-        </div>
-      </div>
-    </div>
+
+
+    </b-modal>
+
   </div>
 
 
