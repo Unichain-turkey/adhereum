@@ -2,7 +2,7 @@ import Web3 from 'web3'
 import ipfsAPI from 'ipfs-api'
 
 import sponsorContract from '../../../build/contracts/FactorySponsor.json'
-var sponsorContractAddress = '0x948bc0e345b674c7c962d6037ae1f294cbfdccca'
+var sponsorContractAddress = '0x7a7415603787d2a7705492032ad671f29f8daf39'
 //rinkeby network
 
 
