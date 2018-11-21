@@ -1,39 +1,23 @@
 <template>
-    <div class="container">
-      <statistics></statistics>
-      <br/>
-      <sponsor></sponsor>
-      <br/>
-      <create-sponsorship></create-sponsorship>
-      <br/>
-    </div>
+  <div class="container">
+    <sponsorlist></sponsorlist>
+    <br/>
+    <being-sponsor></being-sponsor>
+    <br/>
+  </div>
 </template>
 <script>
-  /*
+  import SponsorList from './sponsor/SponsorList'
+  import BeingSponsor from "./sponsor/BeingSponsor";
 
-  header
-  giriş
-  istatistikler
-
-  loop ile sponsor[index] şeklinde bütün sponsorları çek
-  aktif olanları listele
-  pasif olanları da listeleme olabilir. geçmiş alanında
-
-  eklemeyi modal ile yap
-  sponsorluk formu
-
-   */
-  import CreateSponsorship from '@/components/CreateSponsorship.vue'
-  import Statistics from '@/components/Statistics.vue'
-  import Sponsor from '@/components/Sponsor.vue'
   export default {
     name: 'MainPage',
     components: {
-      'create-sponsorship': CreateSponsorship,
-      'statistics': Statistics,
-      'sponsor': Sponsor
+      BeingSponsor,
+      'sponsorlist': SponsorList,
+      'being-sponsor': BeingSponsor
     },
-    data () {
+    data() {
       return {
         posts: [],
         sponsors: [],
@@ -43,7 +27,7 @@
       }
     },
     methods: {
-      getHello () {
+      getHello() {
         // console.log('function')
         return 5
       }
@@ -54,13 +38,13 @@
     mounted: function () {
       var self = this
       let _contract = this.$store.getters.contractInstance()
-      _contract.getPastEvents('beenSponsor', { fromBlock: 0, toBlock: 'latest' }, function(error, events) {
+      _contract.getPastEvents('beenSponsor', {fromBlock: 0, toBlock: 'latest'}, function (error, events) {
         if (error) {
           alert(error)
         }
       })
-        .then(function(events){
-          if (events){
+        .then(function (events) {
+          if (events) {
             var count = events.length
             self.$store.dispatch('setSponsorCount', count)
             self.$store.dispatch('setActiveSponsorCount', count)

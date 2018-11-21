@@ -6,7 +6,7 @@
 </template>
 
 <script>
-import Pending from '@/components/sponsor/Pending.vue'
+import Pending from './Pending.vue'
 export default {
   name: 'Admin',
   components: {

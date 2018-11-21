@@ -2,6 +2,7 @@ import Web3 from 'web3'
 import ipfsAPI from 'ipfs-api'
 
 import sponsorContract from '../../../build/contracts/FactorySponsor.json'
+
 var sponsorContractAddress = '0x0ee4555386ee6737c1f5960d66865e7108c59401'
 
 
@@ -25,7 +26,7 @@ let web3Instance = new Promise(function (resolve, reject) {
     var web3 = new Web3(web3js.currentProvider)
     resolve({
       injectedWeb3: true,
-      web3 () {
+      web3() {
         return web3
       }
     })
@@ -33,7 +34,7 @@ let web3Instance = new Promise(function (resolve, reject) {
     let web3 = new Web3(new Web3.providers.HttpProvider('http://localhost:8545')) // GANACHE FALLBACK
     resolve({
       injectedWeb3: false,
-      web3 () {
+      web3() {
         return web3
       }
     })
@@ -46,7 +47,7 @@ let web3Instance = new Promise(function (resolve, reject) {
         if (err) {
           reject(new Error('Unable to retrieve coinbase'))
         } else {
-          result = Object.assign({}, result, { coinbase })
+          result = Object.assign({}, result, {coinbase})
           resolve(result)
         }
       })
@@ -54,4 +55,4 @@ let web3Instance = new Promise(function (resolve, reject) {
   })
 const ipfs = ipfsAPI('35.234.100.18', '5001', {protocol: 'http'})
 
-export {web3Instance, contractInstance,ipfs}
+export {web3Instance, contractInstance, ipfs}

@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 
-import { ipfs ,web3Instance, contractInstance } from '../common/web3main.js'
+import {ipfs, web3Instance, contractInstance} from '../common/coreinterface.js'
 
 Vue.use(Vuex)
 
@@ -30,55 +30,55 @@ export default new Vuex.Store({
   },
   strict: true, // don't leave it true on production
   mutations: {
-    CREATEWEB3 (state, result) {
+    CREATEWEB3(state, result) {
       state.balance = result.balance
       state.coinbase = result.coinbase
       state.networkId = result.networkId
       state.isInjected = result.isInjected
       state.web3Instance = result.web3
     },
-    SETCONTRACTINSTANCE (state, result) {
+    SETCONTRACTINSTANCE(state, result) {
       state.contractInstance = () => result
     },
-    SETSPONSORCOUNT (state, result) {
+    SETSPONSORCOUNT(state, result) {
       state.sponsorCount = result
     },
-    SETIPFS (state, result) {
+    SETIPFS(state, result) {
       state.ipfsApi = result
     },
-    SETACTIVESPONSORCOUNT (state, result) {
+    SETACTIVESPONSORCOUNT(state, result) {
       state.activeSponsorCount = result
     },
-    SETTOTALVALUE (state, result) {
+    SETTOTALVALUE(state, result) {
       state.totalValue = result
     }
   },
   actions: {
-    createWeb3 ({ commit }) {
+    createWeb3({commit}) {
       web3Instance.then(value => {
         commit('CREATEWEB3', value)
       }, reason => {
         console.log(reason)
       })
     },
-    setContract ({ commit }) {
+    setContract({commit}) {
       contractInstance.then(value => {
         commit('SETCONTRACTINSTANCE', value)
       }, reason => {
         console.log(reason)
       })
     },
-    ipfsSet ({ commit }) {
-      commit('SETIPFS',ipfs)
+    ipfsSet({commit}) {
+      commit('SETIPFS', ipfs)
     },
-    setSponsorCount ({ commit }, result) {
+    setSponsorCount({commit}, result) {
       commit('SETSPONSORCOUNT', result)
     },
 
-    setActiveSponsorCount ({ commit }, result) {
+    setActiveSponsorCount({commit}, result) {
       commit('SETACTIVESPONSORCOUNT', result)
     },
-    setTotalValue ({ commit }, result) {
+    setTotalValue({commit}, result) {
       commit('SETTOTALVALUE', result)
     }
   },
