@@ -23,9 +23,9 @@ Vue.config.productionTip = false;
 
 ;(async () => {
   try {
-    store.dispatch('setContract')
-    store.dispatch('createWeb3')
-    store.dispatch('ipfsSet')
+    //store.dispatch('createWeb3')
+    //store.dispatch('setContract')
+    //store.dispatch('ipfsSet')
   } catch (e) {
     console.log('uff', e)
   } finally {

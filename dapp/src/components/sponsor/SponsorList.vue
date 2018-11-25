@@ -38,6 +38,7 @@
         return 'http://46.101.182.159:8080/ipfs/' + hash + '/'
       },
       init: function () {
+        /*
         var self = this
         let _contract = this.$store.getters.contractInstance()
         _contract.getPastEvents('beenSponsor', {fromBlock: 0, toBlock: 'latest'}, function (error, events) {
@@ -55,7 +56,9 @@
 
           });
         }.bind(this))
+        */
       }
+
     }
   }
 </script>

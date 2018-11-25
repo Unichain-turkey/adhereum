@@ -38,7 +38,7 @@ export default new Vuex.Store({
       state.web3Instance = result.web3
     },
     SETCONTRACTINSTANCE(state, result) {
-      state.contractInstance = () => result
+      state.contractInstance = result
     },
     SETSPONSORCOUNT(state, result) {
       state.sponsorCount = result
@@ -99,7 +99,7 @@ export default new Vuex.Store({
     network: state => {
       return state.NETWORKS[state.networkId]
     },
-    contractInstance: state => {
+    getContractInstance: state => {
       return state.contractInstance
     },
     sponsorCount: state => {

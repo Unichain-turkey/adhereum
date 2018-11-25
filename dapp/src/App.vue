@@ -1,10 +1,15 @@
 <template>
   <v-app id="app">
     <header-component></header-component>
-    <router-view/>
+    <v-content>
+      <v-container fluid>
+        <router-view></router-view>
+      </v-container>
+    </v-content>
     <footer-component></footer-component>
   </v-app>
 </template>
+
 
 <script>
   import Header from '@/components/Header.vue'

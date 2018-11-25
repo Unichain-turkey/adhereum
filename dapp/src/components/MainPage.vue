@@ -37,7 +37,9 @@
     },
     mounted: function () {
       var self = this
-      let _contract = this.$store.getters.contractInstance()
+      let _contract = this.$store.getters.contractInstance
+      console.log(_contract)
+      /*
       _contract.getPastEvents('beenSponsor', {fromBlock: 0, toBlock: 'latest'}, function (error, events) {
         if (error) {
           alert(error)
@@ -54,6 +56,7 @@
             })
           }
         });
+        */
     }
   }
 </script>

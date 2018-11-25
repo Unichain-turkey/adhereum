@@ -1,29 +1,45 @@
 <template>
-  <div>
-    <br/>
-    <br/>
-    <br/>
-    <footer class="card-footer fixed-bottom">
-      <p class="text-center spec-footer">@2018 Unichain Turkey</p>
-    </footer>
-  </div>
+  <v-footer
+    height="auto"
+    color="primary lighten-1"
+  >
+    <v-layout
+      justify-center
+      row
+      wrap
+    >
+      <v-flex
+        primary
+        lighten-2
+        py-3
+        text-xs-center
+        white--text
+        xs12
+      >
+        &copy;2018 — <strong>Adhereum</strong>
+      </v-flex>
+    </v-layout>
+  </v-footer>
 </template>
 
 <script>
-export default {
-  name: 'Footer'
-}
+
+
+  export default {
+    name: 'Footer',
+    data: () => ({
+      links: [
+        'Home',
+        'About Us',
+        'Team',
+        'Services',
+        'Blog',
+        'Contact Us'
+      ]
+    })
+  }
 </script>
 
 <style>
-  .spec-footer {
-    margin-bottom: 0;
-    position: absolute;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    padding: 1rem;
-    background-color: #efefef;
-    text-align: center;
-  }
+
 </style>

@@ -1,8 +1,10 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import MainPage from '../components/MainPage'
-import ipfs from '../components/IpfsUpload'
-import Admin from '../components/sponsor/Admin'
+import demo1 from '../components/demos/Demo-1'
+import demo2 from '../components/demos/Demo-2'
+import demo3 from '../components/demos/Demo-3'
+
 
 Vue.use(Router)
 
@@ -15,15 +17,20 @@ export default new Router({
       component: MainPage
     },
     {
-      path: '/ipfs',
-      name: 'ipfs',
-      component: ipfs
+      path: '/demo1',
+      name: 'Demo-1',
+      component: demo1
     },
     {
-      path: '/admin',
-      name: 'Admin',
-      component: Admin
+      path: '/demo2',
+      name: 'Demo-2',
+      component: demo2
     },
-    {path: '*', redirect: '/admin'}
+    {
+      path: '/demo3',
+      name: 'Demo-3',
+      component: demo3
+    },
+
   ]
 })
