@@ -2,7 +2,7 @@
 
   <v-toolbar
     fixes
-    color="teal lighten-3"
+    color="primary lighten-1"
     dark
     scroll-off-screen
     scroll-target="#scrolling-techniques"
