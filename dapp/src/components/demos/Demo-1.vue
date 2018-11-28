@@ -3,44 +3,48 @@
     <v-dialog v-model="dialog" persistent max-width="600px">
       <v-card>
         <v-card-title>
-          <span class="headline">Sponsor Information</span>
+          <span class="headline">SponsorShipment Request</span>
         </v-card-title>
         <v-card-text>
           <v-container grid-list-md>
             <v-layout wrap>
               <v-flex xs12>
-                <v-text-field label="Sponsor Name" required></v-text-field>
+                <v-text-field label="Sponsor Name*" required v-model="name"></v-text-field>
               </v-flex>
 
               <v-flex xs12>
-                <v-text-field label="Email*" required></v-text-field>
+                <v-text-field label="Email*" required v-model="email"></v-text-field>
               </v-flex>
               <v-flex xs12>
-                <v-text-field label="Url*" required></v-text-field>
+                <v-text-field label="Url*" required v-model="url"></v-text-field>
               </v-flex>
 
               <v-flex xs12 sm6>
                 <v-select
+                  v-model="duration"
                   :items="['3', '6', '9', '12']"
-                  label="Duration in month"
+                  label="Duration in month *"
                   required
                 ></v-select>
               </v-flex>
-              <v-flex xs12 sm6>
-
-              <form @submit.prevent="uploadImage()">
-                <div class="form-group">
-                  <div class="form-group">
-                    <label for="inputFile">Resim</label>
-                    <input type="file" class="form-control" @change="onFileChanged" id="inputFile" aria-describedby="fileHelp" placeholder="Place File">
-                    <small id="fileHelp" class="form-text text-muted">Resmi Yükle</small>
-                  </div>
-                </div>
-                <button type="button" v-on:click="onUpload"  class="btn btn-outline-info btn-block" >Resmi Ipfs yükle </button>
-              </form>
+              <v-flex xs12>
+                <v-text-field label="Image hash*" disabled required v-model="fileHash"></v-text-field>
               </v-flex>
-              <v-flex xs12 sm6>
-                <v-text-field label="Image hash" disabled required v-model="imageHash"></v-text-field>
+              <v-flex xs12>
+
+                <v-form ref="form">
+                  <input type="file" class="form-control" @change="onFileChanged" id="inputFile"
+                         aria-describedby="fileHelp" placeholder="Place File">
+
+                  <v-btn
+                    :loading="loading"
+                    :disabled="fileUploadValid"
+                    @click="fileUplaod"
+                  >
+                    Upload file to Ipfs
+                    <span slot="loader">Loading...</span>
+                  </v-btn>
+                </v-form>
               </v-flex>
 
             </v-layout>
@@ -50,8 +54,9 @@
         <v-card-actions>
           <v-spacer></v-spacer>
           <v-btn color="blue darken-1" flat @click="dialog = false">Close</v-btn>
-          <v-btn color="blue darken-1" flat @click="dialog = false">Save</v-btn>
+          <v-btn color="blue darken-1" flat :disabled="sponsorValid" @click="sendSponsorshipRequest">Send</v-btn>
         </v-card-actions>
+
       </v-card>
     </v-dialog>
     <v-layout align-center justify-center row class="pa-1">
@@ -73,7 +78,10 @@
               <div>
                 <span>Empty Slot</span>
 
-                <v-btn fab dark small color="indigo" icon v-on:click="test">
+                <v-btn fab dark small color="indigo" icon
+                       v-on:click="(e)=>{
+                       test(e,item['position'])
+                       }">
                   <v-icon>add</v-icon>
                 </v-btn>
               </div>
@@ -121,7 +129,10 @@
               <div>
                 <span>Empty Slot</span>
 
-                <v-btn fab dark small color="indigo" icon v-on:click="test">
+                <v-btn fab dark small color="indigo" icon
+                       v-on:click="(e)=>{
+                       test(e,item['position'])
+                       }">
                   <v-icon>add</v-icon>
                 </v-btn>
               </div>
@@ -169,7 +180,10 @@
               <div>
                 <span>Empty Slot</span>
 
-                <v-btn fab dark small color="indigo" icon v-on:click="test">
+                <v-btn fab dark small color="indigo" icon
+                       v-on:click="(e)=>{
+                       test(e,item['position'])
+                       }">
                   <v-icon>add</v-icon>
                 </v-btn>
               </div>
@@ -203,12 +217,29 @@
 </template>
 
 <script>
+  import api from "../../api/index"
+
   export default {
     name: "Demo-1",
-    data: () => ({
+    computed: {
+      fileUploadValid() {
+        return !((this.fileHash === null && this.file === null && this.file == null) || this.fileHash === null)
+      },
+      sponsorValid() {
+        return this.name == '' && this.fileHash == '' && this.url == '' && this.email == ''
+      }
+    },
 
+    data: () => ({
+      loading: false,
       dialog: false,
-      imageHash:'',
+      name: '',
+      email: '',
+      url: '',
+      duration: '',
+      file: null,
+      fileBuffer: null,
+      fileHash: null,
       goldSponsors: [
         {
           flag: 1,
@@ -324,11 +355,12 @@
 
     }),
     methods: {
-      test() {
-        console.log("Clicked Item")
+      test(event, pos) {
+        console.log(pos)
         this.dialog = true;
       },
-      createSponsorship() {
+      sendSponsorshipRequest() {
+        console.log("Here")
         let _base = store.getters.currentAddress
         const temp = this.contract.methods.beSponsor(
           this.sponsorName,
@@ -348,6 +380,24 @@
           this.pending = false
         }.bind(this))
       },
+      onFileChanged(event) {
+        this.file = event.target.files[0]
+      },
+      fileUplaod() {
+        this.loading = true;
+        api.readFile(this.file, this.fileReadDone)
+      },
+      fileReadDone(data) {
+        this.fileBuffer = data;
+        api.ipfsAdd(this.fileBuffer).then((response) => {
+          this.loading = false
+          this.fileHash = response[0].hash;
+          api.ipfsPin(response[0].hash)
+        }).catch((err) => {
+
+          this.loading = false
+        })
+      }
     }
 
   }
