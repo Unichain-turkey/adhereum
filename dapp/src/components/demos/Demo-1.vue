@@ -3,45 +3,46 @@
     <v-dialog v-model="dialog" persistent max-width="600px">
       <v-card>
         <v-card-title>
-          <span class="headline">User Profile</span>
+          <span class="headline">Sponsor Information</span>
         </v-card-title>
         <v-card-text>
           <v-container grid-list-md>
             <v-layout wrap>
-              <v-flex xs12 sm6 md4>
-                <v-text-field label="Legal first name*" required></v-text-field>
+              <v-flex xs12>
+                <v-text-field label="Sponsor Name" required></v-text-field>
               </v-flex>
-              <v-flex xs12 sm6 md4>
-                <v-text-field label="Legal middle name" hint="example of helper text only on focus"></v-text-field>
-              </v-flex>
-              <v-flex xs12 sm6 md4>
-                <v-text-field
-                  label="Legal last name*"
-                  hint="example of persistent helper text"
-                  persistent-hint
-                  required
-                ></v-text-field>
-              </v-flex>
+
               <v-flex xs12>
                 <v-text-field label="Email*" required></v-text-field>
               </v-flex>
               <v-flex xs12>
-                <v-text-field label="Password*" type="password" required></v-text-field>
+                <v-text-field label="Url*" required></v-text-field>
               </v-flex>
+
               <v-flex xs12 sm6>
                 <v-select
-                  :items="['0-17', '18-29', '30-54', '54+']"
-                  label="Age*"
+                  :items="['3', '6', '9', '12']"
+                  label="Duration in month"
                   required
                 ></v-select>
               </v-flex>
               <v-flex xs12 sm6>
-                <v-autocomplete
-                  :items="['Skiing', 'Ice hockey', 'Soccer', 'Basketball', 'Hockey', 'Reading', 'Writing', 'Coding', 'Basejump']"
-                  label="Interests"
-                  multiple
-                ></v-autocomplete>
+
+              <form @submit.prevent="uploadImage()">
+                <div class="form-group">
+                  <div class="form-group">
+                    <label for="inputFile">Resim</label>
+                    <input type="file" class="form-control" @change="onFileChanged" id="inputFile" aria-describedby="fileHelp" placeholder="Place File">
+                    <small id="fileHelp" class="form-text text-muted">Resmi Yükle</small>
+                  </div>
+                </div>
+                <button type="button" v-on:click="onUpload"  class="btn btn-outline-info btn-block" >Resmi Ipfs yükle </button>
+              </form>
               </v-flex>
+              <v-flex xs12 sm6>
+                <v-text-field label="Image hash" disabled required v-model="imageHash"></v-text-field>
+              </v-flex>
+
             </v-layout>
           </v-container>
           <small>*indicates required field</small>
@@ -205,27 +206,119 @@
   export default {
     name: "Demo-1",
     data: () => ({
-      dialog:false,
+
+      dialog: false,
+      imageHash:'',
       goldSponsors: [
-        {flag: 1,position:"g-1", title: 'Finartz', link: "https://finartz.com/", img: "http://via.placeholder.com/110x110"},
-        {flag: 1,position:"g-2", title: 'Finartz', link: "https://finartz.com/", img: "http://via.placeholder.com/110x110"},
-        {flag: 0,position:"g-3", title: 'Finartz', link: "https://finartz.com/", img: "http://via.placeholder.com/110x110"},
+        {
+          flag: 1,
+          position: "g-1",
+          title: 'Finartz',
+          link: "https://finartz.com/",
+          img: "http://via.placeholder.com/110x110"
+        },
+        {
+          flag: 1,
+          position: "g-2",
+          title: 'Finartz',
+          link: "https://finartz.com/",
+          img: "http://via.placeholder.com/110x110"
+        },
+        {
+          flag: 0,
+          position: "g-3",
+          title: 'Finartz',
+          link: "https://finartz.com/",
+          img: "http://via.placeholder.com/110x110"
+        },
       ],
       silverSponsors: [
-        {flag: 0,position:"s-1", title: 'Finartz', link: "https://finartz.com/", img: "http://via.placeholder.com/110x110"},
-        {flag: 0,position:"s-2", title: 'Finartz', link: "https://finartz.com/", img: "http://via.placeholder.com/110x110"},
-        {flag: 0,position:"s-3", title: 'Finartz', link: "https://finartz.com/", img: "http://via.placeholder.com/110x110"},
-        {flag: 0,position:"s-4", title: 'Finartz', link: "https://finartz.com/", img: "http://via.placeholder.com/110x110"},
-        {flag: 0,position:"s-5", title: 'Finartz', link: "https://finartz.com/", img: "http://via.placeholder.com/110x110"},
+        {
+          flag: 0,
+          position: "s-1",
+          title: 'Finartz',
+          link: "https://finartz.com/",
+          img: "http://via.placeholder.com/110x110"
+        },
+        {
+          flag: 0,
+          position: "s-2",
+          title: 'Finartz',
+          link: "https://finartz.com/",
+          img: "http://via.placeholder.com/110x110"
+        },
+        {
+          flag: 0,
+          position: "s-3",
+          title: 'Finartz',
+          link: "https://finartz.com/",
+          img: "http://via.placeholder.com/110x110"
+        },
+        {
+          flag: 0,
+          position: "s-4",
+          title: 'Finartz',
+          link: "https://finartz.com/",
+          img: "http://via.placeholder.com/110x110"
+        },
+        {
+          flag: 0,
+          position: "s-5",
+          title: 'Finartz',
+          link: "https://finartz.com/",
+          img: "http://via.placeholder.com/110x110"
+        },
       ],
       bronzeSponsors: [
-        {flag: 0,position:"b-1", title: 'Finartz', link: "https://finartz.com/", img: "http://via.placeholder.com/110x110"},
-        {flag: 0,position:"b-2", title: 'Finartz', link: "https://finartz.com/", img: "http://via.placeholder.com/110x110"},
-        {flag: 0,position:"b-3", title: 'Finartz', link: "https://finartz.com/", img: "http://via.placeholder.com/110x110"},
-        {flag: 0,position:"b-4", title: 'Finartz', link: "https://finartz.com/", img: "http://via.placeholder.com/110x110"},
-        {flag: 1,position:"b-5", title: 'Finartz', link: "https://finartz.com/", img: "http://via.placeholder.com/110x110"},
-        {flag: 0,position:"b-6", title: 'Finartz', link: "https://finartz.com/", img: "http://via.placeholder.com/110x110"},
-        {flag: 0,position:"b-7", title: 'Finartz', link: "https://finartz.com/", img: "http://via.placeholder.com/110x110"},
+        {
+          flag: 0,
+          position: "b-1",
+          title: 'Finartz',
+          link: "https://finartz.com/",
+          img: "http://via.placeholder.com/110x110"
+        },
+        {
+          flag: 0,
+          position: "b-2",
+          title: 'Finartz',
+          link: "https://finartz.com/",
+          img: "http://via.placeholder.com/110x110"
+        },
+        {
+          flag: 0,
+          position: "b-3",
+          title: 'Finartz',
+          link: "https://finartz.com/",
+          img: "http://via.placeholder.com/110x110"
+        },
+        {
+          flag: 0,
+          position: "b-4",
+          title: 'Finartz',
+          link: "https://finartz.com/",
+          img: "http://via.placeholder.com/110x110"
+        },
+        {
+          flag: 1,
+          position: "b-5",
+          title: 'Finartz',
+          link: "https://finartz.com/",
+          img: "http://via.placeholder.com/110x110"
+        },
+        {
+          flag: 0,
+          position: "b-6",
+          title: 'Finartz',
+          link: "https://finartz.com/",
+          img: "http://via.placeholder.com/110x110"
+        },
+        {
+          flag: 0,
+          position: "b-7",
+          title: 'Finartz',
+          link: "https://finartz.com/",
+          img: "http://via.placeholder.com/110x110"
+        },
 
       ]
 
@@ -233,8 +326,28 @@
     methods: {
       test() {
         console.log("Clicked Item")
-        this.dialog=true;
-      }
+        this.dialog = true;
+      },
+      createSponsorship() {
+        let _base = store.getters.currentAddress
+        const temp = this.contract.methods.beSponsor(
+          this.sponsorName,
+          this.sponsorUrl,
+          this.imageHash,
+          this.duration
+        ).send(
+          {value: this.$options.filters.toWei('1') * this.duration, from: _base})
+        this.pending = true
+        temp.then(function (error, value) {
+          if (!error) {
+            alert(error)
+          } else {
+            alert("Your request of being sponsorships is received !")
+            window.location.href = "/"
+          }
+          this.pending = false
+        }.bind(this))
+      },
     }
 
   }

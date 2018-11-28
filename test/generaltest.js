@@ -29,6 +29,7 @@ contract("Sponsor",function(accounts){
     before(async () => {
         factoryContract = await sponsorFactory.deployed();
         assert.notEqual(typeof(factoryContract),"undefined","deploying of contract is failed");
+        console.log(factoryContract)
     }),
     it('Check limit of sponsor ',async () => {
         const result=await  factoryContract.getLimit();

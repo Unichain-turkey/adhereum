@@ -99,6 +99,7 @@
         this.image = event.target.files[0]
       },
       onUpload() {
+
         let ipfs = this.$store.getters.getIpfs
         let reader = new window.FileReader()
         reader.onload = function (e) {
