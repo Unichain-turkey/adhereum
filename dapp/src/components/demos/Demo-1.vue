@@ -1,9 +1,29 @@
 <template>
   <div>
+    <v-dialog
+      v-model="pageLoader"
+      hide-overlay
+      persistent
+      width="300"
+    >
+      <v-card
+        color="primary"
+        dark
+      >
+        <v-card-text>
+          Please stand by
+          <v-progress-linear
+            indeterminate
+            color="white"
+            class="mb-0"
+          ></v-progress-linear>
+        </v-card-text>
+      </v-card>
+    </v-dialog>
     <v-dialog v-model="dialog" persistent max-width="600px">
       <v-card>
         <v-card-title>
-          <span class="headline">SponsorShipment Request</span>
+          <span class="headline">Sponsor Shipment Request</span>
         </v-card-title>
         <v-card-text>
           <v-container grid-list-md>
@@ -212,31 +232,22 @@
 
     </v-layout>
 
-
   </div>
 </template>
 
 <script>
-  import api from "../../api/index"
+  import api from "../../api/ipfs/index"
 
   export default {
     name: "Demo-1",
-    computed: {
-      fileUploadValid() {
-        return !((this.fileHash === null && this.file === null && this.file == null) || this.fileHash === null)
-      },
-      sponsorValid() {
-        return this.name == '' && this.fileHash == '' && this.url == '' && this.email == ''
-      }
-    },
-
     data: () => ({
+      contract: null,
       loading: false,
       dialog: false,
-      name: '',
-      email: '',
-      url: '',
-      duration: '',
+      name: null,
+      email: null,
+      url: null,
+      duration: null,
       file: null,
       fileBuffer: null,
       fileHash: null,
@@ -354,6 +365,17 @@
       ]
 
     }),
+    computed: {
+      fileUploadValid() {
+        return ((this.fileHash === null && this.file === null && this.file == null) || this.fileHash === null)
+      },
+      sponsorValid() {
+        return (this.name === null || this.fileHash === null || this.url === null || this.email === null)
+      },
+      pageLoader() {
+        return (this.$store.getters.web3 === null)
+      }
+    },
     methods: {
       test(event, pos) {
         console.log(pos)
@@ -398,6 +420,9 @@
           this.loading = false
         })
       }
+    },
+    mounted: function () {
+
     }
 
   }
@@ -406,3 +431,6 @@
 <style scoped>
 
 </style>
+/*
+
+*/
