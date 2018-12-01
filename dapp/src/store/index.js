@@ -8,7 +8,7 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    abiSponsor: sponsorContract,
+    jsonSponsor: sponsorContract,
     addressSponsor: '0x0ee4555386ee6737c1f5960d66865e7108c59401',
     isInjected: false,
     web3: null,
@@ -51,8 +51,8 @@ export default new Vuex.Store({
     }
   },
   getters: {
-    abiSponsor: state => {
-      return state.abiSponsor
+    jsonSponsor: state => {
+      return state.jsonSponsor
     },
     addressSponsor: state => {
       return state.addressSponsor

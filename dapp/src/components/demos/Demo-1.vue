@@ -228,10 +228,7 @@
           </v-card>
         </div>
       </v-flex>
-
-
     </v-layout>
-
   </div>
 </template>
 
@@ -361,9 +358,7 @@
           link: "https://finartz.com/",
           img: "http://via.placeholder.com/110x110"
         },
-
       ]
-
     }),
     computed: {
       fileUploadValid() {
@@ -373,7 +368,12 @@
         return (this.name === null || this.fileHash === null || this.url === null || this.email === null)
       },
       pageLoader() {
-        return (this.$store.getters.web3 === null)
+        if (this.$store.getters.web3 === null) {
+          return true;
+        } else {
+          this.init()
+          return false;
+        }
       }
     },
     methods: {
@@ -382,7 +382,7 @@
         this.dialog = true;
       },
       sendSponsorshipRequest() {
-        console.log("Here")
+
         let _base = store.getters.currentAddress
         const temp = this.contract.methods.beSponsor(
           this.sponsorName,
@@ -416,21 +416,18 @@
           this.fileHash = response[0].hash;
           api.ipfsPin(response[0].hash)
         }).catch((err) => {
-
           this.loading = false
         })
+      },
+      init: function () {
+        let web3 = this.$store.getters.web3;
+        web3 = web3()
+        this.contract = new web3.eth.Contract(this.$store.getters.jsonSponsor.abi, this.$store.getters.addressSponsor)
       }
-    },
-    mounted: function () {
-
     }
 
   }
 </script>
 
 <style scoped>
-
 </style>
-/*
-
-*/
