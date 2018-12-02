@@ -4,12 +4,12 @@ import "./Ownable.sol";
 
 contract Sponsor is Ownable {
 
-    enum Type {Gold, Bronze, Silver}
+    enum Role {Gold, Bronze, Silver}
 
     string name;
     string url;
     string imageHash;
-    Type type;
+    Role role;
     uint64 startTime;
     uint duration;
     uint deadTime;
@@ -21,7 +21,7 @@ contract Sponsor is Ownable {
         url = _url;
         imageHash = _imageHash;
         startTime = uint64(now);
-        type = Type(_type);
+        role = Role(_type);
         duration = _duration;
         deadTime = calculateDeadTime(_duration, startTime);
 
@@ -51,9 +51,8 @@ contract Sponsor is Ownable {
         return name;
     }
 
-
-    function getType() public view returns (uint){
-        return uint(type);
+    function getRole() public view returns (uint){
+        return uint(role);
     }
 
     function kill(bool flag) public onlyOwner {
@@ -62,7 +61,7 @@ contract Sponsor is Ownable {
     }
 
     function getSponsor() public view returns (string, string, string,uint, uint){
-        return (name, url, imageHash,uint(type), duration);
+        return (name, url, imageHash,uint(role), duration);
     }
 
     function getDuration() public view returns (uint){

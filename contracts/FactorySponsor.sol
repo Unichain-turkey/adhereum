@@ -4,14 +4,13 @@ import "./Sponsor.sol";
 import "./Ownable.sol";
 
 contract FactorySponsor is Ownable {
-
-
-
-
+    
+    enum Role {Gold, Bronze, Silver}
+    
     bool isActive;
     uint sponsorLimit;
     uint sponsorCount;
-
+    
     uint priceGold;
     uint priceSilver;
     uint priceBronze;
@@ -23,7 +22,7 @@ contract FactorySponsor is Ownable {
         string name;
         string url;
         string imageHash;
-        string position;
+        Role role;
         uint duration;
         uint status;//0->pending,1->confirm,2->deny and money back
         address owner;
@@ -32,7 +31,7 @@ contract FactorySponsor is Ownable {
     Pending[] public pendingList;
 
     event beenSponsor(address _sponsor, string _name);
-    event requestSponsor(string _name, string _url, string _hash, uint _duration);
+    event requestSponsor(string _name, string _url, string _hash, uint _type, uint _duration);
     event deniedSponsor(address _address, string _name);
     event removedSponsor(address indexed sponsor, string name, uint month);
     event expiredSponsor(address indexed sponsor, string name, uint month);
@@ -49,21 +48,31 @@ contract FactorySponsor is Ownable {
         isActive = true;
 
     }
-    function
-    //expire need
-    function requestBeingSponsor(string _name, string _url, string _imageHash, uint _duration)
+    
+    function calculatePrice( uint _type,uint _duration)  view internal returns(uint){
+        if(Role(_type)==Role.Bronze) {
+          return  priceGold * (1 finney) * _duration;
+        } else if(Role(_type)==Role.Silver) {
+          return  priceGold * (1 finney) * _duration;
+        }
+        else{
+            return  priceSilver * (1 finney) * _duration;
+        }
+    }
+    //expire indexed
+    function requestBeingSponsor(string _name, string _url, string _imageHash, uint _type, uint _duration)
     payable
     Active
     public {
-        require(msg.value >= price * (1 finney) * _duration);
+        require(msg.value >= calculatePrice(_type,_duration));
         require(sponsorCount < sponsorLimit);
-
+        
+        //forbitten request from same address
         require(addressToSponsor[msg.sender] == address(0));
-        //ayni hesapdan kayit yasak
-
-        pendingList.push(Pending({name : _name, url : _url, imageHash : _imageHash, duration : _duration, status : 0, owner : msg.sender}));
-
-        emit pendedList(_name, _url, _imageHash, _duration);
+    
+        pendingList.push(Pending({name : _name, url : _url, imageHash : _imageHash, duration : _duration,role:Role(_type), status : 0, owner : msg.sender}));
+        
+        emit requestSponsor(_name, _url, _imageHash,_type, _duration);
 
     }
 
@@ -72,9 +81,9 @@ contract FactorySponsor is Ownable {
     onlyOwner
     public
     {
-        Sponsor _temp = Sponsor(Sponsors[_index]);
+        Sponsor _temp = Sponsor(listOfSponsors[_index]);
         delete addressToSponsor[_temp.getOwner()];
-        delete Sponsors[_index];
+        delete listOfSponsors[_index];
         sponsorCount -= 1;
         emit removedSponsor(address(_temp), _temp.getName(), _temp.getDuration());
     }
@@ -85,9 +94,9 @@ contract FactorySponsor is Ownable {
 
         Pending storage tmp = pendingList[_index];
         require(tmp.status == 0);
-        //if
-        Sponsor _sponsor = new Sponsor(tmp.name, tmp.url, tmp.imageHash, tmp.duration);
-        Sponsors.push(address(_sponsor));
+
+        Sponsor _sponsor = new Sponsor(tmp.name, tmp.url, tmp.imageHash,uint(tmp.role),tmp.duration);
+        listOfSponsors.push(address(_sponsor));
         addressToSponsor[tmp.owner] = address(_sponsor);
         sponsorCount += 1;
         tmp.status = 1;
@@ -101,8 +110,8 @@ contract FactorySponsor is Ownable {
         Pending storage tmp = pendingList[_index];
         require(tmp.status == 0);
         tmp.status = 2;
-        tmp.owner.transfer(price * (1 finney) * tmp.duration);
-        emit denySponsor(tmp.owner, tmp.name);
+        tmp.owner.transfer(calculatePrice(uint(tmp.role),tmp.duration));
+        emit deniedSponsor(tmp.owner, tmp.name);
 
     }
 
@@ -135,16 +144,30 @@ contract FactorySponsor is Ownable {
         return isActive;
     }
 
-    function setPrice(uint _price) public onlyOwner() {
-        price = _price;
+    function setPrice(uint _price,uint _type) public onlyOwner() {
+        if(Role(_type)==Role.Bronze) {
+            priceBronze=_price;
+        } else if(Role(_type)==Role.Silver) {
+           priceSilver=_price;
+        }
+        else{
+            priceGold=_price;
+        }
     }
 
-    function getPrice() public view returns (uint){
-        return price;
+    function getPrice() public view returns (uint _type){
+        if(Role(_type)==Role.Bronze) {
+          return  priceBronze;
+        } else if(Role(_type)==Role.Silver) {
+         return  priceSilver;
+        }
+        else{
+           return priceGold;
+        }
     }
 
     function getSponsor(uint _index) public view returns (address){
-        return Sponsors[_index];
+        return listOfSponsors[_index];
     }
 
     function getSponsorCount() public view returns (uint){
@@ -164,10 +187,10 @@ contract FactorySponsor is Ownable {
     {
         uint i = 0;
         for (i; i < sponsorCount; i++) {
-            Sponsor _temp = Sponsor(Sponsors[i]);
+            Sponsor _temp = Sponsor(listOfSponsors[i]);
             require(uint64(now) >= _temp.getDeadTime());
             delete addressToSponsor[_temp.getOwner()];
-            delete Sponsors[i];
+            delete listOfSponsors[i];
             sponsorCount -= 1;
         }
     }
