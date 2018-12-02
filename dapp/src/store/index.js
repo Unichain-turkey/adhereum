@@ -1,14 +1,59 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 
-import {web3, ipfs} from '../../common/interface.js'
-import sponsorContract from '../../../../build/contracts/FactorySponsor.json'
+import {web3, ipfs} from '../common/interface.js'
+import factoryContract from '../../../build/contracts/FactorySponsor'
+
 
 Vue.use(Vuex)
 
-export default new Vuex.Store({
+const common = {
   state: {
-    jsonSponsor: sponsorContract,
+    successFlag: false,
+    successMessage: '',
+    errorFlag: false,
+    errorMessage: '',
+
+  },
+  mutations: {
+    succes(state, msg) {
+      state.errorFlag = false
+      state.successFlag = true
+      state.successMessage = msg
+    },
+    error(state, msg) {
+      state.successFlag = false
+      state.errorFlag = true
+      state.errorMessage = msg
+      this.reset(state)
+    },
+    reset(state) {
+      setTimeout(() => {
+        state.successFlag = false
+        state.errorFlag = false
+      }, 3000);
+    }
+
+  },
+  getters: {
+    successFlag: state => {
+      return state.successFlag
+    },
+    successMessage: state => {
+      return state.successMessage
+    },
+    errorFlag: state => {
+      return state.errorFlag
+    },
+    errorMessage: state => {
+      return state.errorMessage
+    },
+  }
+}
+
+const main = {
+  state: {
+    jsonSponsor: factoryContract,
     addressSponsor: '0x17608e57f7b9d993cdbebfcb6f4d8cf2e82383b0',
     contract: null,
     isInjected: false,
@@ -84,5 +129,13 @@ export default new Vuex.Store({
       return state.contract
     }
 
+  }
+}
+
+
+export default new Vuex.Store({
+  modules: {
+    main: main,
+    common: common
   }
 })

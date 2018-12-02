@@ -1,4 +1,4 @@
-import store from "../../store/main/index";
+import store from "../../store/index";
 
 export default {
 
@@ -12,11 +12,11 @@ export default {
 
   },
   ipfsAdd: (buffer) => {
-    let ipfs = store.getters.getIpfs;
+    let ipfs = store.getters.main.getIpfs;
     return ipfs.add(buffer, {progress: (prog) => console.log(`received: ${prog}`)})
   },
   ipfsPin(hash) {
-    let ipfs = store.getters.getIpfs;
+    let ipfs = store.getters.main.getIpfs;
     return ipfs.pin.add(hash, function (err) {
       err == null ? console.log("Successfully pinned the file on ipfs") : console.log("Failed pinnig file to ipfs")
     });

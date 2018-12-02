@@ -406,6 +406,7 @@
           console.log(error)
           console.log(value)
           this.txLoader=false;
+          this.commonStore.commit('succes','Succefuly deployed request');
 
         }.bind(this))
       },

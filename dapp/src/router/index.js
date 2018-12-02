@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import MainPage from '../components/MainPage'
+import App from '../components/Main'
 import demo1 from '../components/demos/Demo-1'
 import Admin1 from '../components/demos/Demo-1-Admin'
 import demo2 from '../components/demos/Demo-2'
@@ -14,8 +14,8 @@ export default new Router({
   routes: [
     {
       path: '/',
-      name: 'MainPage',
-      component: MainPage
+      name: 'Main',
+      component: App
     },
     {
       path: '/demo1',

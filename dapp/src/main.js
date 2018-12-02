@@ -3,8 +3,7 @@
 import Vue from 'vue'
 import App from './App'
 import router from './router'
-import store from './store/main/index'
-import commonStore from './store/common/index'
+import store from './store/index'
 
 import './common/filters';
 
@@ -34,7 +33,6 @@ Vue.config.productionTip = false;
     new Vue({
       el: '#app',
       store,
-      commonStore,
       router,
       components: {App},
       template: '<App/>'
