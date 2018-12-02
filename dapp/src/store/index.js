@@ -9,7 +9,7 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     jsonSponsor: sponsorContract,
-    addressSponsor: '0x0ee4555386ee6737c1f5960d66865e7108c59401',
+    addressSponsor: '0x764d831961f15bd3092d6eab7674d414047643b2',
     contract: null,
     isInjected: false,
     web3: null,

@@ -4,6 +4,7 @@ import Vue from 'vue'
 import App from './App'
 import router from './router'
 import store from './store'
+import './common/filters';
 
 import 'vue-awesome/icons'
 import Icon from 'vue-awesome/components/Icon'

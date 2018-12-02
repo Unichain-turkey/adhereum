@@ -385,10 +385,11 @@
       sendSponsorshipRequest() {
 
         let _base = store.getters.currentAddress
-        const temp = this.contract.methods.beSponsor(
+        const temp = this.contract.methods.requestBeingSponsor(
           this.sponsorName,
           this.sponsorUrl,
           this.imageHash,
+          0,
           this.duration
         ).send(
           {value: this.$options.filters.toWei('1') * this.duration, from: _base})

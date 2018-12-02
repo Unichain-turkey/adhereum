@@ -17,6 +17,7 @@ export default {
       .then(function (events) {
         console.log(events)
       });
-  }
+  },
+
 
 }
