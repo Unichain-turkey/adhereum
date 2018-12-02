@@ -10,6 +10,7 @@ export default new Vuex.Store({
   state: {
     jsonSponsor: sponsorContract,
     addressSponsor: '0x0ee4555386ee6737c1f5960d66865e7108c59401',
+    contract: null,
     isInjected: false,
     web3: null,
     networkId: null,
@@ -36,6 +37,9 @@ export default new Vuex.Store({
     },
     SETIPFS(state, result) {
       state.ipfsApi = result
+    },
+    SETCONTRACT(state, contract) {
+      state.contract = contract
     },
   },
   actions: {
@@ -75,6 +79,9 @@ export default new Vuex.Store({
     },
     getIpfs: state => {
       return state.ipfsApi
+    },
+    getContract: state => {
+      return state.contract
     }
 
   }

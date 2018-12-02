@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import MainPage from '../components/MainPage'
 import demo1 from '../components/demos/Demo-1'
+import Admin1 from '../components/demos/Demo-1-Admin'
 import demo2 from '../components/demos/Demo-2'
 import demo3 from '../components/demos/Demo-3'
 
@@ -19,7 +20,11 @@ export default new Router({
     {
       path: '/demo1',
       name: 'Demo-1',
-      component: demo1
+      component: demo1,
+    },
+    {
+      path: '/demo1/admin',
+      component: Admin1,
     },
     {
       path: '/demo2',

@@ -424,17 +424,9 @@
         let web3 = this.$store.getters.web3;
         web3 = web3()
         this.contract = new web3.eth.Contract(this.$store.getters.jsonSponsor.abi, this.$store.getters.addressSponsor)
-
         console.log(this.contract.options)
+        this.$store.commit('SETCONTRACT',this.contract)
 
-
-        contractApi.readEvents(this.contract, null)
-        /*
-        this.contract.events.beenSponsor('beenSponsor', {fromBlock: 0, toBlock: 'latest'}, function (error, events) {
-          console.log(events)
-          console.log(error)
-        })
-        */
 
       }
     }
