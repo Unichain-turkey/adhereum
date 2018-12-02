@@ -74,7 +74,7 @@
         <v-card-actions>
           <v-spacer></v-spacer>
           <v-btn color="blue darken-1" flat @click="dialog = false">Close</v-btn>
-          <v-btn color="blue darken-1" flat :disabled="sponsorValid" @click="sendSponsorshipRequest">Send</v-btn>
+          <v-btn color="blue darken-1" flat :disabled="sponsorValid" v-on:click="requestSponsor">Send</v-btn>
         </v-card-actions>
 
       </v-card>
@@ -100,7 +100,7 @@
 
                 <v-btn fab dark small color="indigo" icon
                        v-on:click="(e)=>{
-                       test(e,item['position'])
+                       selected(item['position'])
                        }">
                   <v-icon>add</v-icon>
                 </v-btn>
@@ -234,7 +234,6 @@
 
 <script>
   import api from "../../api/ipfs/index"
-  import contractApi from "../../api/contract/demo-1"
 
   export default {
     name: "Demo-1",
@@ -245,6 +244,7 @@
       name: null,
       email: null,
       url: null,
+      type: null,
       duration: null,
       file: null,
       fileBuffer: null,
@@ -363,7 +363,7 @@
     }),
     computed: {
       fileUploadValid() {
-        return ((this.fileHash === null && this.file === null && this.file == null) || this.fileHash === null)
+        return (this.fileHash === null && this.file === null && this.file == null)
       },
       sponsorValid() {
         return (this.name === null || this.fileHash === null || this.url === null || this.email === null)
@@ -378,30 +378,32 @@
       }
     },
     methods: {
-      test(event, pos) {
-        console.log(pos)
+      selected(pos) {
+        if (pos.includes("b")) {
+          this.type = 2;
+        } else if (pos.includes("s")) {
+          this.type = 1;
+        } else {
+          this.type = 0;
+        }
         this.dialog = true;
       },
-      sendSponsorshipRequest() {
+      requestSponsor() {
 
-        let _base = store.getters.currentAddress
+        let _base = this.$store.getters.currentAddress
         const temp = this.contract.methods.requestBeingSponsor(
-          this.sponsorName,
-          this.sponsorUrl,
-          this.imageHash,
-          0,
+          this.name,
+          this.url,
+          this.fileHash,
+          this.type,
           this.duration
         ).send(
-          {value: this.$options.filters.toWei('1') * this.duration, from: _base})
+          {value: this.$options.filters.toWei('1') * (3 - this.type) * this.duration, from: _base})
         this.pending = true
         temp.then(function (error, value) {
-          if (!error) {
-            alert(error)
-          } else {
-            alert("Your request of being sponsorships is received !")
-            window.location.href = "/"
-          }
-          this.pending = false
+          console.log(error)
+          console.log(value)
+
         }.bind(this))
       },
       onFileChanged(event) {
@@ -426,7 +428,7 @@
         web3 = web3()
         this.contract = new web3.eth.Contract(this.$store.getters.jsonSponsor.abi, this.$store.getters.addressSponsor)
         console.log(this.contract.options)
-        this.$store.commit('SETCONTRACT',this.contract)
+        this.$store.commit('SETCONTRACT', this.contract)
 
 
       }
