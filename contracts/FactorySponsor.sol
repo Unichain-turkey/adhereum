@@ -1,4 +1,5 @@
-pragma solidity ^0.4.17;
+pragma solidity >=0.4.22 <0.6.0;
+
 
 import "./Sponsor.sol";
 import "./Ownable.sol";
@@ -47,7 +48,6 @@ contract FactorySponsor is Ownable{
         require(isActive);
         _;
     }
-
     constructor(uint _sponsorLimit,uint _price) public{
         sponsorLimit=_sponsorLimit;
         price=_price;

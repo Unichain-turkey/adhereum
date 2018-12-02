@@ -234,6 +234,7 @@
 
 <script>
   import api from "../../api/ipfs/index"
+  import contractApi from "../../api/contract/demo-1"
 
   export default {
     name: "Demo-1",
@@ -423,6 +424,18 @@
         let web3 = this.$store.getters.web3;
         web3 = web3()
         this.contract = new web3.eth.Contract(this.$store.getters.jsonSponsor.abi, this.$store.getters.addressSponsor)
+
+        console.log(this.contract.options)
+
+
+        contractApi.readEvents(this.contract, null)
+        /*
+        this.contract.events.beenSponsor('beenSponsor', {fromBlock: 0, toBlock: 'latest'}, function (error, events) {
+          console.log(events)
+          console.log(error)
+        })
+        */
+
       }
     }
 

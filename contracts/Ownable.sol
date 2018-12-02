@@ -1,4 +1,4 @@
-pragma solidity ^0.4.17;
+pragma solidity >=0.4.22 <0.6.0;
 
 /**
  * @title Ownable
