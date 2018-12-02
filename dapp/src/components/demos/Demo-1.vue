@@ -239,6 +239,7 @@
     name: "Demo-1",
     data: () => ({
       contract: null,
+      txLoader:false,
       loading: false,
       dialog: false,
       name: null,
@@ -370,10 +371,10 @@
       },
       pageLoader() {
         if (this.$store.getters.web3 === null) {
-          return true;
+          return true || this.txLoader;
         } else {
           this.init()
-          return false;
+          return false || this.txLoader;
         }
       }
     },
@@ -391,6 +392,7 @@
       requestSponsor() {
 
         let _base = this.$store.getters.currentAddress
+        this.txLoader=true;
         const temp = this.contract.methods.requestBeingSponsor(
           this.name,
           this.url,
@@ -398,11 +400,12 @@
           this.type,
           this.duration
         ).send(
-          {value: this.$options.filters.toWei('1') * (3 - this.type) * this.duration, from: _base})
+          {value: this.$options.filters.toWei('1') * (3 - this.type) * this.duration, from: _base,gas: 1000000})
         this.pending = true
         temp.then(function (error, value) {
           console.log(error)
           console.log(value)
+          this.txLoader=false;
 
         }.bind(this))
       },

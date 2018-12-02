@@ -1,15 +1,15 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 
-import {web3, ipfs} from '../common/interface.js'
-import sponsorContract from '../../../build/contracts/FactorySponsor.json'
+import {web3, ipfs} from '../../common/interface.js'
+import sponsorContract from '../../../../build/contracts/FactorySponsor.json'
 
 Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
     jsonSponsor: sponsorContract,
-    addressSponsor: '0x764d831961f15bd3092d6eab7674d414047643b2',
+    addressSponsor: '0x17608e57f7b9d993cdbebfcb6f4d8cf2e82383b0',
     contract: null,
     isInjected: false,
     web3: null,

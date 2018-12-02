@@ -59,7 +59,7 @@
 
 
 <script>
-  import store from "../../store";
+  import store from "../../store/main/index";
 
   export default {
     name: "BeingSponsor",

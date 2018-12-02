@@ -27,7 +27,7 @@ let web3 = new Promise(function (resolve, reject) {
       }
     })
   } else {
-    let web3 = new Web3(new Web3.providers.HttpProvider('http://localhost:8545')) // GANACHE FALLBACK
+    let web3 = new Web3(new Web3.providers.HttpProvider('http://localhost:7545')) // GANACHE FALLBACK
     resolve({
       injectedWeb3: false,
       web3() {

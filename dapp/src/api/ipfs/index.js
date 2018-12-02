@@ -1,4 +1,4 @@
-import store from "../../store/index";
+import store from "../../store/main/index";
 
 export default {
 

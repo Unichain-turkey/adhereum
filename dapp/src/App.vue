@@ -3,6 +3,20 @@
     <header-component></header-component>
     <v-content>
       <v-container fluid>
+        <v-alert
+          :value="this.commonStore.getters.successFlag"
+          type="success"
+        >
+          {{this.commonStore.getters.successMessage()}}
+        </v-alert>
+
+        <v-alert
+          :value="this.commonStore.getters.errorFlag"
+          type="error"
+        >
+          {{this.commonStore.getters.successMessage()}}
+        </v-alert>
+
         <router-view></router-view>
       </v-container>
     </v-content>
