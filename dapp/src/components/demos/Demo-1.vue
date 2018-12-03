@@ -239,7 +239,7 @@
     name: "Demo-1",
     data: () => ({
       contract: null,
-      txLoader:false,
+      txLoader: false,
       loading: false,
       dialog: false,
       name: null,
@@ -392,7 +392,7 @@
       requestSponsor() {
 
         let _base = this.$store.getters.currentAddress
-        this.txLoader=true;
+        this.txLoader = true;
         const temp = this.contract.methods.requestBeingSponsor(
           this.name,
           this.url,
@@ -400,15 +400,18 @@
           this.type,
           this.duration
         ).send(
-          {value: this.$options.filters.toWei('1') * (3 - this.type) * this.duration, from: _base,gas: 1000000})
-        this.pending = true
-        temp.then(function (error, value) {
-          console.log(error)
-          console.log(value)
-          this.txLoader=false;
-          this.store.commit('success','Succefuly deployed request');
+          {value: this.$options.filters.toWei('1') * (3 - this.type) * this.duration, from: _base})
 
-        }.bind(this))
+        let that = this;
+        temp.then(function (value) {
+          console.log(value)
+          that.txLoader = false;
+          that.$store.commit('success', 'Succefuly deployed request');
+        }).catch((e) => {
+          console.log(e)
+          that.$store.commit('error', e);
+          that.txLoader = false;
+        });
       },
       onFileChanged(event) {
         this.file = event.target.files[0]
@@ -433,7 +436,6 @@
         this.contract = new web3.eth.Contract(this.$store.getters.jsonSponsor.abi, this.$store.getters.addressSponsor)
         console.log(this.contract.options)
         this.$store.commit('SETCONTRACT', this.contract)
-
 
       }
     }

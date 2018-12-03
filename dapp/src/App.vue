@@ -3,18 +3,39 @@
     <header-component></header-component>
     <v-content>
       <v-container fluid>
-        <v-alert
-          :value="successFlag"
-          type="success"
+
+
+        <v-snackbar
+          v-model="successFlag"
+          :timeout="timeout"
+          top
         >
           {{successMsg}}
-        </v-alert>
-        <v-alert
-          :value="errorFlag"
-          type="error"
+          <v-btn
+            color="green"
+            flat
+            @click="reset"
+          >
+            Close
+          </v-btn>
+        </v-snackbar>
+
+
+        <v-snackbar
+          v-model="errorFlag"
+          :timeout="timeout"
+          top
         >
-          {{errorMsg}}
-        </v-alert>
+          {{ errorMsg }}
+          <v-btn
+            color="red"
+            flat
+            @click="reset"
+          >
+            Close
+          </v-btn>
+        </v-snackbar>
+
 
         <router-view></router-view>
       </v-container>
@@ -47,6 +68,17 @@
     components: {
       'header-component': Header,
       'footer-component': Footer
+    },
+    data() {
+      return {
+        timeout: 3000,
+      }
+    },
+    methods: {
+      reset() {
+        this.$store.commit('reset');
+      },
+
     }
   }
 </script>

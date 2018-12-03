@@ -25,14 +25,11 @@ const common = {
       state.successFlag = false
       state.errorFlag = true
       state.errorMessage = msg
-      this.reset(state)
     },
     reset(state) {
-      setTimeout(() => {
-        state.successFlag = false
-        state.errorFlag = false
-      }, 3000);
-    }
+      state.successFlag = false
+      state.errorFlag = false
+    },
 
   },
   getters: {
