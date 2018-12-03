@@ -9,6 +9,7 @@ Vue.use(Vuex)
 
 const common = {
   state: {
+    loader: false,
     successFlag: false,
     successMessage: '',
     errorFlag: false,
@@ -30,9 +31,15 @@ const common = {
       state.successFlag = false
       state.errorFlag = false
     },
+    setLoader(state, value) {
+      state.loader = value
+    },
 
   },
   getters: {
+    loader: state => {
+      return state.loader
+    },
     successFlag: state => {
       return state.successFlag
     },
@@ -51,7 +58,7 @@ const common = {
 const main = {
   state: {
     jsonSponsor: factoryContract,
-    addressSponsor: '0x764D831961F15bd3092D6EAB7674d414047643B2',
+    addressSponsor: '0xb811932130a21047000a60f9e6d3a182857a93cd',
     contract: null,
     isInjected: false,
     web3: null,
