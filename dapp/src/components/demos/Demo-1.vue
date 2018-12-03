@@ -436,7 +436,18 @@
         this.contract = new web3.eth.Contract(this.$store.getters.jsonSponsor.abi, this.$store.getters.addressSponsor)
         console.log(this.contract.options)
         this.$store.commit('SETCONTRACT', this.contract)
-
+        this.getSponsors()
+      },
+      getSponsors: function () {
+        this.contract.getPastEvents('beenSponsor', {fromBlock: 0, toBlock: 'latest'}, function (error, events) {
+          events.forEach((element) => {
+            var address = element.returnValues[0]
+            var _sponsor = this.getSposnsor(address)
+            _sponsor.methods.getSponsor().call().then(function (val) {
+              console.log(val)
+            })
+          });
+        }.bind(this))
       }
     }
 

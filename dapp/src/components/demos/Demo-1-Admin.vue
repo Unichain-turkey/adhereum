@@ -82,29 +82,31 @@
     },
     methods: {
       acceptButton(e) {
-        that.$store.commit('loader', true);
+        let that = this
+        that.$store.commit('setLoader', true);
         this.contract.methods.confirm(e).send({from: this.$store.getters.currentAddress})
           .then(function (tx) {
             that.$store.commit('success', tx);
-            that.$store.commit('loader', false);
+            that.$store.commit('setLoader', false);
             console.log(tx)
           }).catch((e) => {
-            console.log(e)
-            that.$store.commit('error', e);
-            that.$store.commit('loader', false);
+          console.log(e)
+          that.$store.commit('error', e);
+          that.$store.commit('setLoader', false);
         });
       },
       declineButton(e) {
-        that.$store.commit('loader', true);
+        let that = this
+        that.$store.commit('setLoader', true);
         this.contract.methods.deny(e).send({from: this.$store.getters.currentAddress})
           .then(function (tx) {
             that.$store.commit('success', tx);
-            that.$store.commit('loader', false);
+            that.$store.commit('setLoader', false);
             console.log(tx)
           }).catch((e) => {
-            console.log(e)
-            that.$store.commit('error', e);
-            that.$store.commit('loader', false);
+          console.log(e)
+          that.$store.commit('error', e);
+          that.$store.commit('setLoader', false);
         });
       },
       getImageUrl: function (hash) {
