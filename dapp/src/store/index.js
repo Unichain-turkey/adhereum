@@ -16,7 +16,7 @@ const common = {
 
   },
   mutations: {
-    succes(state, msg) {
+    success(state, msg) {
       state.errorFlag = false
       state.successFlag = true
       state.successMessage = msg
@@ -54,7 +54,7 @@ const common = {
 const main = {
   state: {
     jsonSponsor: factoryContract,
-    addressSponsor: '0x17608e57f7b9d993cdbebfcb6f4d8cf2e82383b0',
+    addressSponsor: '0x764D831961F15bd3092D6EAB7674d414047643B2',
     contract: null,
     isInjected: false,
     web3: null,

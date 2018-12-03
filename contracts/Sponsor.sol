@@ -70,6 +70,7 @@ contract Sponsor is Ownable {
 
     function getDeadTime() public view returns (uint){
         return deadTime;
+
     }
 
     function calculateDeadTime(uint _duration, uint64 _startTime) public returns (uint)

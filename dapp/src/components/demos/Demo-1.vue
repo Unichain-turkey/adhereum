@@ -151,7 +151,7 @@
 
                 <v-btn fab dark small color="indigo" icon
                        v-on:click="(e)=>{
-                       test(e,item['position'])
+                       selected(item['position'])
                        }">
                   <v-icon>add</v-icon>
                 </v-btn>
@@ -202,7 +202,7 @@
 
                 <v-btn fab dark small color="indigo" icon
                        v-on:click="(e)=>{
-                       test(e,item['position'])
+                       selected(item['position'])
                        }">
                   <v-icon>add</v-icon>
                 </v-btn>
@@ -406,7 +406,7 @@
           console.log(error)
           console.log(value)
           this.txLoader=false;
-          this.commonStore.commit('succes','Succefuly deployed request');
+          this.store.commit('success','Succefuly deployed request');
 
         }.bind(this))
       },

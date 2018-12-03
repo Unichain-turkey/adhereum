@@ -9,7 +9,6 @@
         >
           {{successMsg}}
         </v-alert>
-
         <v-alert
           :value="errorFlag"
           type="error"

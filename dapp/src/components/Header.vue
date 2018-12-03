@@ -10,10 +10,6 @@
     <v-spacer></v-spacer>
 
     <v-toolbar-title class="p-1">
-      <router-link class="nav-link white--text" to="demo3">Market Place</router-link>
-    </v-toolbar-title>
-
-    <v-toolbar-title class="p-1">
 
       <v-menu>
         <v-toolbar-title slot="activator">
