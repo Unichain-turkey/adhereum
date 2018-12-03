@@ -58,7 +58,7 @@ const common = {
 const main = {
   state: {
     jsonSponsor: factoryContract,
-    addressSponsor: '0x4709fd8185aac463cb91e265bb79a2b832ec21c9',
+    addressSponsor: '0x2084dda1a059e8c28acbac5eaa0fc940fff0d85f',
     contract: null,
     isInjected: false,
     web3: null,

@@ -373,7 +373,7 @@
         if (this.$store.getters.web3 === null) {
           return true || this.txLoader;
         } else {
-          this.init()
+          this.initilaze()
           return false || this.txLoader;
         }
       }
@@ -401,7 +401,6 @@
           this.duration
         ).send(
           {value: this.$options.filters.toWei('1') * (3 - this.type) * this.duration, from: _base})
-
         let that = this;
         temp.then(function (value) {
           console.log(value)
@@ -430,13 +429,13 @@
           this.loading = false
         })
       },
-      init: function () {
+      initilaze: function () {
         let web3 = this.$store.getters.web3;
         web3 = web3()
         this.contract = new web3.eth.Contract(this.$store.getters.jsonSponsor.abi, this.$store.getters.addressSponsor)
         console.log(this.contract.options)
         this.$store.commit('SETCONTRACT', this.contract)
-        this.getSponsors()
+        //this.getSponsors()
       },
       getSponsors: function () {
         this.contract.getPastEvents('beenSponsor', {fromBlock: 0, toBlock: 'latest'}, function (error, events) {
