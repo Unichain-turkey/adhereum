@@ -163,15 +163,15 @@ contract FactorySponsor is Ownable {
         return listOfSponsors[_index];
     }
 
-    function getSponsorCount() public view returns (uint){
+    function getSponsorsCount() public view returns (uint){
         return sponsorCount;
     }
 
-    function getPendingList(uint _ind) public view returns (string, string, string, uint,uint, uint){
+    function getPendingSponsor(uint _ind) public view returns (string, string, string, uint,uint, uint){
         return (pendingList[_ind].name, pendingList[_ind].url, pendingList[_ind].imageHash, uint(pendingList[_ind].role), pendingList[_ind].duration, pendingList[_ind].status);
     }
 
-    function getNumberPending() public view returns (uint){
+    function getPendingsCount() public view returns (uint){
         return pendingList.length;
     }
 

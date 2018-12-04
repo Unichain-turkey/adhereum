@@ -5,6 +5,11 @@
 
         <v-flex xs1 class="pa-1">
           <div class="text-xs-center">
+            <p class="subheading">{{item['index']}}</p>
+          </div>
+        </v-flex>
+        <v-flex xs1 class="pa-1">
+          <div class="text-xs-center">
             <p class="subheading">{{item['name']}}</p>
           </div>
         </v-flex>
@@ -68,6 +73,7 @@
         pendingList: [
           {
             'flag': true,
+            'index': "INDEX",
             'name': "NAME",
             'url': "LINK",
             'duration': "DURATION",
@@ -93,7 +99,7 @@
           console.log(e)
           that.$store.commit('error', e);
           that.$store.commit('setLoader', false);
-        }).finally(function() {
+        }).finally(function () {
           console.log("Finaly")
           that.$store.commit('setLoader', false);
         });
@@ -110,7 +116,7 @@
           console.log(e)
           that.$store.commit('error', e);
           that.$store.commit('setLoader', false);
-        }).finally(function() {
+        }).finally(function () {
 
           that.$store.commit('setLoader', false);
         });
@@ -120,21 +126,22 @@
       }
     },
     mounted: function () {
-      console.log(this.$store.getters.getContract)
       var count = this.contract.methods.getNumberPending().call();
       count.then(function (value) {
-        var i;
-        for (i = 0; i < value; i++) {
+        for (let i = 0; i < value; i++) {
           this.contract.methods.getPendingList(i).call().then(function (val) {
-            console.log(val)
-            this.pendingList.push({
-              'name': val[0],
-              'url': val[1],
-              'image': val[2],
-              'duration': val[3],
-              'type': Types[val[4]],
-              'index': i - 1,
-            })
+            if (val[5] === '0') {//status is not confirmed
+              this.pendingList.push({
+                'name': val[0],
+                'url': val[1],
+                'image': val[2],
+                'type': Types[val[3]],
+                'duration': val[4],
+                'status': val[5],
+                'index': i,
+              })
+            }
+
           }.bind(this))
         }
       }.bind(this))
