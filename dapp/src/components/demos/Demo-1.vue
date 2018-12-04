@@ -384,46 +384,28 @@
     },
     watch: {
       contract(val, oldVal) {
-        this.getSponsors()
+        if (val && !oldVal)
+          this.getSponsors()
       }
     },
     methods: {
       selected(pos) {
         if (pos.includes("b")) {
-          this.type = 2;
+          this.type = 2
         } else if (pos.includes("s")) {
-          this.type = 1;
+          this.type = 1
         } else {
-          this.type = 0;
+          this.type = 0
         }
-        this.dialog = true;
+        this.dialog = true
       },
       requestSponsor() {
+        this.txLoader = true
+        apiContract.requestSponsor(this.name, this.url, this.fileHash, this.type, this.duration), () => {
+          this.txLoader = false
+          this.dialog = false
+        }
 
-        let _base = store.getters.currentAddress
-        this.txLoader = true;
-        const temp = this.contract.methods.requestBeingSponsor(
-          this.name,
-          this.url,
-          this.fileHash,
-          this.type,
-          this.duration
-        ).send(
-          {value: this.$options.filters.toWei('1') * (3 - this.type) * this.duration, from: _base})
-        let that = this;
-        temp.then(function (value,e) {
-          console.log(value)
-          console.log(e)
-          that.txLoader = false;
-          that.$store.commit('success', 'Succefuly deployed request');
-        }).catch((e) => {
-          console.log(e)
-          that.$store.commit('error', e);
-          that.txLoader = false;
-        }).finally(function() {
-          console.log("Finaly")
-          that.txLoader = false;
-        });;
       },
       onFileChanged(event) {
         this.file = event.target.files[0]
@@ -451,20 +433,16 @@
 
       },
       getSponsors: function () {
+
         let contract = store.getters.contractOne
-        contract.getPastEvents('beenSponsor', {fromBlock: 0, toBlock: 'latest'}, function (error, events) {
-          console.log(events)
-          /*
-          apiContract.getSponsorList(events,()=>{
-            console.log("Done")
+        apiContract.readEvents(contract, (events) => {
+          apiContract.getSponsorList(events, () => {
           })
-          */
-        });
-      },
-      done:function (items) {
-        console.log(items)
+        })
+
       }
-    }
+    },
+
   }
 </script>
 
