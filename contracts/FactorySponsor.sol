@@ -155,15 +155,8 @@ contract FactorySponsor is Ownable {
         }
     }
 
-    function getPrice() public view returns (uint _type){
-        if(Role(_type)==Role.Bronze) {
-          return  priceBronze;
-        } else if(Role(_type)==Role.Silver) {
-         return  priceSilver;
-        }
-        else{
-           return priceGold;
-        }
+    function getPrice() public view returns (uint,uint,uint){
+        return (priceGold,priceSilver,priceBronze);
     }
 
     function getSponsor(uint _index) public view returns (address){

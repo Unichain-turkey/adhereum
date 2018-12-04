@@ -234,6 +234,8 @@
 
 <script>
   import api from "../../api/ipfs/index"
+  import store from '../../store/index'
+
 
   export default {
     name: "Demo-1",
@@ -370,12 +372,17 @@
         return (this.name === null || this.fileHash === null || this.url === null || this.email === null)
       },
       pageLoader() {
-        if (this.$store.getters.web3 === null) {
+        if (store.getters.web3 === null) {
           return true || this.txLoader;
         } else {
           this.initilaze()
           return false || this.txLoader;
         }
+      }
+    },
+    watch: {
+      contract(val, oldVal) {
+        this.getSponsors()
       }
     },
     methods: {
@@ -391,7 +398,7 @@
       },
       requestSponsor() {
 
-        let _base = this.$store.getters.currentAddress
+        let _base = store.getters.currentAddress
         this.txLoader = true;
         const temp = this.contract.methods.requestBeingSponsor(
           this.name,
@@ -430,26 +437,22 @@
         })
       },
       initilaze: function () {
-        let web3 = this.$store.getters.web3;
+        let web3 = store.getters.web3;
         web3 = web3()
-        this.contract = new web3.eth.Contract(this.$store.getters.jsonSponsor.abi, this.$store.getters.addressSponsor)
+        this.contract = new web3.eth.Contract(store.getters.jsonSponsor.abi, store.getters.addressSponsor)
         console.log(this.contract.options)
-        this.$store.commit('SETCONTRACT', this.contract)
-        //this.getSponsors()
+        store.commit('SETCONTRACTONE', this.contract)
+
       },
       getSponsors: function () {
-        this.contract.getPastEvents('beenSponsor', {fromBlock: 0, toBlock: 'latest'}, function (error, events) {
-          events.forEach((element) => {
-            var address = element.returnValues[0]
-            var _sponsor = this.getSposnsor(address)
-            _sponsor.methods.getSponsor().call().then(function (val) {
-              console.log(val)
-            })
-          });
-        }.bind(this))
+        let contract = store.getters.contractOne
+        contract.getPastEvents('beenSponsor', {fromBlock: 0, toBlock: 'latest'}, function (error, events) {
+          console.log(error)
+          console.log(events)
+        });
+
       }
     }
-
   }
 </script>
 

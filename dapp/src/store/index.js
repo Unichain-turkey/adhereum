@@ -58,8 +58,9 @@ const common = {
 const main = {
   state: {
     jsonSponsor: factoryContract,
-    addressSponsor: '0x2084dda1a059e8c28acbac5eaa0fc940fff0d85f',
-    contract: null,
+    addressSponsor: '0x63C15F6Fa731c36163201F9C7E1841EB0049c658',
+    contractOne: null,
+    contractTwo: null,
     isInjected: false,
     web3: null,
     networkId: null,
@@ -87,8 +88,11 @@ const main = {
     SETIPFS(state, result) {
       state.ipfsApi = result
     },
-    SETCONTRACT(state, contract) {
-      state.contract = contract
+    SETCONTRACTONE(state, contract) {
+      state.contractOne = contract
+    },
+    SETCONTRACTTWO(state, contract) {
+      state.contractTwo = contract
     },
   },
   actions: {
@@ -104,6 +108,12 @@ const main = {
     }
   },
   getters: {
+    contractTwo: state => {
+      return state.contractTwo
+    },
+    contractOne: state => {
+      return state.contractOne
+    },
     jsonSponsor: state => {
       return state.jsonSponsor
     },
