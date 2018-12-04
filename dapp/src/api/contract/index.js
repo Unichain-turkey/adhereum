@@ -15,6 +15,22 @@ export default {
   getSponsorContract: (address) => {
     const Web3 = (store.getters.web3)();
     return (new Web3.eth.Contract(sponsor.abi, address));
+  },
+  getSponsorList: (events, callback) => {
+    console.log(events)
+    /*
+    events.forEach((element) => {
+      var address = element.returnValues[0]
+      const Web3 = (store.getters.web3)();
+      let contract = new Web3.eth.Contract(sponsor.abi, address);
+      /*
+      contract.methods.getSponsor().call().then(function (val) {
+        console.log(val)
+      })
+
+
+    });
+*/
   }
 
 

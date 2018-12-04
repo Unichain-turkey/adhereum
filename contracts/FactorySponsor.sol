@@ -4,13 +4,13 @@ import "./Sponsor.sol";
 import "./Ownable.sol";
 
 contract FactorySponsor is Ownable {
-    
+
     enum Role {Gold, Bronze, Silver}
-    
+
     bool isActive;
     uint sponsorLimit;
     uint sponsorCount;
-    
+
     uint priceGold;
     uint priceSilver;
     uint priceBronze;
@@ -48,15 +48,15 @@ contract FactorySponsor is Ownable {
         isActive = true;
 
     }
-    
-    function calculatePrice( uint _type,uint _duration)  view internal returns(uint){
-        if(Role(_type)==Role.Bronze) {
-          return  priceGold * (1 finney) * _duration;
-        } else if(Role(_type)==Role.Silver) {
-          return  priceGold * (1 finney) * _duration;
+
+    function calculatePrice(uint _type, uint _duration) view internal returns (uint){
+        if (Role(_type) == Role.Bronze) {
+            return priceGold * (1 finney) * _duration;
+        } else if (Role(_type) == Role.Silver) {
+            return priceGold * (1 finney) * _duration;
         }
-        else{
-            return  priceSilver * (1 finney) * _duration;
+        else {
+            return priceSilver * (1 finney) * _duration;
         }
     }
     //expire indexed
@@ -64,15 +64,15 @@ contract FactorySponsor is Ownable {
     payable
     Active
     public {
-        require(msg.value >= calculatePrice(_type,_duration));
+        require(msg.value >= calculatePrice(_type, _duration));
         require(sponsorCount < sponsorLimit);
-        
+
         //forbitten request from same address
         require(addressToSponsor[msg.sender] == address(0));
-    
-        pendingList.push(Pending({name : _name, url : _url, imageHash : _imageHash, duration : _duration,role:Role(_type), status : 0, owner : msg.sender}));
-        
-        emit requestSponsor(_name, _url, _imageHash,_type, _duration);
+
+        pendingList.push(Pending({name : _name, url : _url, imageHash : _imageHash, duration : _duration, role : Role(_type), status : 0, owner : msg.sender}));
+
+        emit requestSponsor(_name, _url, _imageHash, _type, _duration);
 
     }
 
@@ -95,11 +95,12 @@ contract FactorySponsor is Ownable {
         Pending storage tmp = pendingList[_index];
         require(tmp.status == 0);
 
-        Sponsor _sponsor = new Sponsor(tmp.name, tmp.url, tmp.imageHash,uint(tmp.role),tmp.duration);
+        Sponsor _sponsor = new Sponsor(tmp.name, tmp.url, tmp.imageHash, uint(tmp.role), tmp.duration);
         listOfSponsors.push(address(_sponsor));
         addressToSponsor[tmp.owner] = address(_sponsor);
         sponsorCount += 1;
         tmp.status = 1;
+        delete
         emit beenSponsor(address(_sponsor), tmp.name);
 
     }
@@ -110,7 +111,7 @@ contract FactorySponsor is Ownable {
         Pending storage tmp = pendingList[_index];
         require(tmp.status == 0);
         tmp.status = 2;
-        tmp.owner.transfer(calculatePrice(uint(tmp.role),tmp.duration));
+        tmp.owner.transfer(calculatePrice(uint(tmp.role), tmp.duration));
         emit deniedSponsor(tmp.owner, tmp.name);
 
     }
@@ -144,19 +145,19 @@ contract FactorySponsor is Ownable {
         return isActive;
     }
 
-    function setPrice(uint _price,uint _type) public onlyOwner() {
-        if(Role(_type)==Role.Bronze) {
-            priceBronze=_price;
-        } else if(Role(_type)==Role.Silver) {
-           priceSilver=_price;
+    function setPrice(uint _price, uint _type) public onlyOwner() {
+        if (Role(_type) == Role.Bronze) {
+            priceBronze = _price;
+        } else if (Role(_type) == Role.Silver) {
+            priceSilver = _price;
         }
-        else{
-            priceGold=_price;
+        else {
+            priceGold = _price;
         }
     }
 
-    function getPrice() public view returns (uint,uint,uint){
-        return (priceGold,priceSilver,priceBronze);
+    function getPrice() public view returns (uint, uint, uint){
+        return (priceGold, priceSilver, priceBronze);
     }
 
     function getSponsor(uint _index) public view returns (address){
@@ -167,8 +168,8 @@ contract FactorySponsor is Ownable {
         return sponsorCount;
     }
 
-    function getPendingList(uint _ind) public view returns (string, string, string, uint, uint){
-        return (pendingList[_ind].name, pendingList[_ind].url, pendingList[_ind].imageHash, pendingList[_ind].duration, pendingList[_ind].status);
+    function getPendingList(uint _ind) public view returns (string, string, string, uint, uint, uint){
+        return (pendingList[_ind].name, pendingList[_ind].url, pendingList[_ind].imageHash, uint(pendingList[_ind].role), pendingList[_ind].duration, pendingList[_ind].status);
     }
 
     function getNumberPending() public view returns (uint){

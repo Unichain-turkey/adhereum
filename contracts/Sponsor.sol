@@ -60,8 +60,8 @@ contract Sponsor is Ownable {
         selfdestruct(owner);
     }
 
-    function getSponsor() public view returns (string, string, string,uint, uint){
-        return (name, url, imageHash,uint(role), duration);
+    function getSponsor() public view returns (string, string, string, uint, uint){
+        return (name, url, imageHash, uint(role), duration);
     }
 
     function getDuration() public view returns (uint){

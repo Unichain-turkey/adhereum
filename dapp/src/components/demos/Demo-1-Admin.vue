@@ -77,7 +77,7 @@
 
           }
         ],
-        contract: this.$store.getters.getContract
+        contract: this.$store.getters.contractOne
       }
     },
     methods: {
@@ -93,6 +93,9 @@
           console.log(e)
           that.$store.commit('error', e);
           that.$store.commit('setLoader', false);
+        }).finally(function() {
+          console.log("Finaly")
+          that.$store.commit('setLoader', false);
         });
       },
       declineButton(e) {
@@ -106,6 +109,9 @@
           }).catch((e) => {
           console.log(e)
           that.$store.commit('error', e);
+          that.$store.commit('setLoader', false);
+        }).finally(function() {
+
           that.$store.commit('setLoader', false);
         });
       },
@@ -121,16 +127,14 @@
         for (i = 0; i < value; i++) {
           this.contract.methods.getPendingList(i).call().then(function (val) {
             console.log(val)
-            if (val[4] === "0") {
-              this.pendingList.push({
-                'name': val[0],
-                'url': val[1],
-                'image': val[2],
-                'duration': val[3],
-                'type': Types[val[4]],
-                'index': i - 1,
-              })
-            }
+            this.pendingList.push({
+              'name': val[0],
+              'url': val[1],
+              'image': val[2],
+              'duration': val[3],
+              'type': Types[val[4]],
+              'index': i - 1,
+            })
           }.bind(this))
         }
       }.bind(this))

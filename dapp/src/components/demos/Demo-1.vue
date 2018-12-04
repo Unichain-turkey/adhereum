@@ -234,6 +234,8 @@
 
 <script>
   import api from "../../api/ipfs/index"
+  import apiContract from "../../api/contract/index"
+
   import store from '../../store/index'
 
 
@@ -409,15 +411,19 @@
         ).send(
           {value: this.$options.filters.toWei('1') * (3 - this.type) * this.duration, from: _base})
         let that = this;
-        temp.then(function (value) {
+        temp.then(function (value,e) {
           console.log(value)
+          console.log(e)
           that.txLoader = false;
           that.$store.commit('success', 'Succefuly deployed request');
         }).catch((e) => {
           console.log(e)
           that.$store.commit('error', e);
           that.txLoader = false;
-        });
+        }).finally(function() {
+          console.log("Finaly")
+          that.txLoader = false;
+        });;
       },
       onFileChanged(event) {
         this.file = event.target.files[0]
@@ -447,10 +453,16 @@
       getSponsors: function () {
         let contract = store.getters.contractOne
         contract.getPastEvents('beenSponsor', {fromBlock: 0, toBlock: 'latest'}, function (error, events) {
-          console.log(error)
           console.log(events)
+          /*
+          apiContract.getSponsorList(events,()=>{
+            console.log("Done")
+          })
+          */
         });
-
+      },
+      done:function (items) {
+        console.log(items)
       }
     }
   }
