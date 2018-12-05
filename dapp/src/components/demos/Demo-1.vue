@@ -90,10 +90,12 @@
           <v-card
             class="pa-1"
             hover>
+
             <v-img
-              v-bind:src="item['img']"
+              :src="getImageUrl(item['img'])"
             >
             </v-img>
+
             <v-card-title>
               <div>
                 <span>Empty Slot</span>
@@ -117,9 +119,11 @@
             target="_blank"
             hover>
             <v-img
-              v-bind:src="item['img']"
+              :src="getImageUrl(item['img'])"
             >
             </v-img>
+
+
             <v-card-title>
               <div>
                 <span>{{item['title']}}</span>
@@ -140,10 +144,18 @@
           <v-card
             class="pa-1"
             hover>
-            <v-img
-              v-bind:src="item['img']"
-            >
-            </v-img>
+            <div v-if="item['flag']==1">
+              <v-img
+                :src="getImageUrl(item['img'])"
+              >
+              </v-img>
+            </div>
+            <div v-else>
+              <v-img
+                :src="getImageUrl(item['img'])"
+              >
+              </v-img>
+            </div>
 
             <v-card-title>
               <div>
@@ -169,7 +181,7 @@
             hover>
 
             <v-img
-              v-bind:src="item['img']"
+              :src="getImageUrl(item['img'])"
             >
             </v-img>
             <v-card-title>
@@ -191,11 +203,20 @@
           <v-card
             class="pa-1"
             hover>
-            <v-img
 
-              v-bind:src="item['img']"
-            >
-            </v-img>
+            <div v-if="item['flag']">
+              <v-img
+                :src="getImageUrl(item['img'])"
+              >
+              </v-img>
+            </div>
+            <div v-else>
+              <v-img
+                :src="getImageUrl(item['img'])"
+              >
+              </v-img>
+            </div>
+
             <v-card-title>
               <div>
                 <span>Empty Slot</span>
@@ -235,9 +256,13 @@
 <script>
   import api from "../../api/ipfs/index"
   import apiContract from "../../api/contract/index"
-
   import store from '../../store/index'
 
+  var Types = {
+    0: "gold",
+    1: "silver",
+    2: "bronze"
+  };
 
   export default {
     name: "Demo-1",
@@ -256,14 +281,14 @@
       fileHash: null,
       goldSponsors: [
         {
-          flag: 1,
+          flag: 0,
           position: "g-1",
           title: 'Finartz',
           link: "https://finartz.com/",
           img: "http://via.placeholder.com/110x110"
         },
         {
-          flag: 1,
+          flag: 0,
           position: "g-2",
           title: 'Finartz',
           link: "https://finartz.com/",
@@ -344,7 +369,7 @@
           img: "http://via.placeholder.com/110x110"
         },
         {
-          flag: 1,
+          flag: 0,
           position: "b-5",
           title: 'Finartz',
           link: "https://finartz.com/",
@@ -380,7 +405,7 @@
           this.initilaze()
           return false || this.txLoader;
         }
-      }
+      },
     },
     watch: {
       contract(val, oldVal) {
@@ -400,27 +425,21 @@
         this.dialog = true
       },
       requestSponsor() {
-        let _base = this.$store.getters.currentAddress
-        this.txLoader = true;
-        const temp = this.contract.methods.requestBeingSponsor(
-          this.name, this.url, this.fileHash, this.type, this.duration).send({
-          value: this.$options.filters.toWei('1') * (3 - this.type) * this.duration,
-          from: _base
-        })
+        this.txLoader = true
 
-        let that = this;
-        temp.then(function (value) {
-          console.log(value)
-          that.txLoader = false;
-          that.$store.commit('success', 'Successfully your request delivered');
-          this.dialog = false
-        }).catch((e) => {
+        apiContract.requestSponsor(this.name, this.url, this.fileHash, this.type, this.duration, (e) => {
           console.log(e)
-          that.$store.commit('error', e);
-          that.txLoader = false;
-
+          this.txLoader = false
+          this.dialog = false
         });
+      },
+      getImageUrl: function (link) {
 
+        if (link.includes('via')) {
+          return link
+        } else {
+          return 'http://46.101.182.159:8080/ipfs/' + link + '/'
+        }
       },
       onFileChanged(event) {
         this.file = event.target.files[0]
@@ -440,28 +459,57 @@
         })
       },
       initilaze: function () {
-
         let web3 = store.getters.web3;
         web3 = web3()
         this.contract = new web3.eth.Contract(store.getters.jsonSponsor.abi, store.getters.addressSponsor)
-        console.log(this.contract.options)
         store.commit('SETCONTRACTONE', this.contract)
+      },
+      findItem: function (array, newItem) {
+        let newArray = []
+        array.forEach((item) => {
+          if (item.flag == 1) {
+            newArray.push(item)
+          } else if (newItem !== null) {
+
+            newArray.push(
+              {
+                flag: 1,
+                position: Types[newItem[3]],
+                title: newItem[0],
+                link: newItem[1],
+                img: newItem[2]
+              },
+            )
+          } else {
+            newArray.push(item)
+          }
+        })
+        return newArray;
+      },
+      addItem: function (item) {
+        switch (item[3]) {
+          case '0':
+            this.goldSponsors = this.findItem(this.goldSponsors, item)
+            break;
+          case '1':
+            this.silverSponsors = this.findItem(this.silverSponsors, item)
+            break;
+          default:
+            this.bronzeSponsors = this.findItem(this.bronzeSponsors, item)
+        }
 
       },
       getSponsors: function () {
 
         let contract = store.getters.contractOne
         apiContract.readEvents(contract, (events) => {
-          apiContract.getSponsorList(events, () => {
+          apiContract.getSponsorList(events, (item) => {
+            this.addItem(item)
           })
         })
 
       }
     },
-    mounted() {
-      store.commit('success', 'Successfully your request delivered');
-    }
-
   }
 </script>
 

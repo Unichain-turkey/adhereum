@@ -19,7 +19,7 @@
 
         <v-list>
           <v-list-tile
-            v-for="item in demo1"
+            v-for="item in demo2"
             :key="item['title']"
             @click="route(item['link'])"
           >

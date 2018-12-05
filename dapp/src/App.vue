@@ -5,7 +5,7 @@
       <v-container fluid>
 
         <v-snackbar
-          v-model="successFlag"
+          :value="successFlag"
           :timeout="timeout"
           top
         >
@@ -21,7 +21,7 @@
 
 
         <v-snackbar
-          v-model="errorFlag"
+          :value="errorFlag"
           :timeout="timeout"
           top
         >

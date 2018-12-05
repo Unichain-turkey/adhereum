@@ -11,10 +11,33 @@ function getContract(address) {
 
 
 export default {
+  /*
+  let _base = this.$store.getters.currentAddress
+        this.txLoader = true;
+        const temp = this.contract.methods.requestBeingSponsor(
+          this.name, this.url, this.fileHash, this.type, this.duration).send({
+          value: this.$options.filters.toWei('1') * (3 - this.type) * this.duration,
+          from: _base
+        })
+        let that = this;
+        temp.then(function (value) {
+          console.log(value)
+          that.txLoader = false;
+          store.commit('success', 'Successfully your request delivered');
+          this.dialog = false
+        }).catch((e) => {
+          console.log(e)
+          that.$store.commit('error', e);
+          that.txLoader = false;
+
+        });
+
+   */
   requestSponsor: (name, url, filehash, type, duration, callback) => {
 
     let _base = store.getters.currentAddress
     let contract = store.getters.contractOne
+
     const temp = contract.methods.requestBeingSponsor(name, url, filehash, type, duration)
       .send(
         {value: web3.utils.toWei('1', 'finney') * (3 - type) * duration, from: _base})
@@ -24,7 +47,7 @@ export default {
     }).catch((e) => {
       store.commit('error', e);
     }).finally(function () {
-      callback()
+      callback("Done")
     });
   },
   readEvents: (contract, callback) => {
@@ -41,7 +64,7 @@ export default {
     addresses.forEach((address) => {
       let contract = getContract(address)
       contract.methods.getSponsor().call().then(function (val) {
-        console.log(val)
+        callback(val)
 
       })
     })

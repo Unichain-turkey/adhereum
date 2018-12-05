@@ -61,6 +61,8 @@
 </template>
 
 <script>
+  import store from '../../store/index'
+
   var Types = {
     0: "Gold",
     1: "Silver",
@@ -80,7 +82,6 @@
             'type': "TYPE",
             'image': "IMAGE",
             'options': "OPTIONS"
-
           }
         ],
         contract: this.$store.getters.contractOne
@@ -88,37 +89,29 @@
     },
     methods: {
       acceptButton(e) {
-        let that = this
-        that.$store.commit('setLoader', true);
+        store.commit('setLoader', true);
         this.contract.methods.confirm(e).send({from: this.$store.getters.currentAddress})
           .then(function (tx) {
-            that.$store.commit('success', tx);
-            that.$store.commit('setLoader', false);
             console.log(tx)
+            store.commit('success', "Successfully delivered tx");
           }).catch((e) => {
           console.log(e)
-          that.$store.commit('error', e);
-          that.$store.commit('setLoader', false);
+          store.commit('error', "Fail");
         }).finally(function () {
-          console.log("Finaly")
-          that.$store.commit('setLoader', false);
+          store.commit('setLoader', false);
         });
       },
       declineButton(e) {
-        let that = this
-        that.$store.commit('setLoader', true);
+        store.commit('setLoader', true);
         this.contract.methods.deny(e).send({from: this.$store.getters.currentAddress})
           .then(function (tx) {
-            that.$store.commit('success', tx);
-            that.$store.commit('setLoader', false);
             console.log(tx)
+            store.commit('success', "Successfully delivered tx");
           }).catch((e) => {
           console.log(e)
-          that.$store.commit('error', e);
-          that.$store.commit('setLoader', false);
+          store.commit('error', "Fail");
         }).finally(function () {
-
-          that.$store.commit('setLoader', false);
+          store.commit('setLoader', false);
         });
       },
       getImageUrl: function (hash) {
