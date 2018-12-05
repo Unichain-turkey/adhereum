@@ -108,8 +108,6 @@
                 </v-btn>
               </div>
             </v-card-title>
-
-
           </v-card>
         </div>
         <div v-else>
@@ -122,7 +120,6 @@
               :src="getImageUrl(item['img'])"
             >
             </v-img>
-
 
             <v-card-title>
               <div>
@@ -463,7 +460,7 @@
       initilaze: function () {
         let web3 = store.getters.web3;
         web3 = web3()
-        this.contract = new web3.eth.Contract(store.getters.jsonSponsor.abi, store.getters)
+        this.contract = new web3.eth.Contract(store.getters.jsonSponsor.abi, store.getters.addressDemoOne)
         store.commit('SETCONTRACTONE', this.contract)
       },
       findItem: function (array, newItem) {
@@ -472,7 +469,6 @@
           if (item.flag == 1) {
             newArray.push(item)
           } else if (newItem !== null) {
-
             newArray.push(
               {
                 flag: 1,
@@ -480,8 +476,8 @@
                 title: newItem[0],
                 link: ValidationUtil.validateLink(newItem[1]),
                 img: newItem[2]
-              },
-            )
+              })
+            newItem = null;
           } else {
             newArray.push(item)
           }
@@ -499,7 +495,6 @@
           default:
             this.bronzeSponsors = this.findItem(this.bronzeSponsors, item)
         }
-
       },
       getSponsors: function () {
 
@@ -509,7 +504,6 @@
             this.addItem(item)
           })
         })
-
       }
     },
   }

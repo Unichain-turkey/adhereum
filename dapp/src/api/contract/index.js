@@ -15,13 +15,16 @@ export default {
 
   requestSponsor: (name, url, filehash, type, duration, callback) => {
 
+    console.log("Type",type)
+    let value= web3.utils.toWei('1', 'finney') * (3 - type) * duration
+    console.log(value)
     url = ValidationUtil.validateLink(url)
     let _base = store.getters.currentAddress
     let contract = store.getters.contractOne
 
     const temp = contract.methods.requestBeingSponsor(name, url, filehash, type, duration)
       .send(
-        {value: web3.utils.toWei('1', 'finney') * (3 - type) * duration, from: _base})
+        {value: value, from: _base})
 
     temp.then(function (value) {
       store.commit('success', 'Successfully your request delivered');

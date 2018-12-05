@@ -51,12 +51,12 @@ contract FactorySponsor is Ownable {
     
     function calculatePrice( uint _type,uint _duration)  view internal returns(uint){
         if(Role(_type)==Role.Bronze) {
-          return  priceGold * (1 finney) * _duration;
+          return  priceBronze * (1 finney) * _duration;
         } else if(Role(_type)==Role.Silver) {
-          return  priceGold * (1 finney) * _duration;
+          return  priceSilver * (1 finney) * _duration;
         }
         else{
-            return  priceSilver * (1 finney) * _duration;
+            return  priceGold * (1 finney) * _duration;
         }
     }
     //expire indexed
