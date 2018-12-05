@@ -1,8 +1,9 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 
-import {web3, ipfs} from '../common/interface.js'
+import {ipfs, web3} from '../common/interface.js'
 import factoryContract from '../../../build/contracts/FactorySponsor'
+import config from '../config'
 
 
 Vue.use(Vuex)
@@ -58,7 +59,8 @@ const common = {
 const main = {
   state: {
     jsonSponsor: factoryContract,
-    addressSponsor: '0x17608e57f7b9d993cdbebfcb6f4d8cf2e82383b0',
+    addressDemoOne: config.addressDemoOne,
+    addressDemoTwo: config.addressDemoTwo,
     contractOne: null,
     contractTwo: null,
     isInjected: false,
@@ -117,8 +119,11 @@ const main = {
     jsonSponsor: state => {
       return state.jsonSponsor
     },
-    addressSponsor: state => {
-      return state.addressSponsor
+    addressDemoOne: state => {
+      return state.addressDemoOne
+    },
+    addressDemoTwo: state => {
+      return state.addressDemoTwo
     },
     web3: state => {
       return state.web3
@@ -142,7 +147,6 @@ const main = {
 
   }
 }
-
 
 export default new Vuex.Store({
   modules: {
