@@ -1,21 +1,6 @@
 import Web3 from 'web3'
 import ipfsAPI from 'ipfs-api'
 
-/*
-const contractInstance = new Promise(function (resolve, reject) {
-
-  let web3 = window.web3
-  let contract = null
-  if (typeof web3 !== 'undefined') {
-    web3 = new Web3(web3.currentProvider)
-    contract = new web3.eth.Contract(sponsorContract.abi, sponsorContractAddress)
-  } else {
-    web3 = new Web3(new Web3.providers.HttpProvider('http://localhost:8545'))
-    contract = new web3.eth.Contract(sponsorContract.abi, sponsorContractAddress)
-  }
-  resolve(contract)
-})
-*/
 
 let web3 = new Promise(function (resolve, reject) {
   if (window.web3) {

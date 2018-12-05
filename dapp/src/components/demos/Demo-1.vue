@@ -257,6 +257,8 @@
   import api from "../../api/ipfs/index"
   import apiContract from "../../api/contract/index"
   import store from '../../store/index'
+  import ValidationUtil from "../../common/util";
+
 
   var Types = {
     0: "gold",
@@ -476,7 +478,7 @@
                 flag: 1,
                 position: Types[newItem[3]],
                 title: newItem[0],
-                link: newItem[1],
+                link: ValidationUtil.validateLink(newItem[1]),
                 img: newItem[2]
               },
             )

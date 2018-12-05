@@ -2,6 +2,7 @@ import sponsor from '../../../../build/contracts/Sponsor'
 
 import store from '../../store/index'
 import web3 from "web3";
+import ValidationUtil from "../../common/util";
 
 
 function getContract(address) {
@@ -11,30 +12,10 @@ function getContract(address) {
 
 
 export default {
-  /*
-  let _base = this.$store.getters.currentAddress
-        this.txLoader = true;
-        const temp = this.contract.methods.requestBeingSponsor(
-          this.name, this.url, this.fileHash, this.type, this.duration).send({
-          value: this.$options.filters.toWei('1') * (3 - this.type) * this.duration,
-          from: _base
-        })
-        let that = this;
-        temp.then(function (value) {
-          console.log(value)
-          that.txLoader = false;
-          store.commit('success', 'Successfully your request delivered');
-          this.dialog = false
-        }).catch((e) => {
-          console.log(e)
-          that.$store.commit('error', e);
-          that.txLoader = false;
 
-        });
-
-   */
   requestSponsor: (name, url, filehash, type, duration, callback) => {
 
+    url = ValidationUtil.validateLink(url)
     let _base = store.getters.currentAddress
     let contract = store.getters.contractOne
 
