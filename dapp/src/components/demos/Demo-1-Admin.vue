@@ -126,10 +126,10 @@
       }
     },
     mounted: function () {
-      var count = this.contract.methods.getNumberPending().call();
+      var count = this.contract.methods.getPendingsCount().call();
       count.then(function (value) {
         for (let i = 0; i < value; i++) {
-          this.contract.methods.getPendingList(i).call().then(function (val) {
+          this.contract.methods.getPendingSponsor(i).call().then(function (val) {
             if (val[5] === '0') {//status is not confirmed
               this.pendingList.push({
                 'name': val[0],

@@ -18,6 +18,7 @@ const common = {
   },
   mutations: {
     success(state, msg) {
+      console.log("here ın store")
       state.errorFlag = false
       state.successFlag = true
       state.successMessage = msg
@@ -139,9 +140,6 @@ const main = {
     getIpfs: state => {
       return state.ipfsApi
     },
-    getContract: state => {
-      return state.contract
-    }
 
   }
 }

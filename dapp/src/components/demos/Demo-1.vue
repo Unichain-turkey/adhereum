@@ -400,11 +400,26 @@
         this.dialog = true
       },
       requestSponsor() {
-        this.txLoader = true
-        apiContract.requestSponsor(this.name, this.url, this.fileHash, this.type, this.duration), () => {
-          this.txLoader = false
+        let _base = this.$store.getters.currentAddress
+        this.txLoader = true;
+        const temp = this.contract.methods.requestBeingSponsor(
+          this.name, this.url, this.fileHash, this.type, this.duration).send({
+          value: this.$options.filters.toWei('1') * (3 - this.type) * this.duration,
+          from: _base
+        })
+
+        let that = this;
+        temp.then(function (value) {
+          console.log(value)
+          that.txLoader = false;
+          that.$store.commit('success', 'Successfully your request delivered');
           this.dialog = false
-        }
+        }).catch((e) => {
+          console.log(e)
+          that.$store.commit('error', e);
+          that.txLoader = false;
+
+        });
 
       },
       onFileChanged(event) {
@@ -425,6 +440,7 @@
         })
       },
       initilaze: function () {
+
         let web3 = store.getters.web3;
         web3 = web3()
         this.contract = new web3.eth.Contract(store.getters.jsonSponsor.abi, store.getters.addressSponsor)
@@ -442,6 +458,9 @@
 
       }
     },
+    mounted() {
+      store.commit('success', 'Successfully your request delivered');
+    }
 
   }
 </script>

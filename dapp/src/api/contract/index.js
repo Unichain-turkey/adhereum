@@ -12,12 +12,12 @@ function getContract(address) {
 
 export default {
   requestSponsor: (name, url, filehash, type, duration, callback) => {
-    let _base = store.getters.currentAddress
-    let contract = store.getters.contractOne()
 
-    const temp = contract.requestBeingSponsor(name, url, filehash, type, duration)
+    let _base = store.getters.currentAddress
+    let contract = store.getters.contractOne
+    const temp = contract.methods.requestBeingSponsor(name, url, filehash, type, duration)
       .send(
-        {value: web3.utils.toWei(value, 'finney')('1') * (3 - type) * duration, from: _base})
+        {value: web3.utils.toWei('1', 'finney') * (3 - type) * duration, from: _base})
 
     temp.then(function (value) {
       store.commit('success', 'Successfully your request delivered');

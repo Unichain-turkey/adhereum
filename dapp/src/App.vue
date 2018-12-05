@@ -9,7 +9,7 @@
           :timeout="timeout"
           top
         >
-          {{successMsg}}
+          {{successMessage}}
           <v-btn
             color="green"
             flat
@@ -25,7 +25,7 @@
           :timeout="timeout"
           top
         >
-          {{ errorMsg }}
+          {{ errorMessage }}
           <v-btn
             color="red"
             flat
@@ -63,28 +63,21 @@
   </v-app>
 </template>
 
-
 <script>
   import Header from '@/components/Header.vue'
   import Footer from '@/components/Footer.vue'
+  import {mapState} from 'vuex'
 
   export default {
     name: 'App',
-    computed: {
-      loader() {
-        return this.$store.getters.loader;
-      },
-      flag() {
-        this.state.successFlag = this.$store.getters.successFlag
-        this.state.errorFlag = this.$store.getters.errorFlag
-      },
-      successMsg() {
-        return this.$store.getters.successMessage
-      },
-      errorMsg() {
-        return this.$store.getters.errorMessage
-      }
-    },
+    computed: mapState({
+      loader: state => state.common.loader,
+      successFlag: state => state.common.successFlag,
+      errorFlag: state => state.common.errorFlag,
+      successMessage: state => state.common.successMessage,
+      errorMessage: state => state.common.errorMessage,
+
+    }),
     components: {
       'header-component': Header,
       'footer-component': Footer
@@ -92,9 +85,6 @@
     data() {
       return {
         timeout: 3000,
-        successFlag: this.$store.getters.successFlag,
-        errorFlag: this.$store.getters.errorFlag,
-
       }
     },
     methods: {
