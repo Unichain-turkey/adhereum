@@ -4,7 +4,7 @@ import "./Ownable.sol";
 
 contract Ads is Ownable {
 
-    enum Position {Header, Footer, LeftSide,RightSide}
+    enum Position {Header, Footer, LeftSide, RightSide}
 
     string name;
     string htmlHash;
@@ -14,7 +14,7 @@ contract Ads is Ownable {
     uint deadTime;
 
 
-    constructor(string _name, string _htmlHash,uint _pos,uint _duration) public
+    constructor(string _name, string _htmlHash, uint _pos, uint _duration) public
     {
         name = _name;
         htmlHash = _htmlHash;
@@ -49,6 +49,7 @@ contract Ads is Ownable {
         require(flag);
         selfdestruct(owner);
     }
+
     function getAds() public view returns (string, string, uint, uint){
         return (name, htmlHash, uint(position), duration);
     }

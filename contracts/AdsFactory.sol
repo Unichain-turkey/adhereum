@@ -5,15 +5,14 @@ import "./Ownable.sol";
 
 contract AdsFactory is Ownable {
 
-    
-    enum Position {Header, Footer, LeftSide,RightSide}
 
+    enum Position {Header, Footer, LeftSide, RightSide}
 
     bool isActive;
     uint adsLimit;
     uint adsCount;
     uint price;
- 
+
     address[] public listOfAds;//
     mapping(address => address) public addressToAds;
 
@@ -44,8 +43,7 @@ contract AdsFactory is Ownable {
         isActive = true;
     }
 
- 
-   //expire indexed
+    //expire indexed
     function requestBeingSponsor(string _name, string _htmlHash, uint _pos, uint _duration)
     payable
     Active
@@ -56,7 +54,7 @@ contract AdsFactory is Ownable {
         //forbitten request from same address
         require(addressToAds[msg.sender] == address(0));
 
-        pendingList.push(Pending({name : _name, htmlHash : _htmlHash, duration : _duration,position:Position(_pos), status : 0, owner : msg.sender}));
+        pendingList.push(Pending({name : _name, htmlHash : _htmlHash, duration : _duration, position : Position(_pos), status : 0, owner : msg.sender}));
 
         emit requestAds(_name, _htmlHash, _pos, _duration);
 
@@ -81,7 +79,7 @@ contract AdsFactory is Ownable {
         Pending storage tmp = pendingList[_index];
         require(tmp.status == 0);
 
-        Ads _ads = new Ads(tmp.name, tmp.htmlHash,uint(tmp.position),tmp.duration);
+        Ads _ads = new Ads(tmp.name, tmp.htmlHash, uint(tmp.position), tmp.duration);
         listOfAds.push(address(_ads));
         addressToAds[tmp.owner] = address(_ads);
         adsCount += 1;
@@ -131,7 +129,7 @@ contract AdsFactory is Ownable {
     }
 
     function setPrice(uint _price) public onlyOwner() {
-       price=_price;
+        price = _price;
     }
 
     function getPrice() public view returns (uint){
@@ -146,7 +144,7 @@ contract AdsFactory is Ownable {
         return adsCount;
     }
 
-    function getPendingAds(uint _ind) public view returns (string, string, uint,uint, uint){
+    function getPendingAds(uint _ind) public view returns (string, string, uint, uint, uint){
         return (pendingList[_ind].name, pendingList[_ind].htmlHash, uint(pendingList[_ind].position), pendingList[_ind].duration, pendingList[_ind].status);
     }
 
