@@ -2,7 +2,9 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 
 import {ipfs, web3} from '../common/interface.js'
-import factoryContract from '../../../build/contracts/FactorySponsor'
+import sponsorFactory from '../../../build/contracts/SponsorFactory'
+import adsFactory from '../../../build/contracts/AdsFactory'
+
 import config from '../config'
 
 
@@ -58,7 +60,8 @@ const common = {
 
 const main = {
   state: {
-    jsonSponsor: factoryContract,
+    abiDemoOne: sponsorFactory,
+    abiDemoTwo: adsFactory,
     addressDemoOne: config.addressDemoOne,
     addressDemoTwo: config.addressDemoTwo,
     contractOne: null,
@@ -120,8 +123,8 @@ const main = {
     contractOne: state => {
       return state.contractOne
     },
-    jsonSponsor: state => {
-      return state.jsonSponsor
+    abiDemoOne: state => {
+      return state.abiDemoOne
     },
     addressDemoOne: state => {
       return state.addressDemoOne

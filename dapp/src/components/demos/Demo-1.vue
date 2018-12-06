@@ -443,7 +443,7 @@
       initilaze: function () {
         let web3 = store.getters.web3;
         web3 = web3()
-        this.contract = new web3.eth.Contract(store.getters.jsonSponsor.abi, store.getters.addressDemoOne)
+        this.contract = new web3.eth.Contract(store.getters.abiDemoOne.abi, store.getters.addressDemoOne)
         store.commit('SETCONTRACTONE', this.contract)
       },
       findItem: function (array, newItem) {
