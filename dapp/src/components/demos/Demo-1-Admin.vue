@@ -90,7 +90,7 @@
     methods: {
       acceptButton(e) {
         store.commit('setLoader', true);
-        this.contract.methods.confirm(e).send({from: this.$store.getters.currentAddress})
+        this.contract.methods.confirm(e).send({from: this.$store.getters.coinbase})
           .then(function (tx) {
             console.log(tx)
             store.commit('success', "Successfully delivered tx");
@@ -103,7 +103,7 @@
       },
       declineButton(e) {
         store.commit('setLoader', true);
-        this.contract.methods.deny(e).send({from: this.$store.getters.currentAddress})
+        this.contract.methods.deny(e).send({from: this.$store.getters.coinbase})
           .then(function (tx) {
             console.log(tx)
             store.commit('success', "Successfully delivered tx");

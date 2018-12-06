@@ -141,18 +141,10 @@
           <v-card
             class="pa-1"
             hover>
-            <div v-if="item['flag']==1">
-              <v-img
-                :src="getImageUrl(item['img'])"
-              >
-              </v-img>
-            </div>
-            <div v-else>
-              <v-img
-                :src="getImageUrl(item['img'])"
-              >
-              </v-img>
-            </div>
+            <v-img
+              :src="getImageUrl(item['img'])"
+            >
+            </v-img>
 
             <v-card-title>
               <div>
@@ -201,18 +193,10 @@
             class="pa-1"
             hover>
 
-            <div v-if="item['flag']">
-              <v-img
-                :src="getImageUrl(item['img'])"
-              >
-              </v-img>
-            </div>
-            <div v-else>
-              <v-img
-                :src="getImageUrl(item['img'])"
-              >
-              </v-img>
-            </div>
+            <v-img
+              :src="getImageUrl(item['img'])"
+            >
+            </v-img>
 
             <v-card-title>
               <div>
@@ -235,7 +219,7 @@
             target="_blank"
             hover>
             <v-img
-              v-bind:src="item['img']"
+              :src="getImageUrl(item['img'])"
             >
             </v-img>
             <v-card-title>
@@ -433,7 +417,6 @@
         });
       },
       getImageUrl: function (link) {
-
         if (link.includes('via')) {
           return link
         } else {

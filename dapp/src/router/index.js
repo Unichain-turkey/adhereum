@@ -5,11 +5,12 @@ import demo1 from '../components/demos/Demo-1'
 import Admin1 from '../components/demos/Demo-1-Admin'
 import demo2 from '../components/demos/Demo-2'
 import demo3 from '../components/demos/Demo-3'
+import store from '../store/index'
 
 
 Vue.use(Router)
 
-export default new Router({
+const router = new Router({
   mode: 'history',
   routes: [
     {
@@ -39,3 +40,17 @@ export default new Router({
 
   ]
 })
+
+router.beforeEach((to, from, next) => {
+
+  if (store.getters.web3 !== null) {
+    (store.getters.web3)().eth.getAccounts()
+      .then((result) => {
+        store.commit('SETCOINBASE', result[0])
+      })
+  }
+
+  next();
+})
+
+export default router

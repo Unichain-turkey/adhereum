@@ -4,13 +4,13 @@ import "./Sponsor.sol";
 import "./Ownable.sol";
 
 contract FactorySponsor is Ownable {
-    
-    enum Role {Gold, Bronze, Silver}
-    
+
+    enum Role {Gold,Silver,Bronze }
+
     bool isActive;
     uint sponsorLimit;
     uint sponsorCount;
-    
+
     uint priceGold;
     uint priceSilver;
     uint priceBronze;
@@ -48,15 +48,15 @@ contract FactorySponsor is Ownable {
         isActive = true;
 
     }
-    
+
     function calculatePrice( uint _type,uint _duration)  view internal returns(uint){
-        if(Role(_type)==Role.Bronze) {
+        if(Role(_type)==Role.Bronze) {//2
           return  priceBronze * (1 finney) * _duration;
-        } else if(Role(_type)==Role.Silver) {
+        } else if(Role(_type)==Role.Silver) {//1
           return  priceSilver * (1 finney) * _duration;
         }
         else{
-            return  priceGold * (1 finney) * _duration;
+            return  priceGold * (1 finney) * _duration;//0
         }
     }
     //expire indexed
@@ -66,12 +66,12 @@ contract FactorySponsor is Ownable {
     public {
         require(msg.value >= calculatePrice(_type,_duration));
         require(sponsorCount < sponsorLimit);
-        
+
         //forbitten request from same address
         require(addressToSponsor[msg.sender] == address(0));
-    
+
         pendingList.push(Pending({name : _name, url : _url, imageHash : _imageHash, duration : _duration,role:Role(_type), status : 0, owner : msg.sender}));
-        
+
         emit requestSponsor(_name, _url, _imageHash,_type, _duration);
 
     }

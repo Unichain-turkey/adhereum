@@ -19,12 +19,11 @@ export default {
     let value= web3.utils.toWei('1', 'finney') * (3 - type) * duration
     console.log(value)
     url = ValidationUtil.validateLink(url)
-    let _base = store.getters.currentAddress
     let contract = store.getters.contractOne
 
     const temp = contract.methods.requestBeingSponsor(name, url, filehash, type, duration)
       .send(
-        {value: value, from: _base})
+        {value: value})
 
     temp.then(function (value) {
       store.commit('success', 'Successfully your request delivered');

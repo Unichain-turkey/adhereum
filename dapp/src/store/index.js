@@ -82,7 +82,7 @@ const main = {
   mutations: {
     CREATEWEB3(state, result) {
       state.balance = result.balance
-      state.coinbase = result.coinbase
+      state.coinbase = result.coinbase[0]
       state.networkId = result.networkId
       state.isInjected = result.isInjected
       state.web3 = result.web3
@@ -96,6 +96,9 @@ const main = {
     SETCONTRACTTWO(state, contract) {
       state.contractTwo = contract
     },
+    SETCOINBASE(state, coinbase) {
+      state.coinbase = coinbase
+    },
   },
   actions: {
     initWeb3({commit}) {
@@ -108,6 +111,7 @@ const main = {
     ipfsSet({commit}) {
       commit('SETIPFS', ipfs)
     }
+
   },
   getters: {
     contractTwo: state => {
@@ -131,12 +135,8 @@ const main = {
     balance: state => {
       return (state.balance / 1000000000000000000).toFixed(4)
     },
-    currentAddress: state => {
-      if ((state.coinbase) !== null) {
-        return state.coinbase[0]
-      } else {
-        return 'Null'
-      }
+    coinbase: state => {
+      return state.coinbase;
     },
     network: state => {
       return state.NETWORKS[state.networkId]
