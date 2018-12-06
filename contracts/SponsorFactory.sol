@@ -3,7 +3,7 @@ pragma solidity >=0.4.22 < 0.6.0;
 import "./Sponsor.sol";
 import "./Ownable.sol";
 
-contract FactorySponsor is Ownable {
+contract SponsorFactory is Ownable {
 
     enum Role {Gold,Silver,Bronze }
 
