@@ -242,7 +242,6 @@
   import {mapState} from 'vuex'
 
 
-
   var Types = {
     0: "gold",
     1: "silver",
@@ -486,15 +485,21 @@
         }
       },
       getSponsors: function () {
-
         let contract = store.getters.contractOne
-        apiContract.readEvents(contract,'beenSponsor', (events) => {
+        apiContract.readEvents(contract, 'beenSponsor', (events) => {
           apiContract.getSponsorList(events, (item) => {
             this.addItem(item)
           })
         })
-      }
+      },
+
     },
+    mounted() {
+      if(this.contract!==null)
+        this.getSponsors();
+
+
+    }
   }
 </script>
 

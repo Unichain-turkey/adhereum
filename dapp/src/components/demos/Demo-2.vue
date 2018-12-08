@@ -229,6 +229,11 @@
         })
       }
 
+
+    },
+    mounted(){
+      if(this.contract!==null)
+        this.getAds();
     }
   }
 </script>
