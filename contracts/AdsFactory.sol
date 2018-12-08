@@ -44,7 +44,7 @@ contract AdsFactory is Ownable {
     }
 
     //expire indexed
-    function requestAds(string _name, string _htmlHash, uint _pos, uint _duration)
+    function requestAdvertisement(string _name, string _htmlHash, uint _pos, uint _duration)
     payable
     Active
     public {

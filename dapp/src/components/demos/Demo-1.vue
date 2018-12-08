@@ -239,6 +239,8 @@
   import apiContract from "../../api/contract/index"
   import store from '../../store/index'
   import ValidationUtil from "../../common/util";
+  import {mapState} from 'vuex'
+
 
 
   var Types = {
@@ -250,7 +252,6 @@
   export default {
     name: "Demo-1",
     data: () => ({
-      contract: null,
       txLoader: false,
       loading: false,
       dialog: false,
@@ -375,6 +376,9 @@
       ]
     }),
     computed: {
+      ...mapState({
+        contract: state => state.main.contractOne,
+      }),
       fileUploadValid() {
         return (this.fileHash === null && this.file === null && this.file == null)
       },
@@ -441,10 +445,12 @@
         })
       },
       initilaze: function () {
+        /*
         let web3 = store.getters.web3;
         web3 = web3()
-        this.contract = new web3.eth.Contract(store.getters.abiDemoOne.abi, store.getters.addressDemoOne)
+        this.contract = new web3.eth.Contract(store.getters.jsonDemoTwo.abi, store.getters.addressDemoOne)
         store.commit('SETCONTRACTONE', this.contract)
+        */
       },
       findItem: function (array, newItem) {
         let newArray = []
@@ -482,7 +488,7 @@
       getSponsors: function () {
 
         let contract = store.getters.contractOne
-        apiContract.readEvents(contract, (events) => {
+        apiContract.readEvents(contract,'beenSponsor', (events) => {
           apiContract.getSponsorList(events, (item) => {
             this.addItem(item)
           })

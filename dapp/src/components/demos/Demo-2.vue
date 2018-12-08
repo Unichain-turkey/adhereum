@@ -1,5 +1,6 @@
 <template>
   <div>
+
     <v-dialog v-model="dialog" persistent max-width="600px">
       <v-card>
         <v-card-title>
@@ -93,7 +94,16 @@
 
 <script>
   import api from "../../api/ipfs/index"
+  import apiContract from "../../api/contract/index"
+  import store from '../../store/index'
+  import {mapState} from 'vuex'
 
+  var Types = {
+    0: "Header",
+    1: "Footer",
+    2: "LeftSide",
+    3: "RightSide"
+  };
   export default {
     name: "Demo-2",
     data: () => ({
@@ -140,7 +150,16 @@
       ],
 
     }),
+    watch: {
+      contract(val, oldVal) {
+        if (val && !oldVal)
+          this.getAds()
+      }
+    },
     computed: {
+      ...mapState({
+        contract: state => state.main.contractTwo
+      }),
       fileUploadValid() {
         return (this.fileHash === null && this.file === null && this.file == null)
       },
@@ -151,11 +170,11 @@
     methods: {
       selected(pos) {
         this.dialog = true
-        console.log(pos)
+        this.type=pos
       },
       requestAds() {
 
-        apiContract.requestSponsor(this.name, this.url, this.fileHash, this.type, this.duration, (e) => {
+        apiContract.requestAds(this.name, this.fileHash, this.type, this.duration, (e) => {
           console.log(e)
           this.dialog = false
         });
@@ -178,6 +197,38 @@
           this.ipfsLoading = false
         })
       },
+      findItem: function (array, newItem) {
+        let newArray = []
+        array.forEach((item) => {
+          if (item.flag == 1) {
+            newArray.push(item)
+          } else if (newItem !== null) {
+            newArray.push(
+              {
+                flag: 1,
+                position: Types[newItem[3]],
+                position: 0,
+                src: "static/banner_template/ad-2.html"
+              })
+            newItem = null;
+          } else {
+            newArray.push(item)
+          }
+        })
+        return newArray;
+      },
+      addItem: function (item) {
+        this.banners=this.findItem(this.banners, item)
+      },
+      getAds: function () {
+        let contract = store.getters.contractTwo
+        apiContract.readEvents(contract,'createdAds', (events) => {
+          apiContract.getAdsList(events, (item) => {
+            this.addItem(item)
+          })
+        })
+      }
+
     }
   }
 </script>
@@ -189,5 +240,4 @@
     width: 100%;
 
   }
-
 </style>

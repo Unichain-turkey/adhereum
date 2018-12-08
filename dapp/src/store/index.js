@@ -24,15 +24,18 @@ const common = {
       state.errorFlag = false
       state.successFlag = true
       state.successMessage = msg
+      state.loader = false
     },
     error(state, msg) {
       state.successFlag = false
       state.errorFlag = true
       state.errorMessage = msg
+      state.loader = false
     },
     reset(state) {
       state.successFlag = false
       state.errorFlag = false
+      state.loader = false
     },
     setLoader(state, value) {
       state.loader = value
@@ -60,8 +63,8 @@ const common = {
 
 const main = {
   state: {
-    abiDemoOne: sponsorFactory,
-    abiDemoTwo: adsFactory,
+    jsonDemoOne: sponsorFactory,
+    jsonDemoTwo: adsFactory,
     addressDemoOne: config.addressDemoOne,
     addressDemoTwo: config.addressDemoTwo,
     contractOne: null,
@@ -123,8 +126,11 @@ const main = {
     contractOne: state => {
       return state.contractOne
     },
-    abiDemoOne: state => {
-      return state.abiDemoOne
+    jsonDemoOne: state => {
+      return state.jsonDemoOne
+    },
+    jsonDemoTwo: state => {
+      return state.jsonDemoTwo
     },
     addressDemoOne: state => {
       return state.addressDemoOne

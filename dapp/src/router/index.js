@@ -2,10 +2,10 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import App from '../components/Main'
 import demo1 from '../components/demos/Demo-1'
-import Admin1 from '../components/demos/Demo-1-Admin'
 import demo2 from '../components/demos/Demo-2'
+import Admin1 from '../components/demos/Demo-1-Admin'
+import Admin2 from '../components/demos/Demo-2-Admin'
 import store from '../store/index'
-
 
 Vue.use(Router)
 
@@ -30,6 +30,11 @@ const router = new Router({
       path: '/demo2',
       name: 'Demo-2',
       component: demo2
+    },
+    {
+      path: '/demo2/admin',
+      name: 'Demo-2',
+      component: Admin2
     },
   ]
 })
