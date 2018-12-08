@@ -108,7 +108,7 @@
       fileHash: null,
       banners: [
         {
-          flag: 1,
+          flag: 0,
           position: 0,
           src: "static/banner_template/ad-1.html"
         },
@@ -118,22 +118,22 @@
           src: "static/banner_template/ad-2.html"
         },
         {
-          flag: 1,
+          flag: 0,
           position: 0,
           src: "static/banner_template/ad-3.html"
         },
         {
-          flag: 1,
+          flag: 0,
           position: 0,
           src: "static/banner_template/ad-4.html"
         },
         {
-          flag: 1,
+          flag: 0,
           position: 0,
-          src: "static/banner_template/ad-5.html"
+          src: "static/banner_template/ad-3.html"
         },
         {
-          flag: 1,
+          flag: 0,
           position: 0,
           src: "static/banner_template/ad-2.html"
         },
@@ -151,6 +151,7 @@
     methods: {
       selected(pos) {
         this.dialog = true
+        console.log(pos)
       },
       requestAds() {
 

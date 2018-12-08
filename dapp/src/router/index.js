@@ -4,7 +4,6 @@ import App from '../components/Main'
 import demo1 from '../components/demos/Demo-1'
 import Admin1 from '../components/demos/Demo-1-Admin'
 import demo2 from '../components/demos/Demo-2'
-import demo3 from '../components/demos/Demo-3'
 import store from '../store/index'
 
 
@@ -32,12 +31,6 @@ const router = new Router({
       name: 'Demo-2',
       component: demo2
     },
-    {
-      path: '/demo3',
-      name: 'Demo-3',
-      component: demo3
-    },
-
   ]
 })
 
