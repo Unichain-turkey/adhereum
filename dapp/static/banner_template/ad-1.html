@@ -1,0 +1,1013 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+  <meta charset="utf-8"/>
+  <title>Test Banner for Adhereium</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+  <meta name="displayheight" content="31, 60, 90, 125, 250, 400, 600"/>
+  <style>
+    * {
+      margin:0;
+      padding:0;
+      -webkit-box-sizing:border-box;
+      -moz-box-sizing:border-box;
+      -ms-box-sizing:border-box;
+      -o-box-sizing:border-box;
+      box-sizing:border-box;
+    }
+    html {
+      width:100%;
+      height:100%;
+    }
+    body {
+      font-family:Helvetica, Arial, sans-serif;
+      width:100%;
+      height:100%;
+      font-size:70%;
+    }
+
+    /* ad background */
+    a {
+      display:block;
+      width:100%;
+      height:100%;
+      position:relative;
+      overflow:hidden;
+      color:#fff;
+      text-decoration:none;
+      background:#301D19;
+      -webkit-border-radius:5px;
+      -moz-border-radius:5px;
+      -ms-border-radius:5px;
+      -o-border-radius:5px;
+      border-radius:5px;
+    }
+
+    /* general styles of ad components */
+    /* (No dimensions or font sizes here) */
+    h1 {
+      position:absolute;
+      color:#F7F4E7;
+      text-shadow:1px 1px 3px #000;
+    }
+    h2 {
+      background:#fff38c;
+      background-image: linear-gradient(bottom, rgb(196,139,96) 0%, rgb(255,244,140) 95%);
+      background-image: -o-linear-gradient(bottom, rgb(196,139,96) 0%, rgb(255,244,140) 95%);
+      background-image: -moz-linear-gradient(bottom, rgb(196,139,96) 0%, rgb(255,244,140) 95%);
+      background-image: -webkit-linear-gradient(bottom, rgb(196,139,96) 0%, rgb(255,244,140) 95%);
+      background-image: -ms-linear-gradient(bottom, rgb(196,139,96) 0%, rgb(255,244,140) 95%);
+      background-image: -webkit-gradient(
+        linear,
+        left bottom,
+        left top,
+        color-stop(0, rgb(196,139,96)),
+        color-stop(0.95, rgb(255,244,140))
+      );
+      color:#000;
+      width:100%;
+      position:absolute;
+      font-weight:normal;
+      -webkit-border-bottom-left-radius:5px;
+      -moz-border-radius-bottomleft:5px;
+      -ms-border-bottom-left-radius:5px;
+      -o-border-bottom-left-radius:5px;
+      border-bottom-left-radius:5px;
+      -webkit-border-bottom-right-radius:5px;
+      -moz-border-radius-bottomright:5px;
+      -ms-border-bottom-right-radius:5px;
+      -o-border-bottom-right-radius:5px;
+      border-bottom-right-radius:5px;
+    }
+    img {
+      position:absolute;
+      -webkit-box-shadow:0 0 4px 4px #00DC87;
+      -moz-box-shadow:0 0 4px 4px #00DC87;
+      -ms-box-shadow:0 0 4px 4px #00DC87;
+      -o-box-shadow:0 0 4px 4px #00DC87;
+      box-shadow:0 0 4px 4px #00DC87;
+    }
+    p {
+      font-style:italic;
+      position:absolute;
+      text-shadow:1px 1px 4px #000;
+    }
+    /* 31 PIXELS HIGH */
+    @media only screen and (height:31px) {
+      h1 {
+        width:100%;
+        height:100%;
+        top:1px;
+        left:0;
+        font-size:1em;
+        line-height:15px;
+        text-align:center;
+      }
+      h1 span {
+        display:block;
+      }
+      h2, p, img {
+        display:none;
+      }
+    }
+    @media only screen and (height:31px) and (min-width:234px) {
+      h1 {
+        font-size:1.4em;
+        top:0;
+        line-height:31px;
+      }
+      h1 span {
+        display:inline;
+      }
+    }
+    @media only screen and (height:31px) and (min-width:440px) {
+      h1 {
+        width:50%;
+      }
+      h2 {
+        display:block;
+        width:50%;
+        height:100%;
+        line-height:31px;
+        top:0;
+        right:0;
+        text-align:center;
+        font-size:1.2em;
+        -webkit-border-top-left-radius:0;
+        -moz-border-radius-topleft:0;
+        -ms-border-top-left-radius:0;
+        -o-border-top-left-radius:0;
+        border-top-left-radius:0;
+        -webkit-border-bottom-left-radius:0;
+        -moz-border-radius-bottomleft:0;
+        -ms-border-bottom-left-radius:0;
+        -o-border-bottom-left-radius:0;
+        border-bottom-left-radius:0;
+      }
+    }
+    @media only screen and (height:31px) and (min-width:560px) {
+      h1 {
+        width:35%;
+      }
+      h2 {
+        width:35%;
+        right:30%;
+        -webkit-border-radius:0;
+        -moz-border-radius:0;
+        -ms-border-radius:0;
+        -o-border-radius:0;
+        border-radius:0;
+      }
+      p {
+        display:block;
+        top:0;
+        right:0;
+        width:30%;
+        line-height:31px;
+        text-align:center;
+      }
+    }
+
+    /* 60 PIXELS HIGH */
+    @media only screen and (height:60px) {
+      h1 {
+        width:100%;
+        height:40px;
+        line-height:19px;
+        top:1px;
+        left:0;
+        font-size:1.3em;
+        text-align:center;
+      }
+      h1 span {
+        display:block;
+      }
+      h2 {
+        display:block;
+        height:20px;
+        line-height:20px;
+        padding:0 4%;
+        left:0;
+        bottom:0;
+        text-align:center;
+        font-size:.8em;
+      }
+      p, img {
+        display:none;
+      }
+    }
+    @media only screen and (height:60px) and (min-width:234px) {
+      h1 {
+        width:100%;
+        font-size:1.5em;
+        height:38px;
+        line-height:38px;
+        top:0;
+      }
+      h1 span {
+        display:inline;
+      }
+      h2 {
+        font-size:1.2em;
+        height:22px;
+        line-height:22px;
+      }
+    }
+    @media only screen and (height:60px) and (min-width:440px) {
+      h1 {
+        width:92%;
+        left:4%;
+        text-align:left;
+        font-size:1.9em;
+      }
+      h2 {
+        left:0;
+        text-align:left;
+      }
+      img {
+        display:block;
+        width:auto;
+        height:120px;
+        top:-35px;
+        right:5%;
+      }
+    }
+    @media only screen and (height:60px) and (min-width:560px) {
+      img {
+        display:block;
+        width:auto;
+        height:120px;
+        top:-35px;
+        right:30%;
+      }
+      p {
+        display:block;
+        top:0;
+        right:3%;
+        width:23%;
+        height:38px;
+        line-height:38px;
+      }
+    }
+    @media only screen and (height:60px) and (min-width:600px) {
+      img {
+        display:block;
+        width:auto;
+        height:120px;
+        top:-35px;
+        right:30%;
+      }
+
+    }
+
+    /* 90 PIXELS HIGH */
+    @media only screen and (height:90px) {
+      h1 {
+        width:100%;
+        top:2px;
+        height:50px;
+        line-height:23px;
+        left:0;
+        font-size:1.4em;
+        text-align:center;
+      }
+      h1 span {
+        display:block;
+      }
+      h2 {
+        display:block;
+        left:0;
+        bottom:0;
+        height:40px;
+        line-height:20px;
+        text-align:center;
+        font-size:1.3em;
+      }
+      h2 span {
+        display:block;
+      }
+      p, img {
+        display:none;
+      }
+    }
+    @media only screen and (height:90px) and (min-width:240px) {
+      h1 {
+        width:50%;
+        height:100%;
+        left:5%;
+        text-align:left;
+      }
+      h2 {
+        left:0;
+        bottom:0;
+        padding-left:5%;
+        text-align:left;
+        font-size:1.3em;
+      }
+      img {
+        display:block;
+        width:auto;
+        height:110px;
+        top:-10px;
+        right:5%;
+      }
+    }
+    @media only screen and (height:90px) and (min-width:300px) {
+      h1 {
+        font-size:2em;
+        line-height:27px;
+        height:60px;
+      }
+      h2 {
+        height:30px;
+        line-height:30px;
+      }
+      h2 span {
+        display:inline;
+      }
+    }
+    @media only screen and (height:90px) and (min-width:390px) {
+      img {
+        right:24%;
+      }
+      p {
+        display:block;
+        bottom:35px;
+        right:3%;
+        width:18%;
+        line-height:1.4em;
+      }
+    }
+    @media only screen and (height:90px) and (min-width:480px) {
+      h1 {
+        font-size:2.3em;
+        width:80%;
+        line-height:60px;
+      }
+      h1 span {
+        display:inline;
+      }
+      img {
+        right:4%;
+      }
+      p {
+        display:none;
+      }
+    }
+    @media only screen and (height:90px) and (min-width:620px) {
+      h1 {
+        font-size:2.6em;
+      }
+      img {
+        right:20%;
+      }
+      p {
+        display:block;
+        bottom:38px;
+        width:14%;
+        font-size:1.2em;
+      }
+    }
+
+    /* 125 PIXELS HIGH */
+    @media only screen and (height:125px) {
+      h1 {
+        width:100%;
+        top:2px;
+        height:65px;
+        line-height:30px;
+        left:0;
+        font-size:1.4em;
+        text-align:center;
+      }
+      h1 span {
+        display:block;
+      }
+      h2 {
+        display:block;
+        left:0;
+        bottom:0;
+        height:60px;
+        line-height:30px;
+        text-align:center;
+        font-size:1.3em;
+      }
+      h2 span {
+        display:block;
+      }
+      p, img {
+        display:none;
+      }
+    }
+    @media only screen and (height:125px) and (min-width:240px) {
+      h1 {
+        width:50%;
+        height:100%;
+        left:5%;
+        text-align:left;
+      }
+      h2 {
+        left:0;
+        bottom:0;
+        padding-left:5%;
+        text-align:left;
+        font-size:1.3em;
+      }
+      img {
+        display:block;
+        width:auto;
+        height:135px;
+        top:-10px;
+        right:5%;
+      }
+    }
+    @media only screen and (height:125px) and (min-width:300px) {
+      h1 {
+        font-size:2em;
+        line-height:42px;
+        height:90px;
+      }
+      h2 {
+        height:35px;
+        line-height:35px;
+      }
+      h2 span {
+        display:inline;
+      }
+    }
+    @media only screen and (height:125px) and (min-width:390px) {
+      h1 {
+        font-size:3em;
+        width:80%;
+      }
+      img {
+        right:4%;
+      }
+      p {
+        display:none;
+      }
+    }
+    @media only screen and (height:125px) and (min-width:480px) {
+      img {
+        right:24%;
+      }
+      p {
+        display:block;
+        bottom:40px;
+        right:3%;
+        width:18%;
+        line-height:1.4em;
+        font-size:1.3em;
+      }
+    }
+    @media only screen and (height:125px) and (min-width:620px) {
+      h1 {
+        font-size:2.8em;
+        line-height:90px;
+        left:3%;
+      }
+      h1 span {
+        display:inline;
+      }
+      h2 {
+        padding-left:3%;
+      }
+      img {
+        right:18%;
+      }
+      p {
+        display:block;
+        bottom:40px;
+        width:13%;
+        font-size:1.2em;
+      }
+    }
+
+    /* 250 PIXELS HIGH */
+    @media only screen and (height:250px) {
+      h1 {
+        width:100%;
+        top:2px;
+        height:50px;
+        line-height:22px;
+        left:0;
+        font-size:1.4em;
+        text-align:center;
+      }
+      h1 span {
+        display:block;
+      }
+      h2 {
+        display:block;
+        left:0;
+        top:50px;
+        height:50px;
+        line-height:25px;
+        text-align:center;
+        font-size:1.3em;
+        -webkit-border-radius:0;
+        -moz-border-radius:0;
+        -ms-border-radius:0;
+        -o-border-radius:0;
+        border-radius:0;
+        z-index:100;
+      }
+      h2 span {
+        display:block;
+      }
+      img {
+        height:150px;
+        bottom:0;
+        right:0;
+      }
+      p {
+        left:4%;
+        bottom:6px;
+        font-size:1.1em;
+        width:92%;
+        line-height:1.4em;
+      }
+      p span {
+        display:block;
+      }
+    }
+    @media only screen and (height:250px) and (min-width:125px) {
+      img {
+        height:auto;
+        width:100%;
+      }
+    }
+    @media only screen and (height:250px) and (min-width:165px) {
+      h1 {
+        height:70px;
+        line-height:33px;
+        font-size:1.8em;
+      }
+      h2 {
+        top:70px;
+        height:70px;
+        line-height:33px;
+        font-size:1.7em;
+      }
+      img {
+        height:110px;
+        width:auto;
+        right:auto;
+      }
+      p {
+        padding-left:100px;
+      }
+    }
+    @media only screen and (height:250px) and (min-width:220px) {
+      h1 {
+        height:90px;
+        line-height:43px;
+        font-size:1.8em;
+        font-size:3em;
+      }
+      h2 {
+        top:90px;
+        height:45px;
+        line-height:45px;
+        font-size:1.7em;
+      }
+      h2 span {
+        display:inline;
+      }
+      img {
+        height:140px;
+        width:auto;
+        right:auto;
+      }
+      p {
+        padding-left:120px;
+        font-size:1.2em;
+      }
+    }
+    @media only screen and (height:250px) and (min-width:300px) {
+      h1 {
+        height:120px;
+        line-height:63px;
+        font-size:3.5em;
+      }
+      h2 {
+        top:130px;
+        height:60px;
+        line-height:30px;
+        font-size:1.4em;
+        text-align:left;
+        padding-left:120px;
+      }
+      h2 span {
+        display:block;
+      }
+      img {
+        height:120px;
+        width:auto;
+        right:auto;
+        z-index:200;
+      }
+      p {
+        width:100%;
+        left:auto;
+        padding-left:120px;
+        font-size:1.2em;
+      }
+    }
+    @media only screen and (height:250px) and (min-width:600px) {
+      h1 {
+        height:120px;
+        line-height:120px;
+        font-size:4em;
+      }
+      h1 span {
+        display:inline;
+      }
+      h2 {
+        text-align:center;
+        padding:0;
+        line-height:60px;
+        font-size:2.5em;
+      }
+      h2 span {
+        display:inline;
+      }
+    }
+    @media only screen and (height:250px) and (min-width:820px) {
+      h1 {
+        font-size:6em;
+      }
+    }
+
+    /* 400 PIXELS HIGH */
+    @media only screen and (height:400px) {
+      h1 {
+        width:100%;
+        top:2px;
+        height:70px;
+        line-height:33px;
+        left:0;
+        font-size:1.4em;
+        text-align:center;
+      }
+      h1 span {
+        display:block;
+      }
+      h2 {
+        display:block;
+        left:0;
+        top:70px;
+        height:50px;
+        line-height:25px;
+        text-align:center;
+        font-size:1.3em;
+        -webkit-border-radius:0;
+        -moz-border-radius:0;
+        -ms-border-radius:0;
+        -o-border-radius:0;
+        border-radius:0;
+        z-index:100;
+      }
+      h2 span {
+        display:block;
+      }
+      img {
+        height:200px;
+        bottom:55px;
+        left:-20%;
+      }
+      p {
+        left:0;
+        bottom:6px;
+        font-size:1.1em;
+        width:100%;
+        line-height:1.4em;
+        text-align:center;
+      }
+      p span {
+        display:block;
+      }
+    }
+    @media only screen and (height:400px) and (min-width:125px) {
+      img {
+        height:auto;
+        width:120%;
+        left:-10%;
+      }
+    }
+    @media only screen and (height:400px) and (min-width:180px) {
+      h1 {
+        height:70px;
+        line-height:33px;
+        font-size:1.8em;
+      }
+      h2 {
+        top:70px;
+        height:70px;
+        line-height:33px;
+        font-size:1.7em;
+      }
+      img {
+        width:100%;
+        left:0;
+      }
+    }
+
+    @media only screen and (height:400px) and (min-width:220px) {
+      h1 {
+        height:100px;
+        line-height:47px;
+        font-size:2.4em;
+      }
+      h2 {
+        top:100px;
+        height:40px;
+        line-height:40px;
+      }
+      h2 span {
+        display:inline;
+      }
+      img {
+        top:140px;
+      }
+      p span {
+        display:inline;
+      }
+    }
+    @media only screen and (height:400px) and (min-width:300px) {
+      h1 {
+        height:120px;
+        line-height:63px;
+        font-size:3.5em;
+      }
+      h2 {
+        top:130px;
+        height:100px;
+        line-height:47px;
+        font-size:2.2em;
+      }
+      h2 span {
+        display:block;
+      }
+      img {
+        width:50%;
+        right:auto;
+        bottom:0;
+        top:auto;
+      }
+      p {
+        width:40%;
+        left:55%;
+        font-size:1.2em;
+        text-align:left;
+      }
+      p span {
+        display:block;
+      }
+    }
+    @media only screen and (height:400px) and (min-width:445px) {
+      h1 {
+        height:160px;
+        line-height:77px;
+        font-size:5em;
+      }
+      h2 {
+        top:160px;
+        height:80px;
+        line-height:80px;
+        font-size:3em;
+      }
+      h2 span {
+        display:inline;
+      }
+      img {
+        height:180px;
+        left:auto;
+        width:auto;
+        right:50%;
+      }
+      p {
+        font-size:1.5em;
+      }
+    }
+    @media only screen and (height:400px) and (min-width:650px) {
+      h1 {
+        height:130px;
+        line-height:130px;
+        font-size:4.6em;
+      }
+      h1 span {
+        display:inline;
+      }
+      h2 {
+        top:130px;
+        font-size:4em;
+      }
+      img {
+        height:220px;
+      }
+      p {
+        font-size:1.7em;
+      }
+    }
+    @media only screen and (height:400px) and (min-width:820px) {
+      h1 {
+        font-size:6em;
+      }
+    }
+
+    /* 400 PIXELS HIGH */
+    @media only screen and (height:600px) {
+      h1 {
+        width:100%;
+        top:40px;
+        height:90px;
+        line-height:43px;
+        left:0;
+        font-size:1.5em;
+        text-align:center;
+      }
+      h1 span {
+        display:block;
+      }
+      h2 {
+        display:block;
+        left:0;
+        top:160px;
+        height:50px;
+        line-height:25px;
+        text-align:center;
+        font-size:1.3em;
+        -webkit-border-radius:0;
+        -moz-border-radius:0;
+        -ms-border-radius:0;
+        -o-border-radius:0;
+        border-radius:0;
+        z-index:100;
+      }
+      h2 span {
+        display:block;
+      }
+      img {
+        width:160%;
+        bottom:100px;
+        left:-40%;
+      }
+      p {
+        left:0;
+        bottom:30px;
+        font-size:1.1em;
+        width:100%;
+        line-height:1.4em;
+        text-align:center;
+      }
+      p span {
+        display:block;
+      }
+    }
+    @media only screen and (height:600px) and (min-width:180px) {
+      h1 {
+        font-size:1.8em;
+      }
+      h2 {
+        font-size:1.7em;
+      }
+      img {
+        width:120%;
+        left:-10%;
+      }
+    }
+    @media only screen and (height:600px) and (min-width:220px) {
+      h1 {
+        font-size:2.5em;
+      }
+      h2 {
+        font-size:2em;
+        height:70px;
+        line-height:33px;
+      }
+      img {
+        width:100%;
+        left:0;
+      }
+      p {
+        font-size:1.6em;
+      }
+    }
+    @media only screen and (height:600px) and (min-width:280px) {
+      h1 {
+        font-size:3.3em;
+        top:20px;
+        height:120px;
+        line-height:55px;
+      }
+      img {
+        bottom:0;
+        width:110%;
+      }
+      p {
+        text-align:left;
+        bottom:10px;
+        width:92%;
+        left:4%;
+      }
+      p span {
+        display:inline;
+      }
+    }
+    @media only screen and (height:600px) and (min-width:300px) {
+      h1 {
+        height:170px;
+        top:10px;
+        line-height:80px;
+      }
+      h2 {
+        top:180px;
+      }
+      img {
+        bottom:auto;
+        top:250px;
+        width:100%;
+      }
+    }
+    @media only screen and (height:600px) and (min-width:350px) {
+      h1 {
+        font-size:4.2em;
+      }
+      h2 {
+        height:40px;
+        line-height:40px;
+      }
+      h2 span {
+        display:inline;
+      }
+      img {
+        top:190px;
+      }
+    }
+    @media only screen and (height:600px) and (min-width:450px) {
+      h1 {
+        font-size:5.2em;
+      }
+      img {
+        width:78%;
+        left:-10%;
+      }
+      p {
+        width:20%;
+        left:73%;
+      }
+    }
+    @media only screen and (height:600px) and (min-width:580px) {
+      h1 {
+        height:200px;
+        top:10px;
+        line-height:95px;
+        font-size:6em;
+      }
+      h2 {
+        top:210px;
+        font-size:4em;
+        height:150px;
+        line-height:73px;
+      }
+      h2 span {
+        display:block;
+      }
+      img {
+        height:250px;
+        width:auto;
+        bottom:0;
+        top:auto;
+        left:auto;
+        right:50%;
+      }
+      p {
+        width:40%;
+        left:55%;
+      }
+    }
+    @media only screen and (height:600px) and (min-width:820px) {
+      h1 {
+        font-size:6em;
+        line-height:200px;
+      }
+      h1 span {
+        display:inline;
+      }
+    }
+
+  </style>
+</head>
+<body>
+
+<a href="#" target="_top">
+  <h1><span>Samnsung</span> <span>Galaxy S5</span></h1>
+  <h2><strong> Sale %50</strong> <strong>AliBaba</strong></h2>
+  <img src="data:image/jpeg;base64,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" alt="Advertisement.jpeg"/>
+  <p><span>By ALIBABA</span></p>
+</a>
+
+</body>
+</html>

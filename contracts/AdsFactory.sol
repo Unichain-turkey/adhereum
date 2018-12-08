@@ -44,7 +44,7 @@ contract AdsFactory is Ownable {
     }
 
     //expire indexed
-    function requestBeingSponsor(string _name, string _htmlHash, uint _pos, uint _duration)
+    function requestAds(string _name, string _htmlHash, uint _pos, uint _duration)
     payable
     Active
     public {
@@ -61,7 +61,7 @@ contract AdsFactory is Ownable {
     }
 
     //admin methods
-    function removeSponsor(uint _index)
+    function removeAds(uint _index)
     onlyOwner
     public
     {

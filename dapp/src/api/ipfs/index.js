@@ -18,7 +18,7 @@ export default {
   ipfsPin(hash) {
     let ipfs = store.getters.getIpfs;
     return ipfs.pin.add(hash, function (err) {
-      err == null ? console.log("Successfully pinned the file on ipfs") : console.log("Failed pinnig file to ipfs")
+      err == null ? console.log("Successfully pinned the file on ipfs") : console.log("Failed pinnig file to ipfs ->",err)
     });
   }
 

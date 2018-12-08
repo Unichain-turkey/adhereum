@@ -84,13 +84,13 @@
             'options': "OPTIONS"
           }
         ],
-        contract: this.$store.getters.contractOne
+        contract: store.getters.contractOne
       }
     },
     methods: {
       acceptButton(e) {
         store.commit('setLoader', true);
-        this.contract.methods.confirm(e).send({from: this.$store.getters.coinbase})
+        this.contract.methods.confirm(e).send({from: store.getters.coinbase})
           .then(function (tx) {
             console.log(tx)
             store.commit('success', "Successfully delivered tx");
@@ -103,7 +103,7 @@
       },
       declineButton(e) {
         store.commit('setLoader', true);
-        this.contract.methods.deny(e).send({from: this.$store.getters.coinbase})
+        this.contract.methods.deny(e).send({from: store.getters.coinbase})
           .then(function (tx) {
             console.log(tx)
             store.commit('success', "Successfully delivered tx");

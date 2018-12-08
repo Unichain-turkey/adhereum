@@ -15,19 +15,19 @@ export default {
 
   requestSponsor: (name, url, filehash, type, duration, callback) => {
 
-    console.log("Type",type)
-    let value= web3.utils.toWei('1', 'finney') * (3 - type) * duration
-    console.log(value)
+    let value = web3.utils.toWei('1', 'finney') * (3 - type) * duration
+
     url = ValidationUtil.validateLink(url)
     let contract = store.getters.contractOne
 
     const temp = contract.methods.requestBeingSponsor(name, url, filehash, type, duration)
       .send(
-        {value: value})
+        {value: value, from: store.getters.coinbase})
 
     temp.then(function (value) {
       store.commit('success', 'Successfully your request delivered');
     }).catch((e) => {
+      console.log(e)
       store.commit('error', e);
     }).finally(function () {
       callback("Done")
