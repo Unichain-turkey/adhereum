@@ -76,7 +76,7 @@
         <div v-else style="width:100%;">
           <div class="banner-header" style="width:100%;height:90px;">
             <iframe
-              v-bind:src="banner['src']"
+              v-bind:src="getFile(banner['src'])"
               border="0"
               scrolling="no"
               allowtransparency="true"
@@ -170,7 +170,7 @@
     methods: {
       selected(pos) {
         this.dialog = true
-        this.type=pos
+        this.type = pos
       },
       requestAds() {
 
@@ -197,6 +197,7 @@
           this.ipfsLoading = false
         })
       },
+
       findItem: function (array, newItem) {
         let newArray = []
         array.forEach((item) => {
@@ -208,7 +209,7 @@
                 flag: 1,
                 position: Types[newItem[3]],
                 position: 0,
-                src: "static/banner_template/ad-2.html"
+                src: newItem[1]
               })
             newItem = null;
           } else {
@@ -218,21 +219,25 @@
         return newArray;
       },
       addItem: function (item) {
-        this.banners=this.findItem(this.banners, item)
+        this.banners = this.findItem(this.banners, item)
       },
       getAds: function () {
         let contract = store.getters.contractTwo
-        apiContract.readEvents(contract,'createdAds', (events) => {
+        apiContract.readEvents(contract, 'createdAds', (events) => {
+
           apiContract.getAdsList(events, (item) => {
             this.addItem(item)
           })
         })
+      },
+      getFile: function (hash) {
+        return 'http://46.101.182.159:8080/ipfs/' + hash + '/'
       }
 
 
     },
-    mounted(){
-      if(this.contract!==null)
+    mounted() {
+      if (this.contract !== null)
         this.getAds();
     }
   }

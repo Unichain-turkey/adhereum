@@ -26,7 +26,7 @@
             <div v-else>
               <div class="banner-header" style="width:100%;height:90px;">
                 <iframe
-                  v-bind:src="getfileUrl(item['banner'])"
+                  v-bind:src="getFile(item['banner'])"
                   border="0"
                   scrolling="no"
                   allowtransparency="true"
@@ -108,7 +108,7 @@
           store.commit('setLoader', false);
         });
       },
-      getfileUrl: function (hash) {
+      getFile: function (hash) {
         return 'http://46.101.182.159:8080/ipfs/' + hash + '/'
       }
     },
