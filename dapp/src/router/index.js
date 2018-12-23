@@ -1,29 +1,54 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import MainPage from '@/components/MainPage'
-import ipfs from '@/components/IpfsUpload'
-import Admin from '@/components/Admin'
+import App from '../components/Main'
+import demo1 from '../components/demos/Demo-1'
+import demo2 from '../components/demos/Demo-2'
+import Admin1 from '../components/demos/Demo-1-Admin'
+import Admin2 from '../components/demos/Demo-2-Admin'
+import store from '../store/index'
 
 Vue.use(Router)
 
-export default new Router({
+const router = new Router({
   mode: 'history',
   routes: [
     {
       path: '/',
-      name: 'MainPage',
-      component: MainPage
+      name: 'Main',
+      component: App
     },
     {
-      path: '/ipfs',
-      name: 'ipfs',
-      component: ipfs
+      path: '/demo1',
+      name: 'Demo-1',
+      component: demo1,
     },
     {
-      path: '/admin',
-      name: 'Admin',
-      component: Admin
+      path: '/demo1/admin',
+      component: Admin1,
     },
-    { path: '*', redirect: '/admin' }
+    {
+      path: '/demo2',
+      name: 'Demo-2',
+      component: demo2
+    },
+    {
+      path: '/demo2/admin',
+      name: 'Demo-2',
+      component: Admin2
+    },
   ]
 })
+
+router.beforeEach((to, from, next) => {
+
+  if (store.getters.web3 !== null) {
+    (store.getters.web3)().eth.getAccounts()
+      .then((result) => {
+        store.commit('SETCOINBASE', result[0])
+      })
+  }
+
+  next();
+})
+
+export default router

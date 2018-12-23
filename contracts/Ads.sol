@@ -2,45 +2,35 @@ pragma solidity >=0.4.22 < 0.6.0;
 
 import "./Ownable.sol";
 
-contract Sponsor is Ownable {
+contract Ads is Ownable {
 
-    enum Role {Gold, Bronze, Silver}
+    enum Position {Header, Footer, LeftSide, RightSide}
 
     string name;
-    string url;
-    string imageHash;
-    Role role;
+    string htmlHash;
+    Position position;
     uint64 startTime;
     uint duration;
     uint deadTime;
 
 
-    constructor(string _name, string _url, string _imageHash, uint _type, uint _duration) public
+    constructor(string _name, string _htmlHash, uint _pos, uint _duration) public
     {
         name = _name;
-        url = _url;
-        imageHash = _imageHash;
+        htmlHash = _htmlHash;
+        position = Position(_pos);
         startTime = uint64(now);
-        role = Role(_type);
         duration = _duration;
         deadTime = calculateDeadTime(_duration, startTime);
 
     }
 
-    function setUrl(string _url) public onlyOwner {
-        url = _url;
+    function setHtmlHash(string _htmlHash) public onlyOwner {
+        htmlHash = _htmlHash;
     }
 
-    function getUrl() public view returns (string){
-        return url;
-    }
-
-    function setHash(string _imageHash) public onlyOwner {
-        imageHash = _imageHash;
-    }
-
-    function getHash() public view returns (string){
-        return imageHash;
+    function getHtmlHash() public view returns (string){
+        return htmlHash;
     }
 
     function setName(string _name) public onlyOwner {
@@ -51,8 +41,8 @@ contract Sponsor is Ownable {
         return name;
     }
 
-    function getRole() public view returns (uint){
-        return uint(role);
+    function getPosition() public view returns (uint){
+        return uint(position);
     }
 
     function kill(bool flag) public onlyOwner {
@@ -60,8 +50,8 @@ contract Sponsor is Ownable {
         selfdestruct(owner);
     }
 
-    function getSponsor() public view returns (string, string, string, uint, uint){
-        return (name, url, imageHash, uint(role), duration);
+    function getAds() public view returns (string, string, uint, uint){
+        return (name, htmlHash, uint(position), duration);
     }
 
     function getDuration() public view returns (uint){
@@ -70,8 +60,9 @@ contract Sponsor is Ownable {
 
     function getDeadTime() public view returns (uint){
         return deadTime;
+
     }
-    
+
     function calculateDeadTime(uint _duration, uint64 _startTime) internal returns (uint)
     {
         deadTime = _duration + _startTime;

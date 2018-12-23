@@ -1,19 +1,79 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 
-import { ipfs ,web3Instance, contractInstance } from '../common/web3main.js'
+import {ipfs, web3} from '../common/interface.js'
+import sponsorFactory from '../../../build/contracts/SponsorFactory'
+import adsFactory from '../../../build/contracts/AdsFactory'
+
+import config from '../config'
+
 
 Vue.use(Vuex)
 
-export default new Vuex.Store({
+const common = {
   state: {
+    loader: false,
+    successFlag: false,
+    successMessage: '',
+    errorFlag: false,
+    errorMessage: '',
+
+  },
+  mutations: {
+    success(state, msg) {
+      state.errorFlag = false
+      state.successFlag = true
+      state.successMessage = msg
+      state.loader = false
+    },
+    error(state, msg) {
+      state.successFlag = false
+      state.errorFlag = true
+      state.errorMessage = msg
+      state.loader = false
+    },
+    reset(state) {
+      state.successFlag = false
+      state.errorFlag = false
+      state.loader = false
+    },
+    setLoader(state, value) {
+      state.loader = value
+    },
+
+  },
+  getters: {
+    loader: state => {
+      return state.loader
+    },
+    successFlag: state => {
+      return state.successFlag
+    },
+    successMessage: state => {
+      return state.successMessage
+    },
+    errorFlag: state => {
+      return state.errorFlag
+    },
+    errorMessage: state => {
+      return state.errorMessage
+    },
+  }
+}
+
+const main = {
+  state: {
+    jsonDemoOne: sponsorFactory,
+    jsonDemoTwo: adsFactory,
+    addressDemoOne: config.addressDemoOne,
+    addressDemoTwo: config.addressDemoTwo,
+    contractOne: null,
+    contractTwo: null,
     isInjected: false,
-    web3Instance: null,
+    web3: null,
     networkId: null,
     coinbase: null,
     balance: null,
-    error: null,
-    contractInstance: null,
     ipfsApi: null,
     NETWORKS: {
       '1': 'Main Net',
@@ -24,96 +84,82 @@ export default new Vuex.Store({
       '4447': 'Truffle Develop Network',
       '5777': 'Ganache Blockchain'
     },
-    sponsorCount: 0,
-    activeSponsorCount: 0,
-    totalValue: 0
   },
-  strict: true, // don't leave it true on production
   mutations: {
-    CREATEWEB3 (state, result) {
+    CREATEWEB3(state, result) {
       state.balance = result.balance
-      state.coinbase = result.coinbase
+      state.coinbase = result.coinbase[0]
       state.networkId = result.networkId
       state.isInjected = result.isInjected
-      state.web3Instance = result.web3
+      state.web3 = result.web3
     },
-    SETCONTRACTINSTANCE (state, result) {
-      state.contractInstance = () => result
-    },
-    SETSPONSORCOUNT (state, result) {
-      state.sponsorCount = result
-    },
-    SETIPFS (state, result) {
+    SETIPFS(state, result) {
       state.ipfsApi = result
     },
-    SETACTIVESPONSORCOUNT (state, result) {
-      state.activeSponsorCount = result
+    SETCONTRACTONE(state, contract) {
+      state.contractOne = contract
     },
-    SETTOTALVALUE (state, result) {
-      state.totalValue = result
-    }
+    SETCONTRACTTWO(state, contract) {
+      state.contractTwo = contract
+    },
+    SETCOINBASE(state, coinbase) {
+      state.coinbase = coinbase
+    },
   },
   actions: {
-    createWeb3 ({ commit }) {
-      web3Instance.then(value => {
+    initWeb3({commit}) {
+      web3.then(value => {
         commit('CREATEWEB3', value)
       }, reason => {
         console.log(reason)
       })
     },
-    setContract ({ commit }) {
-      contractInstance.then(value => {
-        commit('SETCONTRACTINSTANCE', value)
-      }, reason => {
-        console.log(reason)
-      })
-    },
-    ipfsSet ({ commit }) {
-      commit('SETIPFS',ipfs)
-    },
-    setSponsorCount ({ commit }, result) {
-      commit('SETSPONSORCOUNT', result)
-    },
-
-    setActiveSponsorCount ({ commit }, result) {
-      commit('SETACTIVESPONSORCOUNT', result)
-    },
-    setTotalValue ({ commit }, result) {
-      commit('SETTOTALVALUE', result)
+    ipfsSet({commit}) {
+      commit('SETIPFS', ipfs)
     }
+
   },
   getters: {
-    web3InstanceGetter: state => {
-      return state.web3Instance
+    contractTwo: state => {
+      return state.contractTwo
+    },
+    contractOne: state => {
+      return state.contractOne
+    },
+    jsonDemoOne: state => {
+      return state.jsonDemoOne
+    },
+    jsonDemoTwo: state => {
+      return state.jsonDemoTwo
+    },
+    addressDemoOne: state => {
+      return state.addressDemoOne
+    },
+    addressDemoTwo: state => {
+      return state.addressDemoTwo
+    },
+    web3: state => {
+      return state.web3
     },
     balance: state => {
       return (state.balance / 1000000000000000000).toFixed(4)
     },
-    currentAddress: state => {
-      if ((state.coinbase) !== null) {
-        return state.coinbase[0]
-      } else {
-        return 'Null'
-      }
+    coinbase: state => {
+      return state.coinbase;
     },
     network: state => {
       return state.NETWORKS[state.networkId]
     },
-    contractInstance: state => {
-      return state.contractInstance
-    },
-    sponsorCount: state => {
-      return state.sponsorCount
-    },
-    activeSponsorCount: state => {
-      return state.activeSponsorCount
-    },
-    totalValue: state => {
-      return state.totalValue
-    },
     getIpfs: state => {
       return state.ipfsApi
-    }
+    },
 
+  }
+}
+
+export default new Vuex.Store({
+  modules: {
+    main: main,
+    common: common
   }
 })

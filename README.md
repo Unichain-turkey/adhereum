@@ -10,7 +10,7 @@ These instructions will get you a copy of the project up and running on your loc
 #### Installing Ipfs and Truffle
 This project requires Ipfs installed to work properly.
 * Default ipfs node is 46.101.182.159:5001 and it is running now
-* Ipfs configurtion is in dapp/src/common/coreinterface.js
+* Ipfs configurtion is in dapp/src/index/interface.js
 
 
 ##### cloning repo
